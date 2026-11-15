@@ -1,3 +1,4 @@
+<!-- AI-use notice: this file includes AI-generated content and code, reviewed by the team. -->
 <svg xmlns="http://www.w3.org/2000/svg" id="still" viewBox="0 0 1000 530"><style>
 .sky{animation:sky 18s ease-in-out infinite}.sun{animation:sun 18s ease-in-out infinite}.clouds{animation:clear 18s ease-in-out infinite}.shower{animation:wet 18s ease-in-out infinite}.drops{animation:fall .85s linear infinite}
 @keyframes sky{0%,22%,100%{fill:#3d595e}56%,82%{fill:#687c77}}

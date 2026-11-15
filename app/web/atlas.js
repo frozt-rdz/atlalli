@@ -1,3 +1,4 @@
+// AI-use notice: this file includes AI-generated content and code, reviewed by the team.
 // Auto-hide sticky header when scrolling down, reveal when scrolling up
 const header = document.querySelector("header");
 if (header) {
