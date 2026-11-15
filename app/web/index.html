@@ -3,16 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-      Atlalli · Climate atlas
-    </title>
+    <title>Atlalli · Climate Trend Atlas</title>
     <link rel="icon" href="atlalli.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="atlas.css">
   </head>
   <body>
     <a class="skip" href="#regions">
       Skip to study regions
     </a>
+
     <svg class="symbols" aria-hidden="true" width="0" height="0">
       <defs>
         <g id="palm">
@@ -34,586 +36,624 @@
         </g>
       </defs>
     </svg>
+
     <header>
       <div class="bar">
+        <!-- Replace src="atlalli.svg" when the final logo is ready -->
         <a class="brand" href="./">
-          <img src="atlalli.svg" width="32" height="32" alt="">
-          Atlalli
+          <img class="brand-logo" src="atlalli.svg" width="32" height="32" alt="">
+          <span>Atlalli</span>
         </a>
         <nav aria-label="Main">
           <a href="#pitch">
-            Our pitch
+            Pitch video
           </a>
           <a href="#regions">
             Study regions
           </a>
+          <a href="#methods">
+            Methodology
+          </a>
           <a class="explore" href="explorar/">
             Open explorer
-            <span aria-hidden="true">
-              ↗
-            </span>
+            <span aria-hidden="true">↗</span>
           </a>
         </nav>
       </div>
     </header>
+
     <main>
+      <!-- FULL-WIDTH HERO / PITCH SECTION -->
       <section id="pitch" aria-labelledby="pitch-title">
         <div class="stage">
           <div class="screen" data-pitch-src="" data-captions-src="">
             <svg class="weather-art" aria-hidden="true" viewBox="0 0 1000 530" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <clipPath id="river-channel">
+                  <path d="M651 356q-148 17-71 31t7 39q-38 12-170 28t-163 76h131q37-27 130-42 163-29 168-62t-72-37q-69-11 40-33Z"/>
+                </clipPath>
+                <clipPath id="rain-zone">
+                  <rect x="520" y="95" width="360" height="245"/>
+                </clipPath>
+              </defs>
+
               <rect class="sky" width="1000" height="530" fill="#546c69"/>
               <circle class="sun" cx="754" cy="127" r="61"/>
-              <g class="clouds" fill="#b5c9c8">
-                <path d="M565 120q-20-22 8-33 5-24 31-19 18-23 41-3 25-2 31 22 21 2 24 18z"/>
-                <path d="M720 108q-16-25 12-35 10-23 34-15 19-21 40 2 25-1 27 23 24-1 28 19z"/>
+
+              <g class="high-cloud" fill="#bac8b9" opacity=".38">
+                <path d="M312 66q7-13 20-12 10-17 29-10 16-6 25 8 17 1 22 12z"/>
+                <path d="M840 43q10-9 20-8 14-11 24-2 14 0 20 9z"/>
               </g>
-              <image href="pitch-land.svg" width="1000" height="530"/>
-              <g class="shower">
-                <path class="drops" d="M470 94l-4 12M553 131l-4 12M636 168l-4 12M719 205l-4 12M802 105l-4 12M885 142l-4 12M472 179l-4 12M555 216l-4 12M638 116l-4 12M721 153l-4 12M804 190l-4 12M887 227l-4 12M474 127l-4 12M557 164l-4 12M640 201l-4 12M723 101l-4 12M806 138l-4 12M889 175l-4 12M476 212l-4 12M559 112l-4 12M642 149l-4 12M725 186l-4 12M808 223l-4 12M891 123l-4 12M478 160l-4 12M561 197l-4 12M644 97l-4 12M727 134l-4 12M810 171l-4 12M893 208l-4 12M480 108l-4 12M563 145l-4 12M646 182l-4 12M729 219l-4 12M812 119l-4 12M895 156l-4 12M482 193l-4 12M565 230l-4 12M648 130l-4 12M731 167l-4 12M814 204l-4 12M897 104l-4 12M484 141l-4 12M567 178l-4 12M650 215l-4 12M733 115l-4 12M816 152l-4 12M899 189l-4 12M486 226l-4 12M569 126l-4 12M652 163l-4 12M735 200l-4 12" fill="none" stroke="#b0d0cf" stroke-width="2" stroke-linecap="round"/>
+
+              <g class="sunbeams" stroke="#f3cf7a" stroke-width="3" fill="none" stroke-linecap="round">
+                <path d="M754 45V33m57 35 9-10m12 69h14m-31 54 8 8m-126-9-8 8m-13-61h-12m32-57-8-9"/>
               </g>
+
+              <g class="storm-bank">
+                <g class="shower" clip-path="url(#rain-zone)" stroke="#b6d4d7" stroke-width="1.8" stroke-linecap="round">
+                  <path class="drops drops-a" d="M574 118l-4 14 M611 142l-4 14 M648 168l-4 14 M680 134l-4 14 M590 175l-4 14 M627 128l-4 14 M664 162l-4 14 M734 114l-4 14 M774 139l-4 14 M814 164l-4 14 M756 172l-4 14 M796 130l-4 14 M832 148l-4 14"/>
+                  <path class="drops drops-b" d="M585 132l-4 14 M622 158l-4 14 M659 124l-4 14 M598 166l-4 14 M638 148l-4 14 M672 174l-4 14 M745 128l-4 14 M785 154l-4 14 M825 136l-4 14 M767 168l-4 14 M807 122l-4 14 M836 162l-4 14"/>
+                  <path class="drops drops-c" d="M577 148l-4 14 M614 122l-4 14 M651 152l-4 14 M603 182l-4 14 M643 136l-4 14 M669 156l-4 14 M738 146l-4 14 M778 124l-4 14 M818 150l-4 14 M760 180l-4 14 M800 142l-4 14 M829 170l-4 14"/>
+                  <path class="drops drops-d" d="M593 116l-4 14 M630 164l-4 14 M661 140l-4 14 M580 160l-4 14 M619 176l-4 14 M656 118l-4 14 M749 134l-4 14 M789 166l-4 14 M821 120l-4 14 M742 162l-4 14 M771 148l-4 14 M811 176l-4 14"/>
+                </g>
+                <g class="clouds" fill="#b5c9c8">
+                  <path d="M565 120q-20-22 8-33 5-24 31-19 18-23 41-3 25-2 31 22 21 2 24 18z"/>
+                  <path d="M720 108q-16-25 12-35 10-23 34-15 19-21 40 2 25-1 27 23 24-1 28 19z"/>
+                </g>
+              </g>
+
+              <path class="ridge-far" d="M0 320q96-62 156-35t132 5l167-96 90 54 88-93 137 76 93-45 137 49v295H0Z" fill="#858499"/>
+              <path class="ridge-mid" d="m0 379 172-84 104 28 102-46 121 33 108-58 94 12 117-59 182 76v249H0Z" fill="#91a58c"/>
+              <path class="ridge-near" d="M0 364q114-61 237-27t186 31q119-10 220-63t218-24l139 22v227H0Z" fill="#4d8276"/>
+              <path class="valley" d="M0 419q140-76 292-39t261-6q159-39 245-31t202-37v224H0Z" fill="#295957"/>
+              <path d="M651 356q-148 17-71 31t7 39q-38 12-170 28t-163 76h131q37-27 130-42 163-29 168-62t-72-37q-69-11 40-33Z" fill="#98c6b7"/>
+
+              <g clip-path="url(#river-channel)" fill="none" stroke-linecap="round">
+                <g class="river-flow" stroke="#d6e9cc" stroke-width="2">
+                  <path d="M649 356Q530 380 601 390T579 433Q559 446 455 466T295 535"/>
+                  <path d="M655 356Q545 380 615 393T594 440Q560 457 472 473T318 537"/>
+                </g>
+                <path class="river-undertow" stroke="#609994" stroke-width="3" d="M652 357Q537 380 608 391T587 435Q547 448 453 470T308 535"/>
+              </g>
+
+              <g class="forest" fill="#193f40">
+                <g transform="translate(0 407) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(73 375.35) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(146 389.05) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(219 428.46) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(292 437.13) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(365 402.63) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(438 374.39) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(511 392.87) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(584 431.59) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(657 435.08) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(730 398.34) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(803 374.01) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(876 396.94) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(949 434.29) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(9 432.54) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(82 394.20) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(155 374.20) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(228 401.19) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(301 436.50) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(374 429.55) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(447 390.29) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(520 374.97) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(593 405.54) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(666 438.20) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(739 426.16) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(812 386.67) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(885 376.31) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(958 409.92) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(18 439.35) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(91 422.44) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(164 383.41) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(237 378.18) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(310 414.24) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(383 439.93) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(456 418.44) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(529 380.56) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(602 380.56) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(675 418.44) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(748 439.93) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(821 414.24) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(894 378.18) scale(0.35)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(967 383.41) scale(0.49)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(27 422.43) scale(0.63)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+                <g transform="translate(100 439.35) scale(0.77)"><path class="pine" d="m0 0 0-22-22 0 12-16h-10l12-14h-9l17-26 18 26h-8l13 14h-10l12 16H4V0z"/></g>
+              </g>
+
+              <path d="M0 455q107-43 224-18t198 24q-98 16-158 69H0zm567 75q92-41 134-62 134-42 299-53v115z" fill="#193f40"/>
             </svg>
-            <div class="poster-copy">
-              <p>
-                Our project pitch
-              </p>
-              <h1 id="pitch-title">
-                Atlalli
-              </h1>
-              <p class="film-status">
-                Film coming soon
-              </p>
+
+            <div class="hero-content">
+              <div class="poster-copy">
+                <p class="eyebrow">
+                  NASA SPACE APPS · EARTH SYSTEM TREND DETECTIVE
+                </p>
+                <h1 id="pitch-title">
+                  Atlalli
+                </h1>
+                <p class="pitch-deck">
+                  Is the Earth changing where you live? 25 years (2000–2024) of monthly NASA satellite &amp; land-model observations across six regions.
+                </p>
+                <div class="poster-actions">
+                  <a class="scroll-cue" href="#regions">
+                    Explore study regions
+                    <span aria-hidden="true">↓</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Reserved zone on the right-middle for the pitch/explanatory video -->
+              <div class="pitch-video-slot" id="pitch-video-slot">
+                <div class="video-placeholder">
+                  <span class="video-badge">Pitch &amp; Explanatory Video</span>
+                  <p class="video-note">Video space ready · Set <code>data-pitch-src</code> to embed</p>
+                </div>
+              </div>
             </div>
+
             <button class="weather-toggle" type="button" hidden>
               Pause motion
             </button>
           </div>
-        </div>
-        <div class="strip">
-          <span>
-            2000–2024
-          </span>
-          <p>
-            Rainfall
-            <i>
-            </i>
-            Air temperature
-            <i>
-            </i>
-            Soil moisture
-          </p>
+
+          <div class="telemetry-strip" aria-label="Study overview">
+            <div class="stat-cell">
+              <span class="stat-num">25 years</span>
+              <span class="stat-label">2000–2024 complete monthly NASA records</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-num">3 variables</span>
+              <span class="stat-label">Precipitation · Soil moisture · Air temperature</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-num">6 regions</span>
+              <span class="stat-label">4 Mexican zones contrasted with Sahel &amp; Amazon</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-num">18 tests</span>
+              <span class="stat-label">Sen’s slope &amp; Mann-Kendall with FDR correction</span>
+            </div>
+          </div>
         </div>
       </section>
-      <section id="regions">
-        <div class="heading">
-          <div>
-            <h2>
-              Study regions
-            </h2>
-            <p>
-              Choose a landscape to see its climate observations.
+
+      <section id="regions" aria-labelledby="regions-title">
+        <div class="regions-shell">
+          <div class="heading">
+            <div class="heading-top">
+              <div class="heading-copy">
+                <p class="section-kicker">
+                  OBSERVED VARIABLES &amp; FIELD REGIONS · 2000–2024
+                </p>
+                <h2 id="regions-title">
+                  Study regions
+                </h2>
+                <p class="heading-lead">
+                  Six area-averaged observation boxes chosen by data rather than climate stereotypes — even a wet rainforest can dry significantly while a semi-arid belt wets. Each region is evaluated across three NASA Earth-science variables:
+                </p>
+              </div>
+            </div>
+
+            <!-- 3 Rich Animated Variable Cards with Organic Curves & DOIs -->
+            <div class="variable-showcase" aria-label="NASA variables analysed">
+              <!-- Variable 1: Precipitation -->
+              <article class="var-panel">
+                <div class="var-scene">
+                  <svg viewBox="0 0 360 150" aria-hidden="true">
+                    <rect width="360" height="150" fill="#dce9ea"/>
+                    <circle cx="296" cy="36" r="19" fill="#e8c368" opacity="0.55"/>
+                    <!-- Organic drifting clouds -->
+                    <g class="var-cloud-back" fill="#89a8aa">
+                      <path d="M165 48q-14-14 6-22 5-16 24-12 14-14 29 2 18-2 21 16 14 2 16 16z"/>
+                    </g>
+                    <g class="var-cloud-front" fill="#5b8185">
+                      <path d="M52 54q-16-16 8-25 5-18 26-14 15-16 33 2 20-2 24 18 16 2 18 19z"/>
+                    </g>
+                    <!-- Animated multi-layer rain -->
+                    <g stroke="#2eb1bb" stroke-width="2" stroke-linecap="round">
+                      <path class="var-rain-a" d="M72 62l-6 15 M96 66l-6 15 M120 62l-6 15 M144 68l-6 15 M188 56l-6 15 M214 62l-6 15 M238 56l-6 15"/>
+                      <path class="var-rain-b" d="M84 74l-6 15 M108 78l-6 15 M132 74l-6 15 M174 68l-6 15 M202 74l-6 15 M226 68l-6 15"/>
+                    </g>
+                    <!-- Organic rolling hills & watershed river -->
+                    <path d="M0 108Q65 84 135 102T275 94T360 88v62H0Z" fill="#648f86"/>
+                    <path d="M0 124Q90 104 185 122T360 112v38H0Z" fill="#265e5c"/>
+                    <path d="M192 101q-48 8-22 17t-18 15q-24 6-52 17h68q24-11 8-22t16-27Z" fill="#98c6b7"/>
+                    <path class="var-river-line" d="M188 103q-35 9-18 18t-28 26" fill="none" stroke="#e4f2e8" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 14"/>
+                  </svg>
+                </div>
+                <div class="var-body">
+                  <div class="var-meta">
+                    <span class="var-unit">mm / year</span>
+                    <span class="var-mission">NASA GPM IMERG V07</span>
+                  </div>
+                  <h3>Precipitation</h3>
+                  <p>Monthly satellite rain-rate estimates calibrated with rain gauges, summed over complete 12-month calendar years.</p>
+                  <a class="var-doi" href="https://doi.org/10.5067/GPM/IMERG/3B-MONTH/07" target="_blank" rel="noopener noreferrer">
+                    <span>DOI: 10.5067/GPM/IMERG/3B-MONTH/07</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Variable 2: Soil Moisture -->
+              <article class="var-panel">
+                <div class="var-scene">
+                  <svg viewBox="0 0 360 150" aria-hidden="true">
+                    <rect width="360" height="150" fill="#efe6d5"/>
+                    <!-- Organic curved soil horizons -->
+                    <path d="M0 64Q72 50 156 64T312 58T360 62v88H0Z" fill="#c99764"/>
+                    <path d="M0 92Q85 78 175 94T360 86v64H0Z" fill="#9c5c34"/>
+                    <path d="M0 120Q95 108 190 122T360 115v35H0Z" fill="#653f29"/>
+                    <!-- Swaying plant & organic root network in top 0-10 cm -->
+                    <g class="var-sprout">
+                      <path d="M180 63V28" stroke="#40664d" stroke-width="3.2" stroke-linecap="round"/>
+                      <path d="M180 44c-16 0-24-11-24-22 14 0 24 7 24 22Z" fill="#619f4d"/>
+                      <path d="M180 38c16 0 24-11 24-22-14 0-24 7-24 22Z" fill="#4d8276"/>
+                    </g>
+                    <path d="M180 63q-6 18-28 29m28-29q8 20 30 31m-30-22q-2 22-8 38m8-26q6 16 14 30" fill="none" stroke="#f4e3c9" stroke-width="2.2" stroke-linecap="round"/>
+                    <!-- Animated seeping moisture droplets -->
+                    <g class="var-seep-a" fill="#2eb1bb">
+                      <circle cx="96" cy="76" r="3.8"/>
+                      <circle cx="134" cy="88" r="3.4"/>
+                      <circle cx="228" cy="78" r="3.8"/>
+                      <circle cx="268" cy="86" r="3.4"/>
+                    </g>
+                    <g class="var-seep-b" fill="#73c2c9">
+                      <circle cx="114" cy="102" r="3.2"/>
+                      <circle cx="162" cy="108" r="3"/>
+                      <circle cx="204" cy="106" r="3.2"/>
+                      <circle cx="248" cy="100" r="3"/>
+                    </g>
+                  </svg>
+                </div>
+                <div class="var-body">
+                  <div class="var-meta">
+                    <span class="var-unit">kg / m² (0–10 cm)</span>
+                    <span class="var-mission">NASA GLDAS Noah 2.1</span>
+                  </div>
+                  <h3>Soil moisture</h3>
+                  <p>Water stored in the top 10 cm of soil, modelled by the GLDAS Noah Land Surface Model fed with satellite observations.</p>
+                  <a class="var-doi" href="https://doi.org/10.5067/SXAVCZFAQLNO" target="_blank" rel="noopener noreferrer">
+                    <span>DOI: 10.5067/SXAVCZFAQLNO</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Variable 3: Air Temperature -->
+              <article class="var-panel">
+                <div class="var-scene">
+                  <svg viewBox="0 0 360 150" aria-hidden="true">
+                    <rect width="360" height="150" fill="#f7e6c4"/>
+                    <!-- Radiant sun with animated glow ring -->
+                    <circle cx="92" cy="48" r="24" fill="#e8a832"/>
+                    <circle class="var-sun-pulse" cx="92" cy="48" r="33" fill="none" stroke="#d59625" stroke-width="2" stroke-dasharray="5 6"/>
+                    <!-- Organic desert & valley contours -->
+                    <path d="M0 98Q78 74 162 94T310 86T360 92v58H0Z" fill="#dcba89"/>
+                    <path d="M0 118Q92 98 188 116T360 108v42H0Z" fill="#b2673d"/>
+                    <!-- Animated rising thermal waves at 2m height -->
+                    <g class="var-heat-waves" fill="none" stroke="#bc5032" stroke-width="2.4" stroke-linecap="round">
+                      <path d="M172 92q-7-10 0-20t0-20"/>
+                      <path d="M204 96q-7-10 0-20t0-20"/>
+                      <path d="M236 92q-7-10 0-20t0-20"/>
+                    </g>
+                    <!-- Clean 2m Thermometer Marker -->
+                    <g transform="translate(288 22)">
+                      <rect x="0" y="0" width="14" height="68" rx="7" fill="#fffefa" stroke="#654631" stroke-width="2.2"/>
+                      <rect class="var-mercury" x="4" y="20" width="6" height="44" rx="3" fill="#bc5032"/>
+                      <circle cx="7" cy="64" r="10" fill="#bc5032" stroke="#654631" stroke-width="2.2"/>
+                      <circle cx="7" cy="64" r="4" fill="#f9efd4"/>
+                    </g>
+                  </svg>
+                </div>
+                <div class="var-body">
+                  <div class="var-meta">
+                    <span class="var-unit">°C at 2 meters</span>
+                    <span class="var-mission">NASA MERRA-2 V5.12.4</span>
+                  </div>
+                  <h3>Air temperature</h3>
+                  <p>Monthly mean temperature of the air two meters above the ground from the MERRA-2 global reanalysis.</p>
+                  <a class="var-doi" href="https://doi.org/10.5067/AP1B0BA5PD2K" target="_blank" rel="noopener noreferrer">
+                    <span>DOI: 10.5067/AP1B0BA5PD2K</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="grid">
+            <!-- CHIAPAS -->
+            <a class="card" id="chiapas" href="explorar/?region=chiapas">
+              <span class="card-scene">
+                <svg aria-hidden="true" viewBox="0 0 420 180">
+                  <path d="M0 0h420v180H0z" fill="#e2e4cf"/>
+                  <circle class="scene-sun" cx="318" cy="44" r="23" fill="#e2ac47"/>
+                  <path class="scene-hill-far" d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#829487"/>
+                  <path class="scene-hill-mid" d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#265e5c"/>
+                  <g class="canopy-sway">
+                    <use href="#palm" transform="translate(37 144) scale(1.35)" color="#265e5c"/>
+                  </g>
+                  <use href="#tree" transform="translate(365 140) scale(1.2)" color="#265e5c"/>
+                  <path class="vines" d="M71 0q-14 84 16 72T103 0m22 0q3 36-11 48" fill="none" stroke="#265e5c" stroke-width="4"/>
+                  <g class="jaguar">
+                    <use href="#cat" transform="translate(171 141) scale(0.88)" color="#d59625"/>
+                  </g>
+                  <path d="M0 148q35-20 72 0t105 10 93-1 150-12v35H0Z" fill="#1c4949"/>
+                  <use href="#grass" transform="translate(70 160) scale(0.6)" color="#829487"/>
+                </svg>
+                <span class="caption">
+                  <span>
+                    <strong>Chiapas</strong>
+                    <small>Mexico</small>
+                  </span>
+                  <span class="expand" aria-hidden="true"></span>
+                </span>
+              </span>
+            </a>
+
+            <!-- MORELOS -->
+            <a class="card" id="morelos" href="explorar/?region=morelos">
+              <span class="card-scene">
+                <svg aria-hidden="true" viewBox="0 0 420 180">
+                  <path d="M0 0h420v180H0z" fill="#f4e3c9"/>
+                  <circle class="scene-sun" cx="318" cy="44" r="23" fill="#e3ae56"/>
+                  <path class="scene-hill-far" d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#a79883"/>
+                  <path class="scene-hill-mid" d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#619f4d"/>
+                  <use href="#tree" transform="translate(62 151) scale(1.12)" color="#526f4e"/>
+                  <use href="#tree" transform="translate(328 148) scale(0.85)" color="#619f4d"/>
+                  <g class="meadow-blooms">
+                    <path d="M15 180v-33" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#ba297e"><circle cx="11" cy="147" r="4"/><circle cx="19" cy="147" r="4"/><circle cx="15" cy="143" r="4"/></g>
+                    <path d="M50 180v-24.6" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#e1649e"><circle cx="46" cy="155.4" r="4"/><circle cx="54" cy="155.4" r="4"/><circle cx="50" cy="151.4" r="4"/></g>
+                    <path d="M85 180v-23.9" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#ba297e"><circle cx="81" cy="156.1" r="4"/><circle cx="89" cy="156.1" r="4"/><circle cx="85" cy="152.1" r="4"/></g>
+                    <path d="M120 180v-31.6" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#e1649e"><circle cx="116" cy="148.4" r="4"/><circle cx="124" cy="148.4" r="4"/><circle cx="120" cy="144.4" r="4"/></g>
+                    <path d="M155 180v-40.6" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#ba297e"><circle cx="151" cy="139.4" r="4"/><circle cx="159" cy="139.4" r="4"/><circle cx="155" cy="135.4" r="4"/></g>
+                    <path d="M190 180v-42.6" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#e1649e"><circle cx="186" cy="137.4" r="4"/><circle cx="194" cy="137.4" r="4"/><circle cx="190" cy="133.4" r="4"/></g>
+                    <path d="M225 180v-35.8" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#ba297e"><circle cx="221" cy="144.2" r="4"/><circle cx="229" cy="144.2" r="4"/><circle cx="225" cy="140.2" r="4"/></g>
+                    <path d="M260 180v-26.4" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#e1649e"><circle cx="256" cy="153.6" r="4"/><circle cx="264" cy="153.6" r="4"/><circle cx="260" cy="149.6" r="4"/></g>
+                    <path d="M295 180v-23.1" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#ba297e"><circle cx="291" cy="156.9" r="4"/><circle cx="299" cy="156.9" r="4"/><circle cx="295" cy="152.9" r="4"/></g>
+                    <path d="M330 180v-28.9" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#e1649e"><circle cx="326" cy="151.1" r="4"/><circle cx="334" cy="151.1" r="4"/><circle cx="330" cy="147.1" r="4"/></g>
+                    <path d="M365 180v-38.4" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#ba297e"><circle cx="361" cy="141.6" r="4"/><circle cx="369" cy="141.6" r="4"/><circle cx="365" cy="137.6" r="4"/></g>
+                    <path d="M400 180v-43.0" stroke="#619f4d" stroke-width="3"/>
+                    <g fill="#e1649e"><circle cx="396" cy="137.0" r="4"/><circle cx="404" cy="137.0" r="4"/><circle cx="400" cy="133.0" r="4"/></g>
+                  </g>
+                  <g class="butterfly">
+                    <path d="M218 80q-18-22-17-4 0 9 15 10-5 7 0 7l4-8q16-5 12-15-6-4-14 10" fill="#ba297e"/>
+                  </g>
+                </svg>
+                <span class="caption">
+                  <span>
+                    <strong>Morelos</strong>
+                    <small>Mexico</small>
+                  </span>
+                  <span class="expand" aria-hidden="true"></span>
+                </span>
+              </span>
+            </a>
+
+            <!-- SONORA -->
+            <a class="card" id="sonora" href="explorar/?region=sonora">
+              <span class="card-scene">
+                <svg aria-hidden="true" viewBox="0 0 420 180">
+                  <path d="M0 0h420v180H0z" fill="#f6deb4"/>
+                  <circle class="scene-sun" cx="105" cy="44" r="23" fill="#e8a832"/>
+                  <path class="scene-hill-far" d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#cd8f2c"/>
+                  <path d="M70 117 138 74l22 9 35-41 62 65 51-21 39 22 73-25v48H70Z" fill="#b2673d"/>
+                  <path class="scene-hill-mid" d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#dcba89"/>
+                  <use href="#cactus" transform="translate(333 143) scale(1.45)" color="#265e5c"/>
+                  <use href="#cactus" transform="translate(73 135) scale(0.7)" color="#619f4d"/>
+                  <path d="M0 155Q89 141 170 153T310 155T420 145v35H0Z" fill="#b2673d"/>
+                  <g class="tumble-track">
+                    <g class="tumble">
+                      <circle cx="160" cy="149" r="9" fill="none" stroke="#74461e" stroke-width="2"/>
+                      <path d="m151 145 17 5-13 4 8-14-4 18" fill="none" stroke="#74461e"/>
+                    </g>
+                  </g>
+                </svg>
+                <span class="caption">
+                  <span>
+                    <strong>Sonora</strong>
+                    <small>Mexico</small>
+                  </span>
+                  <span class="expand" aria-hidden="true"></span>
+                </span>
+              </span>
+            </a>
+
+            <!-- ZACATECAS -->
+            <a class="card" id="zacatecas" href="explorar/?region=zacatecas">
+              <span class="card-scene">
+                <svg aria-hidden="true" viewBox="0 0 420 180">
+                  <path d="M0 0h420v180H0z" fill="#e9dfcd"/>
+                  <circle class="scene-sun" cx="318" cy="44" r="23" fill="#dcad51"/>
+                  <path class="scene-hill-far" d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#b2673d"/>
+                  <path d="M0 126 58 94l34 8 59-67 47 53 28-13 55 50 57-43 82 36v62H0Z" fill="#b2673d"/>
+                  <path class="scene-hill-mid" d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#ab966d"/>
+                  <path d="M0 155Q89 141 170 153T310 155T420 145v35H0Z" fill="#926f55"/>
+                  <g class="steppe-grass">
+                    <use href="#grass" transform="translate(0 156) scale(0.45)" color="#66794e"/>
+                    <use href="#grass" transform="translate(54 163) scale(0.7)" color="#66794e"/>
+                    <use href="#grass" transform="translate(108 170) scale(0.45)" color="#66794e"/>
+                    <use href="#grass" transform="translate(162 156) scale(0.7)" color="#66794e"/>
+                    <use href="#grass" transform="translate(216 163) scale(0.45)" color="#66794e"/>
+                    <use href="#grass" transform="translate(270 170) scale(0.7)" color="#66794e"/>
+                    <use href="#grass" transform="translate(324 156) scale(0.45)" color="#66794e"/>
+                    <use href="#grass" transform="translate(378 163) scale(0.7)" color="#66794e"/>
+                  </g>
+                  <g class="wind wind-a" fill="none" stroke="#f9efd4" stroke-width="2" stroke-linecap="round">
+                    <path d="M95 58q26-9 52-4t38-5m-65 19q31-6 58-2"/>
+                  </g>
+                  <g class="wind wind-b" fill="none" stroke="#f9efd4" stroke-width="1.7" stroke-linecap="round">
+                    <path d="M165 44q22-7 45-3m-30 34q25-5 48-1"/>
+                  </g>
+                </svg>
+                <span class="caption">
+                  <span>
+                    <strong>Zacatecas</strong>
+                    <small>Mexico</small>
+                  </span>
+                  <span class="expand" aria-hidden="true"></span>
+                </span>
+              </span>
+            </a>
+
+            <!-- SOUTHERN AMAZON -->
+            <a class="card" id="south_amazon" href="explorar/?region=south_amazon">
+              <span class="card-scene">
+                <svg aria-hidden="true" viewBox="0 0 420 180">
+                  <path d="M0 0h420v180H0z" fill="#dce7db"/>
+                  <circle class="scene-sun" cx="318" cy="44" r="23" fill="#f1d191"/>
+                  <path class="scene-hill-far" d="M0 101Q80 95 185 100T420 94V180H0Z" fill="#619f4d"/>
+                  <path class="scene-hill-mid" d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#265e5c"/>
+                  <use href="#palm" transform="translate(0 121) scale(0.55)" color="#619f4d"/>
+                  <use href="#tree" transform="translate(49 127) scale(0.67)" color="#265e5c"/>
+                  <use href="#tree" transform="translate(98 121) scale(0.79)" color="#619f4d"/>
+                  <use href="#palm" transform="translate(147 127) scale(0.55)" color="#265e5c"/>
+                  <use href="#tree" transform="translate(196 121) scale(0.67)" color="#619f4d"/>
+                  <use href="#tree" transform="translate(245 127) scale(0.79)" color="#265e5c"/>
+                  <use href="#palm" transform="translate(294 121) scale(0.55)" color="#619f4d"/>
+                  <use href="#tree" transform="translate(343 127) scale(0.67)" color="#265e5c"/>
+                  <use href="#tree" transform="translate(392 121) scale(0.79)" color="#619f4d"/>
+                  <path d="M174 120q102-7 113 8t-45 16q-54 9 41 36h-82q-51-28 11-40t-38-20Z" fill="#2eb1bb"/>
+                  <g class="canopy-sway">
+                    <use href="#palm" transform="translate(45 160) scale(1.42)" color="#265e5c"/>
+                  </g>
+                  <use href="#tree" transform="translate(371 156) scale(1.15)" color="#265e5c"/>
+                  <g class="rain-group" stroke="#5d8c90" stroke-width="2" stroke-linecap="round">
+                    <path class="rain rain-a" d="M68 18l-4 11 M139 32l-4 11 M210 47l-4 11 M281 62l-4 11 M95 72l-4 11 M166 24l-4 11 M237 39l-4 11 M308 54l-4 11"/>
+                    <path class="rain rain-b" d="M77 45l-4 11 M148 22l-4 11 M219 64l-4 11 M290 36l-4 11 M104 28l-4 11 M175 58l-4 11 M246 20l-4 11 M317 48l-4 11"/>
+                    <path class="rain rain-c" d="M86 30l-4 11 M157 52l-4 11 M228 26l-4 11 M299 68l-4 11 M113 60l-4 11 M184 18l-4 11 M255 46l-4 11 M326 32l-4 11"/>
+                  </g>
+                </svg>
+                <span class="caption">
+                  <span>
+                    <strong>Southern Amazon</strong>
+                    <small>South America</small>
+                  </span>
+                  <span class="expand" aria-hidden="true"></span>
+                </span>
+              </span>
+            </a>
+
+            <!-- SAHEL -->
+            <a class="card" id="sahel" href="explorar/?region=sahel">
+              <span class="card-scene">
+                <svg aria-hidden="true" viewBox="0 0 420 180">
+                  <path d="M0 0h420v180H0z" fill="#d4e5df"/>
+                  <circle class="scene-sun" cx="318" cy="44" r="23" fill="#e6b05a"/>
+                  <path class="scene-hill-far" d="M0 101Q80 95 185 100T420 94V180H0Z" fill="#cd8f2c"/>
+                  <path class="scene-hill-mid" d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#bc5032"/>
+                  <path d="M0 142q90-31 190-7t230-2v47H0Z" fill="#dcba89"/>
+                  <path d="M274 142l1-37-23-13 2-3 22 11 7-21 4 2-6 22 22-14 3 2-25 20 1 31Z" fill="#654631"/>
+                  <path class="acacia-canopy" d="M218 94q-5-9 8-13 4-10 19-8 4-11 18-7 10-12 24-7 14-3 19 5 22-1 23 12 21 4 15 12-13 7-35 3-18 6-37 1-21 8-54 2Z" fill="#7c6938"/>
+                  <g class="birds" stroke="#674736" fill="none" stroke-width="2" stroke-linecap="round">
+                    <path d="M92 62q5-5 9 1 3-7 9-6m11-8q4-4 7 1 3-6 8-5"/>
+                  </g>
+                  <g class="steppe-grass">
+                    <use href="#grass" transform="translate(22 159) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(77 165) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(132 171) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(187 159) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(242 165) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(297 171) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(352 159) scale(0.5)" color="#cd8f2c"/>
+                    <use href="#grass" transform="translate(407 165) scale(0.5)" color="#cd8f2c"/>
+                  </g>
+                </svg>
+                <span class="caption">
+                  <span>
+                    <strong>Sahel</strong>
+                    <small>Africa</small>
+                  </span>
+                  <span class="expand" aria-hidden="true"></span>
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="methods" aria-labelledby="methods-title">
+        <div class="methods-shell">
+          <div class="methods-intro">
+            <div>
+              <p class="section-kicker">STATISTICAL RIGOR · WHY THIS MATTERS</p>
+              <h2 id="methods-title">How we separate signal from climate noise</h2>
+            </div>
+            <p class="methods-lead">
+              A short 25-year window can fool standard regressions when El Niño or soil memory links one year to the next. Atlalli applies a strict protocol across all 18 series.
             </p>
           </div>
-          <img src="regions.svg" width="486" height="264" alt="Six study regions in Mexico, South America and Africa">
-        </div>
-        <div class="grid">
-          <details class="card">
-            <summary>
-              <svg aria-hidden="true" viewBox="0 0 420 180">
-                <path d="M0 0h420v180H0z" fill="#e2e4cf"/>
-                <circle cx="318" cy="44" r="23" fill="#e2ac47"/>
-                <path d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#829487"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#265e5c"/>
-                <use href="#palm" transform="translate(37 144) scale(1.35)" color="#265e5c"/>
-                <use href="#tree" transform="translate(365 140) scale(1.2)" color="#265e5c"/>
-                <path d="M71 0q-14 84 16 72T103 0m22 0q3 36-11 48" fill="none" stroke="#265e5c" stroke-width="4"/>
-                <g class="jaguar">
-                  <use href="#cat" transform="translate(171 141) scale(0.88)" color="#d59625"/>
-                </g>
-                <path d="M0 148q35-20 72 0t105 10 93-1 150-12v35H0Z" fill="#1c4949"/>
-                <use href="#grass" transform="translate(70 160) scale(0.6)" color="#829487"/>
-              </svg>
-              <span class="caption">
-                <span>
-                  <strong>
-                    Chiapas
-                  </strong>
-                  <small>
-                    Mexico
-                  </small>
-                </span>
-                <span class="expand" aria-hidden="true">
-                </span>
-              </span>
-            </summary>
-            <div class="facts">
+
+          <div class="methods-grid">
+            <article class="method-card">
+              <span class="method-step">01 · MAGNITUDE</span>
+              <h3>Sen’s Non-Parametric Slope</h3>
               <p>
-                Average across 25 complete years · 2000–2024
+                Reports the median rate of change per decade with a 95% confidence interval, remaining resistant to extreme drought or flood outlier years.
               </p>
-              <dl>
-                <div>
-                  <dt>
-                    Annual rainfall
-                  </dt>
-                  <dd>
-                    2,068.9 mm
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Air temperature
-                  </dt>
-                  <dd>
-                    22.4 °C
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Soil moisture
-                  </dt>
-                  <dd>
-                    30.2 kg/m²
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </details>
-          <details class="card">
-            <summary>
-              <svg aria-hidden="true" viewBox="0 0 420 180">
-                <path d="M0 0h420v180H0z" fill="#f4e3c9"/>
-                <circle cx="318" cy="44" r="23" fill="#e3ae56"/>
-                <path d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#a79883"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#619f4d"/>
-                <use href="#tree" transform="translate(62 151) scale(1.12)" color="#526f4e"/>
-                <use href="#tree" transform="translate(328 148) scale(0.85)" color="#619f4d"/>
-                <path d="M15 180v-33" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="11" cy="147" r="4"/>
-                  <circle cx="19" cy="147" r="4"/>
-                  <circle cx="15" cy="143" r="4"/>
-                </g>
-                <path d="M50 180v-24.585290151921043" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#e1649e">
-                  <circle cx="46" cy="155.41470984807896" r="4"/>
-                  <circle cx="54" cy="155.41470984807896" r="4"/>
-                  <circle cx="50" cy="151.41470984807896" r="4"/>
-                </g>
-                <path d="M85 180v-23.907025731743175" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="81" cy="156.09297426825682" r="4"/>
-                  <circle cx="89" cy="156.09297426825682" r="4"/>
-                  <circle cx="85" cy="152.09297426825682" r="4"/>
-                </g>
-                <path d="M120 180v-31.58879991940134" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#e1649e">
-                  <circle cx="116" cy="148.41120008059866" r="4"/>
-                  <circle cx="124" cy="148.41120008059866" r="4"/>
-                  <circle cx="120" cy="144.41120008059866" r="4"/>
-                </g>
-                <path d="M155 180v-40.56802495307929" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="151" cy="139.4319750469207" r="4"/>
-                  <circle cx="159" cy="139.4319750469207" r="4"/>
-                  <circle cx="155" cy="135.4319750469207" r="4"/>
-                </g>
-                <path d="M190 180v-42.589242746631385" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#e1649e">
-                  <circle cx="186" cy="137.41075725336862" r="4"/>
-                  <circle cx="194" cy="137.41075725336862" r="4"/>
-                  <circle cx="190" cy="133.41075725336862" r="4"/>
-                </g>
-                <path d="M225 180v-35.794154981989266" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="221" cy="144.20584501801073" r="4"/>
-                  <circle cx="229" cy="144.20584501801073" r="4"/>
-                  <circle cx="225" cy="140.20584501801073" r="4"/>
-                </g>
-                <path d="M260 180v-26.43013401281212" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#e1649e">
-                  <circle cx="256" cy="153.56986598718788" r="4"/>
-                  <circle cx="264" cy="153.56986598718788" r="4"/>
-                  <circle cx="260" cy="149.56986598718788" r="4"/>
-                </g>
-                <path d="M295 180v-23.106417533766177" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="291" cy="156.89358246623382" r="4"/>
-                  <circle cx="299" cy="156.89358246623382" r="4"/>
-                  <circle cx="295" cy="152.89358246623382" r="4"/>
-                </g>
-                <path d="M330 180v-28.87881514758243" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#e1649e">
-                  <circle cx="326" cy="151.12118485241757" r="4"/>
-                  <circle cx="334" cy="151.12118485241757" r="4"/>
-                  <circle cx="330" cy="147.12118485241757" r="4"/>
-                </g>
-                <path d="M365 180v-38.44021110889369" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="361" cy="141.5597888911063" r="4"/>
-                  <circle cx="369" cy="141.5597888911063" r="4"/>
-                  <circle cx="365" cy="137.5597888911063" r="4"/>
-                </g>
-                <path d="M400 180v-42.99990206550703" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#e1649e">
-                  <circle cx="396" cy="137.00009793449297" r="4"/>
-                  <circle cx="404" cy="137.00009793449297" r="4"/>
-                  <circle cx="400" cy="133.00009793449297" r="4"/>
-                </g>
-                <path d="M435 180v-38.36572918000434" stroke="#619f4d" stroke-width="3"/>
-                <g fill="#ba297e">
-                  <circle cx="431" cy="141.63427081999566" r="4"/>
-                  <circle cx="439" cy="141.63427081999566" r="4"/>
-                  <circle cx="435" cy="137.63427081999566" r="4"/>
-                </g>
-                <g class="butterfly">
-                  <path d="M218 80q-18-22-17-4 0 9 15 10-5 7 0 7l4-8q16-5 12-15-6-4-14 10" fill="#ba297e"/>
-                </g>
-              </svg>
-              <span class="caption">
-                <span>
-                  <strong>
-                    Morelos
-                  </strong>
-                  <small>
-                    Mexico
-                  </small>
-                </span>
-                <span class="expand" aria-hidden="true">
-                </span>
-              </span>
-            </summary>
-            <div class="facts">
+            </article>
+            <article class="method-card">
+              <span class="method-step">02 · AUTOCORRELATION RULE</span>
+              <h3>Mann-Kendall &amp; Hamed-Rao</h3>
               <p>
-                Average across 25 complete years · 2000–2024
+                Tests monotonic trends and switches to Hamed-Rao variance correction whenever positive lag-1 serial correlation exceeds 0.20.
               </p>
-              <dl>
-                <div>
-                  <dt>
-                    Annual rainfall
-                  </dt>
-                  <dd>
-                    1,030 mm
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Air temperature
-                  </dt>
-                  <dd>
-                    19.1 °C
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Soil moisture
-                  </dt>
-                  <dd>
-                    24.8 kg/m²
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </details>
-          <details class="card">
-            <summary>
-              <svg aria-hidden="true" viewBox="0 0 420 180">
-                <path d="M0 0h420v180H0z" fill="#f6deb4"/>
-                <circle cx="105" cy="44" r="23" fill="#e8a832"/>
-                <path d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#cd8f2c"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#dcba89"/>
-                <path d="M70 117 138 74l22 9 35-41 62 65 51-21 39 22 73-25v48H70Z" fill="#b2673d"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#dcba89"/>
-                <use href="#cactus" transform="translate(333 143) scale(1.45)" color="#265e5c"/>
-                <use href="#cactus" transform="translate(73 135) scale(0.7)" color="#619f4d"/>
-                <path d="M0 155Q89 141 170 153T310 155T420 145v35H0Z" fill="#b2673d"/>
-                <g class="tumble">
-                  <circle cx="200" cy="149" r="9" fill="none" stroke="#74461e" stroke-width="2"/>
-                  <path d="m191 145 17 5-13 4 8-14-4 18" fill="none" stroke="#74461e"/>
-                </g>
-              </svg>
-              <span class="caption">
-                <span>
-                  <strong>
-                    Sonora
-                  </strong>
-                  <small>
-                    Mexico
-                  </small>
-                </span>
-                <span class="expand" aria-hidden="true">
-                </span>
-              </span>
-            </summary>
-            <div class="facts">
+            </article>
+            <article class="method-card">
+              <span class="method-step">03 · MULTIPLE TESTING</span>
+              <h3>Benjamini-Hochberg FDR (q ≤ 0.05)</h3>
               <p>
-                Average across 25 complete years · 2000–2024
+                All 18 planned comparisons (3 variables × 6 regions) are corrected together so random fluctuations are not misreported as discoveries.
               </p>
-              <dl>
-                <div>
-                  <dt>
-                    Annual rainfall
-                  </dt>
-                  <dd>
-                    470 mm
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Air temperature
-                  </dt>
-                  <dd>
-                    20.1 °C
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Soil moisture
-                  </dt>
-                  <dd>
-                    16.1 kg/m²
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </details>
-          <details class="card">
-            <summary>
-              <svg aria-hidden="true" viewBox="0 0 420 180">
-                <path d="M0 0h420v180H0z" fill="#e9dfcd"/>
-                <circle cx="318" cy="44" r="23" fill="#dcad51"/>
-                <path d="M0 86Q47 58 93 82T186 78T306 77T420 62V180H0Z" fill="#b2673d"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#ab966d"/>
-                <path d="M0 126 58 94l34 8 59-67 47 53 28-13 55 50 57-43 82 36v62H0Z" fill="#b2673d"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#ab966d"/>
-                <path d="M0 155Q89 141 170 153T310 155T420 145v35H0Z" fill="#926f55"/>
-                <use href="#grass" transform="translate(0 156) scale(0.45)" color="#66794e"/>
-                <use href="#grass" transform="translate(54 163) scale(0.7)" color="#66794e"/>
-                <use href="#grass" transform="translate(108 170) scale(0.45)" color="#66794e"/>
-                <use href="#grass" transform="translate(162 156) scale(0.7)" color="#66794e"/>
-                <use href="#grass" transform="translate(216 163) scale(0.45)" color="#66794e"/>
-                <use href="#grass" transform="translate(270 170) scale(0.7)" color="#66794e"/>
-                <use href="#grass" transform="translate(324 156) scale(0.45)" color="#66794e"/>
-                <use href="#grass" transform="translate(378 163) scale(0.7)" color="#66794e"/>
-                <use href="#grass" transform="translate(432 170) scale(0.45)" color="#66794e"/>
-                <g class="wind" fill="none" stroke="#f9efd4" stroke-width="2">
-                  <path d="M130 61q23-9 47-5t34-5m-60 19q29-6 54-2"/>
-                </g>
-              </svg>
-              <span class="caption">
-                <span>
-                  <strong>
-                    Zacatecas
-                  </strong>
-                  <small>
-                    Mexico
-                  </small>
-                </span>
-                <span class="expand" aria-hidden="true">
-                </span>
-              </span>
-            </summary>
-            <div class="facts">
+            </article>
+          </div>
+
+          <div class="transect-banner">
+            <div class="transect-copy">
+              <span class="section-kicker">INTERACTIVE WORKBENCH</span>
+              <h3>Inspect every annual series, confidence interval &amp; 2005 robustness check</h3>
               <p>
-                Average across 25 complete years · 2000–2024
+                Open the live explorer to compare regions side by side, inspect NASA GES DISC provenance DOIs, and test whether each trend holds when starting from 2005.
               </p>
-              <dl>
-                <div>
-                  <dt>
-                    Annual rainfall
-                  </dt>
-                  <dd>
-                    484.6 mm
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Air temperature
-                  </dt>
-                  <dd>
-                    17.4 °C
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Soil moisture
-                  </dt>
-                  <dd>
-                    17.3 kg/m²
-                  </dd>
-                </div>
-              </dl>
+              <a class="explore-cta" href="explorar/">
+                Launch Trend Detective Explorer
+                <span aria-hidden="true">↗</span>
+              </a>
             </div>
-          </details>
-          <details class="card">
-            <summary>
-              <svg aria-hidden="true" viewBox="0 0 420 180">
-                <path d="M0 0h420v180H0z" fill="#dce7db"/>
-                <circle cx="318" cy="44" r="23" fill="#f1d191"/>
-                <path d="M0 101Q80 95 185 100T420 94V180H0Z" fill="#619f4d"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#265e5c"/>
-                <use href="#palm" transform="translate(0 121) scale(0.55)" color="#619f4d"/>
-                <use href="#tree" transform="translate(49 127) scale(0.67)" color="#265e5c"/>
-                <use href="#tree" transform="translate(98 121) scale(0.79)" color="#619f4d"/>
-                <use href="#palm" transform="translate(147 127) scale(0.55)" color="#265e5c"/>
-                <use href="#tree" transform="translate(196 121) scale(0.67)" color="#619f4d"/>
-                <use href="#tree" transform="translate(245 127) scale(0.79)" color="#265e5c"/>
-                <use href="#palm" transform="translate(294 121) scale(0.55)" color="#619f4d"/>
-                <use href="#tree" transform="translate(343 127) scale(0.67)" color="#265e5c"/>
-                <use href="#tree" transform="translate(392 121) scale(0.79)" color="#619f4d"/>
-                <use href="#palm" transform="translate(441 127) scale(0.55)" color="#265e5c"/>
-                <path d="M174 120q102-7 113 8t-45 16q-54 9 41 36h-82q-51-28 11-40t-38-20Z" fill="#2eb1bb"/>
-                <use href="#palm" transform="translate(45 160) scale(1.42)" color="#265e5c"/>
-                <use href="#tree" transform="translate(371 156) scale(1.15)" color="#265e5c"/>
-                <g class="rain" stroke="#759c9f" stroke-width="2">
-                  <path d="M68 13l-3 8"/>
-                  <path d="M139 30l-3 8"/>
-                  <path d="M210 47l-3 8"/>
-                  <path d="M281 64l-3 8"/>
-                  <path d="M77 81l-3 8"/>
-                  <path d="M148 27l-3 8"/>
-                  <path d="M219 44l-3 8"/>
-                  <path d="M290 61l-3 8"/>
-                  <path d="M86 78l-3 8"/>
-                  <path d="M157 24l-3 8"/>
-                  <path d="M228 41l-3 8"/>
-                  <path d="M299 58l-3 8"/>
-                  <path d="M95 75l-3 8"/>
-                  <path d="M166 21l-3 8"/>
-                  <path d="M237 38l-3 8"/>
-                  <path d="M308 55l-3 8"/>
-                  <path d="M104 72l-3 8"/>
-                  <path d="M175 18l-3 8"/>
-                  <path d="M246 35l-3 8"/>
-                  <path d="M317 52l-3 8"/>
-                  <path d="M113 69l-3 8"/>
-                  <path d="M184 15l-3 8"/>
-                  <path d="M255 32l-3 8"/>
-                  <path d="M326 49l-3 8"/>
-                </g>
-              </svg>
-              <span class="caption">
-                <span>
-                  <strong>
-                    Southern Amazon
-                  </strong>
-                  <small>
-                    South America
-                  </small>
-                </span>
-                <span class="expand" aria-hidden="true">
-                </span>
-              </span>
-            </summary>
-            <div class="facts">
-              <p>
-                Average across 25 complete years · 2000–2024
-              </p>
-              <dl>
-                <div>
-                  <dt>
-                    Annual rainfall
-                  </dt>
-                  <dd>
-                    1,939.8 mm
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Air temperature
-                  </dt>
-                  <dd>
-                    25.9 °C
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Soil moisture
-                  </dt>
-                  <dd>
-                    30.2 kg/m²
-                  </dd>
-                </div>
-              </dl>
+            <div class="transect-art">
+              <img src="climate-landscape.svg" width="500" height="245" alt="Illustrated climate transect from dry soil to rain-fed forest" loading="lazy">
             </div>
-          </details>
-          <details class="card">
-            <summary>
-              <svg aria-hidden="true" viewBox="0 0 420 180">
-                <path d="M0 0h420v180H0z" fill="#d4e5df"/>
-                <circle cx="318" cy="44" r="23" fill="#e6b05a"/>
-                <path d="M0 101Q80 95 185 100T420 94V180H0Z" fill="#cd8f2c"/>
-                <path d="M0 118Q70 91 150 120T312 109T420 99V180H0Z" fill="#bc5032"/>
-                <path d="M0 142q90-31 190-7t230-2v47H0Z" fill="#dcba89"/>
-                <path d="M274 142l1-37-23-13 2-3 22 11 7-21 4 2-6 22 22-14 3 2-25 20 1 31Z" fill="#654631"/>
-                <path d="M218 94q-5-9 8-13 4-10 19-8 4-11 18-7 10-12 24-7 14-3 19 5 22-1 23 12 21 4 15 12-13 7-35 3-18 6-37 1-21 8-54 2Z" fill="#7c6938"/>
-                <g class="birds" stroke="#674736" fill="none" stroke-width="2">
-                  <path d="M102 55q5-5 9 1 3-7 9-6m9-8q4-4 7 1 3-6 8-5"/>
-                </g>
-                <use href="#grass" transform="translate(22 159) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(77 165) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(132 171) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(187 159) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(242 165) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(297 171) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(352 159) scale(0.5)" color="#cd8f2c"/>
-                <use href="#grass" transform="translate(407 165) scale(0.5)" color="#cd8f2c"/>
-              </svg>
-              <span class="caption">
-                <span>
-                  <strong>
-                    Sahel
-                  </strong>
-                  <small>
-                    Africa
-                  </small>
-                </span>
-                <span class="expand" aria-hidden="true">
-                </span>
-              </span>
-            </summary>
-            <div class="facts">
-              <p>
-                Average across 25 complete years · 2000–2024
-              </p>
-              <dl>
-                <div>
-                  <dt>
-                    Annual rainfall
-                  </dt>
-                  <dd>
-                    584.4 mm
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Air temperature
-                  </dt>
-                  <dd>
-                    28.1 °C
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    Soil moisture
-                  </dt>
-                  <dd>
-                    12.6 kg/m²
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </details>
+          </div>
         </div>
       </section>
     </main>
+
     <footer>
-      <span>
-        Atlalli
-      </span>
-      <small>
-        NASA observations · GPM IMERG, MERRA-2 &amp; GLDAS Noah
+      <div class="footer-brand">
+        <img class="brand-logo" src="atlalli.svg" width="26" height="26" alt="">
+        <span>Atlalli</span>
+        <small>Trend Detective · NASA Space Apps Challenge</small>
+      </div>
+      <small class="footer-sources">
+        NASA open observations via Giovanni · GPM IMERG V07, MERRA-2 &amp; GLDAS Noah 2.1
       </small>
     </footer>
-    <script src="atlas.js">
-    </script>
+
+    <script src="atlas.js"></script>
   </body>
 </html>

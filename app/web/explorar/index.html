@@ -4,17 +4,113 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Climate explorer · Atlalli</title>
+  <link rel="icon" href="../atlalli.svg" type="image/svg+xml">
   <style>
-    body { margin: 0; display: flex; flex-direction: column; height: 100vh; height: 100dvh; font-family: system-ui, sans-serif; }
-    nav { padding: 0.75rem 1rem; }
-    iframe { flex: 1; width: 100%; border: 0; }
+    :root {
+      --paper: #faf9f2;
+      --paper-alt: #f2f1e6;
+      --ink: #1d3834;
+      --muted: #4a635b;
+      --line: #cfd8c7;
+      --green: #265e5c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Work Sans", "Segoe UI", system-ui, sans-serif;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.65rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 2rem;
+      border: 1px solid var(--line);
+      background: var(--paper-alt);
+      transition: border-color 0.18s ease, background-color 0.18s ease;
+    }
+    .back-link:hover {
+      border-color: var(--green);
+      background: #fffefa;
+    }
+    .nav-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .region-pill {
+      display: none;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: var(--green);
+      color: #fffefa;
+      font-weight: 600;
+      font-size: 0.76rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: 0;
+      background: var(--paper);
+    }
   </style>
 </head>
 <body>
-  <nav><a href="../">Back to Atlalli</a></nav>
+  <nav>
+    <a class="back-link" href="../">
+      <span aria-hidden="true">←</span>
+      <img src="../atlalli.svg" width="20" height="20" alt="">
+      <span>Back to Atlalli Atlas</span>
+    </a>
+    <div class="nav-meta">
+      <span id="region-pill" class="region-pill"></span>
+      <span>NASA Giovanni · 2000–2024</span>
+    </div>
+  </nav>
   <iframe
+    id="explorer-frame"
     src="https://mainpy-pxrjcpjhkeqjvr8bf8sqby.streamlit.app/?embed=true"
     title="Atlalli climate trend explorer">
   </iframe>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const region = params.get("region");
+    const names = {
+      chiapas: "Chiapas, Mexico",
+      morelos: "Morelos, Mexico",
+      sonora: "Sonora, Mexico",
+      zacatecas: "Zacatecas, Mexico",
+      south_amazon: "Southern Amazon, Brazil",
+      sahel: "Sahel, West Africa"
+    };
+    if (region && names[region]) {
+      const pill = document.getElementById("region-pill");
+      pill.textContent = names[region];
+      pill.style.display = "inline-block";
+    }
+  </script>
 </body>
 </html>
