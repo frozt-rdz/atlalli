@@ -1,0 +1,2 @@
+# Keep the original Giovanni exports byte-identical on every OS.
+data/giovanni/*.csv text eol=lf

@@ -129,3 +129,18 @@ def test_negative_autocorrelation_does_not_use_hamed_rao():
     assert result.lag1_autocorr < -0.2
     assert result.method == "Mann-Kendall"
     assert result.status == "valid" and np.isfinite(result.p_value)
+
+
+def test_invalid_hamed_rao_variance_is_reported_not_hidden(monkeypatch):
+    """If Hamed-Rao returns a non-positive variance there must be no silent fallback."""
+    class Broken:
+        p, z, trend, var_s = float("nan"), float("nan"), "no trend", -5.0
+
+    monkeypatch.setattr(mk, "hamed_rao_modification_test", lambda *a, **k: Broken())
+    years = np.arange(2000, 2025)
+    rng = np.random.default_rng(3)
+    noise = np.cumsum(rng.normal(size=years.size))  # random walk: residual r1 well above 0.2
+    result = trend_report(years, noise)
+    assert result.method == "Hamed-Rao" and result.status == "invalid_primary"
+    assert result.significant is None and result.trend == "unresolved"
+    assert np.isnan(result.p_value)

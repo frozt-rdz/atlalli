@@ -39,6 +39,23 @@ def clean_url(url: str) -> str:
     return re.sub(r"\?utm_source=[^#]*", "", url)
 
 
+def single_dataset_url(url: str, product: str) -> str:
+    """Keep only this series' dataset in the Giovanni URL (the export may list several).
+
+    The URL is rebuilt from the export's own URL; open it once in Giovanni to confirm.
+    """
+    base, sep, fragment = url.partition("#")
+    kept = []
+    for part in fragment.split("&"):
+        if part.startswith("data="):
+            entries = re.split(r"%2C|,(?=[A-Za-z])", part[len("data="):])
+            part = "data=" + "%2C".join(e for e in entries if e.startswith(product))
+        elif part.startswith("dataKeyword="):
+            continue  # a search hint for the Giovanni menu, not needed to reproduce the series
+        kept.append(part)
+    return base + sep + "&".join(kept)
+
+
 def grid_cells(data_bbox: list[float], resolution: list[float]) -> int:
     """Approximate number of grid cells inside the data box (cell-centre extent)."""
     west, south, east, north = data_bbox
@@ -72,8 +89,9 @@ def build_series_info(catalog: list[dict]) -> pd.DataFrame:
             "missing_months": len(item["missing_months"]),
             "file": item["file"],
             "sha256": item["sha256"],
-            "giovanni_url": clean_url(url),
-            # True when the export URL lists more than one dataset; the CSV itself holds one.
+            "giovanni_url": single_dataset_url(clean_url(url), item["product"]),
+            # True when the ORIGINAL export URL listed more than one dataset (giovanni_url
+            # above keeps only this series' dataset); the CSV itself always holds one variable.
             "url_lists_several_datasets": n_datasets > 1,
         })
     return pd.DataFrame(rows).sort_values(["variable", "region"]).reset_index(drop=True)
@@ -86,8 +104,8 @@ def main() -> None:
     print(f"Wrote {OUTPUT} ({len(info)} series)")
     flagged = info[info.url_lists_several_datasets]
     if len(flagged):
-        print(f"NOTE: {len(flagged)} Giovanni URLs list several datasets (see column "
-              "url_lists_several_datasets); each CSV still holds one variable.")
+        print(f"NOTE: {len(flagged)} original Giovanni export URLs listed several datasets "
+              "(column url_lists_several_datasets); giovanni_url keeps only the series' own dataset.")
 
 
 if __name__ == "__main__":
