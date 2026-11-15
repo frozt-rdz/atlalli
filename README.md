@@ -31,7 +31,9 @@ Of the 18 planned comparisons, 8 are significant after correcting for all 18 tog
 (Benjamini-Hochberg, q ≤ 0.05). "Suggestive" below means p < 0.05 but q > 0.05: a lead, not a finding.
 
 - **Mexico, air temperature is rising** in Chiapas (+0.47 °C/decade), Morelos (+0.51) and Zacatecas
-  (+0.48), all with q < 0.02. Sonora (+0.38, p = 0.034, q = 0.060) is only suggestive.
+  (+0.48), all with q < 0.02. Sonora (+0.38, p = 0.034, q = 0.060) is only suggestive. An independent
+  check with ERA5 confirms the direction in all four boxes, but not the size (see Limitations): for
+  Morelos and Zacatecas ERA5 gives about half of the MERRA-2 slope, so quote the rise as a range.
 - **Mexico, soil moisture is falling in Chiapas** (−0.81 kg/m²/decade, q = 0.0015), but the result is
   sensitive to the start year (p = 0.064 from 2005).
 - **No Mexican region has a significant precipitation trend** after the correction. Chiapas is
@@ -114,10 +116,27 @@ fix that at this length: 25 years is limited evidence.
 - Boxes are averages over many grid cells and trends can differ inside a box.
 - Temperature (MERRA-2) and soil moisture (GLDAS) are model outputs fed with observations;
   precipitation (IMERG) is a satellite estimate calibrated with rain gauges.
-- The 2-m temperature in the Sahel shows a decrease (−0.24 °C/decade, p = 0.047, q = 0.071: suggestive
-  only). It is fragile (p ranges from 0.008 to 0.097 when any single year is dropped; p = 0.098 from
-  2005) and it is anticorrelated with Sahel rainfall (r = −0.51), so it may partly reflect wetter years
-  rather than long-term cooling. It has not been checked against another temperature product.
+- 2-m temperature was cross-checked with ERA5 (reanalysis, average of 9 to 15 points per box, obtained
+  through the Open-Meteo archive API; `check_all_regions_era5.py`). Slopes in °C/decade, 2000–2024:
+
+  | Region | MERRA-2 (the app) | ERA5 | Reading |
+  |---|---|---|---|
+  | Chiapas | +0.47 | +0.48 | Agree |
+  | Sonora | +0.38 | +0.56 | Same direction, ERA5 larger |
+  | Morelos | +0.51 | +0.25 | Same direction, MERRA-2 about twice ERA5 |
+  | Zacatecas | +0.48 | +0.29 (p = 0.053) | Same direction, MERRA-2 larger |
+  | Southern Amazon | +0.67 | +0.35 | Same direction, MERRA-2 about twice ERA5 |
+  | Sahel | −0.24 | **+0.24** | Opposite sign |
+
+  Year-to-year changes of the two products correlate strongly (r = 0.81 to 0.97), but in Morelos,
+  Zacatecas, Southern Amazon and Sahel the difference between them has a significant trend of its own
+  (uncorrected for multiple comparisons). The direction of warming in Mexico is therefore supported by
+  two products; its size is product-dependent.
+- The 2-m temperature in the Sahel is not a finding. MERRA-2 shows a decrease (−0.24 °C/decade,
+  p = 0.047, q = 0.071: suggestive only), ERA5 the opposite (+0.24 °C/decade, p = 0.021). The MERRA-2
+  result is also fragile (p ranges from 0.008 to 0.097 when any single year is dropped; p = 0.098 from
+  2005) and anticorrelated with Sahel rainfall (r = −0.51), so it may partly reflect wetter years.
+  Read it as product-dependent, not as cooling.
 - IMERG V07 joins the TRMM era (to mid-2014) and the GPM era, and NASA documents that continuity
   between them is still being improved. The largest precipitation declines (Southern Amazon, Chiapas)
   coincide with a drop between the 2000–2013 and 2014–2024 averages, close to that boundary. This has
