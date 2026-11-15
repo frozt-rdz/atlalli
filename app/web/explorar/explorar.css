@@ -39,10 +39,10 @@ body[data-region="morelos"] {
 }
 
 body[data-region="zacatecas"] {
-  --reg-primary: #7B50A2;
+  --reg-primary: #8E4A35;
   --reg-accent: #B2673D;
-  --reg-soft: #F2E8F7;
-  --reg-soft-border: #d5bee3;
+  --reg-soft: #F7EFE6;
+  --reg-soft-border: #DEC6B0;
 }
 
 body[data-region="chiapas"] {
@@ -54,7 +54,7 @@ body[data-region="chiapas"] {
 
 body[data-region="south_amazon"] {
   --reg-primary: #619F4D;
-  --reg-accent: #B9A4D7;
+  --reg-accent: #2D6A4F;
   --reg-soft: #E9EED8;
   --reg-soft-border: #c6d6a7;
 }
@@ -289,296 +289,354 @@ body[data-page="data"] #page-region-data {
 
 /* ==========================================================================
    INDEPENDENT PAGE 1: STANDALONE 6-REGION SELECTOR PAGE
-   - Top Center: Region Name, Subtitle & Overview
-   - Middle Center: Circular 6-Region Wheel with Animated Landscape Hub
-   - Bottom Center: Unified Single-Rectangle Reactive Variable Switcher
+   - Fits comfortably in 100vh full-screen viewports
+   - Card background dynamically shifts to the active region's soft palette
+   - 3 Horizontal Top-Left + 3 Horizontal Bottom-Right connected by SVG lines
+   - Sleek, compact Segmented Pill Dock for Climate Variables
    ========================================================================== */
 .selector-page-wrap {
   position: relative;
   z-index: 1;
-  max-width: 1180px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 1.35rem 1.5rem 3.5rem;
+  padding: 0.9rem 1.5rem 1.8rem;
+  min-height: calc(100vh - 68px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .selector-standalone-card {
-  background-color: var(--card-bg);
-  border: 1.5px solid var(--border-color);
+  background-color: var(--reg-soft);
+  border: 2px solid var(--reg-primary);
   border-radius: var(--radius-lg);
-  padding: 2rem 2.4rem 2.4rem;
+  padding: 1.45rem 2.2rem 1.65rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.05rem;
   position: relative;
-  box-shadow: 0 12px 34px rgba(31, 58, 54, 0.06);
+  overflow: hidden;
+  box-shadow:
+    0 16px 40px rgba(31, 58, 54, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition:
+    background-color 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.48s ease;
+}
+
+/* Full-Bleed Animated Regional & Variable Background Scene across the Outer Card */
+.card-bg-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.card-bg-scene svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .selector-top-center {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 780px;
-  gap: 0.38rem;
+  max-width: 680px;
+  gap: 0.25rem;
 }
 
 .selector-eyebrow {
   font-family: var(--font-display);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   color: var(--reg-primary);
-  background-color: var(--reg-soft);
-  padding: 0.28rem 0.9rem;
+  background-color: rgba(255, 251, 239, 0.94);
+  backdrop-filter: blur(4px);
+  padding: 0.24rem 0.85rem;
   border-radius: 999px;
-  border: 1px solid var(--reg-soft-border);
+  border: 1.5px solid var(--reg-primary);
   transition: all 0.4s ease;
 }
 
 .selector-main-title {
-  margin: 0.12rem 0 0;
+  margin: 0.08rem 0 0;
   font-family: var(--font-display);
-  font-size: clamp(2.1rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.85rem, 3vw, 2.4rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-main);
   line-height: 1.08;
 }
 
-.selector-sub-landmark {
-  margin: 0;
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: var(--reg-primary);
-  transition: color 0.4s ease;
-}
-
-.selector-overview-banner {
-  margin: 0.4rem 0 0;
-  background-color: var(--reg-soft);
-  border: 1.5px solid var(--reg-soft-border);
-  border-radius: 14px;
-  padding: 0.72rem 1.25rem;
-  font-size: 0.94rem;
-  color: var(--text-main);
-  line-height: 1.55;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-}
-
 .selector-wheel-center {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem 0;
+  padding: 0.15rem 0;
 }
 
-/* Well-proportioned 460x460 Circular Wheel */
-.circular-wheel-stage {
+/* Stepped Constellation Stage: Translucent Frosted Glass Plate for the 6 Nodes */
+.selector-constellation-stage {
   position: relative;
-  width: 460px;
-  height: 460px;
+  width: 100%;
+  max-width: 960px;
+  height: 310px;
   margin: 0 auto;
+  border-radius: 22px;
+  background-color: rgba(255, 251, 239, 0.74);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(226, 213, 176, 0.88);
+  box-shadow:
+    0 10px 30px rgba(31, 58, 54, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
   user-select: none;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.wheel-orbit-svg {
+.constellation-bg-scene {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 0;
 }
 
-#wheel-pointer-group {
-  transform-origin: 230px 230px;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-#wheel-inner-ring,
-#wheel-pointer-line {
-  transition: stroke 0.45s ease;
-}
-
-/* 216x216 Animated Center Hub inside the Circle */
-.wheel-center-hub {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 216px;
-  height: 216px;
-  transform: translate(-50%, -50%) scale(1);
-  border-radius: 50%;
-  background-color: var(--reg-soft);
-  border: 4.5px solid var(--reg-primary);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(31, 58, 54, 0.14);
-  transition:
-    border-color 0.45s ease,
-    background-color 0.45s ease,
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.wheel-center-hub:hover {
-  transform: translate(-50%, -50%) scale(1.03);
-}
-
-.wheel-center-hub.hub-transitioning {
-  transform: translate(-50%, -50%) scale(0.92);
-}
-
-.hub-svg-wrap {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.28s ease;
-}
-
-.wheel-center-hub.hub-transitioning .hub-svg-wrap {
-  opacity: 0.25;
-}
-
-.hub-svg-wrap svg {
+.constellation-bg-scene svg {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.hub-caption-pill {
-  position: relative;
+.constellation-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
   z-index: 2;
-  margin-bottom: 14px;
-  padding: 0.28rem 0.9rem;
-  border-radius: 999px;
-  background-color: var(--card-bg);
-  border: 2px solid var(--reg-primary);
-  color: var(--text-main);
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  transition: border-color 0.45s ease;
 }
 
-/* 6 Orbital Region Medallions */
+.constellation-line-halo {
+  fill: none;
+  stroke: rgba(255, 251, 239, 0.92);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.constellation-line-base {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.constellation-line-dash {
+  fill: none;
+  stroke: var(--reg-primary);
+  stroke-width: 2.8;
+  stroke-dasharray: 8 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.75;
+  transition: stroke 0.45s ease;
+}
+
+.constellation-line-active {
+  fill: none;
+  stroke: var(--reg-primary);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.98;
+  transition: stroke 0.45s ease, d 0.45s ease;
+}
+
+/* Subtle Bottom-Left Region Coordinates & Climate Tag Pill */
+.constellation-preview-pill {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background-color: rgba(255, 251, 239, 0.94);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid var(--reg-primary);
+  border-radius: 999px;
+  padding: 0.35rem 0.95rem;
+  box-shadow: 0 6px 16px rgba(31, 58, 54, 0.10);
+  transition: border-color 0.4s ease;
+}
+
+.constellation-preview-pill.bottom-left {
+  left: 20px;
+  bottom: 16px;
+  pointer-events: none;
+}
+
+.preview-pill-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.15;
+}
+
+.preview-pill-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.preview-pill-val {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+/* 6 Enlarged Connected Region Medallion Nodes (126x126px, prominent and tactile!) */
 .wheel-node {
   position: absolute;
-  width: 96px;
-  height: 96px;
-  margin-left: -48px;
-  margin-top: -48px;
+  width: 126px;
+  height: 126px;
+  margin-left: -63px;
+  margin-top: -63px;
   border-radius: 50%;
-  background-color: var(--card-bg);
-  border: 2.5px solid var(--border-color);
+  background-color: rgba(255, 251, 239, 0.96);
+  border: 3.5px solid var(--border-color);
   padding: 0;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 5px;
+  box-shadow: 0 8px 24px rgba(31, 58, 54, 0.14);
   transition:
-    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s ease,
-    box-shadow 0.35s ease,
-    background-color 0.35s ease;
-  z-index: 3;
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s ease,
+    box-shadow 0.32s ease,
+    background-color 0.32s ease;
+  z-index: 4;
 }
 
 .wheel-node:hover {
-  transform: scale(1.11);
+  transform: translateY(-3px) scale(1.07);
   border-color: var(--node-color, var(--reg-primary));
+  box-shadow: 0 12px 28px rgba(31, 58, 54, 0.20);
 }
 
 .wheel-node.active {
-  transform: scale(1.24);
-  background-color: var(--node-soft, var(--reg-soft));
-  border-width: 4px;
+  transform: scale(1.18);
+  background-color: #FFFBEF;
+  border-width: 4.5px;
   border-color: var(--node-color, var(--reg-primary));
-  box-shadow: 0 10px 24px rgba(31, 58, 54, 0.18);
-  z-index: 5;
+  box-shadow:
+    0 0 0 8px rgba(255, 251, 239, 0.92),
+    0 16px 36px rgba(31, 58, 54, 0.26);
+  z-index: 6;
 }
 
 .node-mini-svg {
-  width: 46px;
-  height: 46px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   overflow: hidden;
+  display: block;
+  border: 1.5px solid rgba(31, 58, 54, 0.12);
+  background-color: var(--card-bg);
+}
+
+.node-mini-svg svg {
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
 .node-label {
   font-family: var(--font-display);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.05;
   text-align: center;
-  max-width: 82px;
+  max-width: 106px;
+}
+
+.wheel-node.active .node-label {
+  color: var(--node-color, var(--reg-primary));
 }
 
 /* ==========================================================================
-   SINGLE UNIFIED RECTANGLE REACTIVE VARIABLE SWITCHER
-   ("empezando por el selector de variables, hazlo mas dinamico, reactivo quizas,
-    un solo rectangulo para los 3")
+   SLEEK, COMPACT, REACTIVE VARIABLE SWITCHER DOCK
+   ("Tambien modifica la UI/UX de choose a climate variable, es incomodo a la
+    vista, mejoralo bastante!")
    Used on BOTH the Region Selector Page and the Region Data Page!
    ========================================================================== */
 .selector-bottom-variables {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 880px;
+  max-width: 720px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.9rem;
-  padding-top: 0.25rem;
-}
-
-.selector-preview-label {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  text-align: center;
+  gap: 0.85rem;
+  padding-top: 0.1rem;
 }
 
 .unified-var-switcher {
   position: relative;
   width: 100%;
-  background-color: var(--app-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 18px;
-  padding: 6px;
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  padding: 5px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
-  box-shadow: inset 0 2px 5px rgba(31, 58, 54, 0.04);
+  box-shadow:
+    0 6px 20px rgba(31, 58, 54, 0.06),
+    inset 0 1px 2px rgba(31, 58, 54, 0.03);
 }
 
-/* Sliding Active Glider Pill Inside the Single Variable Rectangle */
+/* Solid Regional Sliding Glider Pill Inside the Variable Dock */
 .var-switcher-glider {
   position: absolute;
-  top: 6px;
-  bottom: 6px;
-  left: 6px;
-  width: calc((100% - 12px) / 3);
-  border-radius: 13px;
-  background-color: var(--card-bg);
-  border: 2px solid var(--reg-primary);
-  box-shadow: 0 6px 18px rgba(31, 58, 54, 0.10);
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc((100% - 10px) / 3);
+  border-radius: 12px;
+  background-color: var(--reg-primary);
+  box-shadow: 0 5px 15px rgba(31, 58, 54, 0.18);
   transform: translateX(calc(var(--var-idx, 0) * 100%));
   transition:
-    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.38s ease,
+    box-shadow 0.38s ease;
   pointer-events: none;
   z-index: 0;
 }
@@ -589,27 +647,27 @@ body[data-page="data"] #page-region-data {
   appearance: none;
   border: none;
   background: transparent;
-  border-radius: 13px;
-  padding: 0.72rem 1rem;
+  border-radius: 12px;
+  padding: 0.56rem 0.85rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.65rem;
   text-align: left;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Subtle divider lines between segments */
+/* Subtle divider lines between inactive segments */
 .unified-var-btn:not(:last-child)::after {
   content: "";
   position: absolute;
   right: 0;
-  top: 22%;
-  bottom: 22%;
-  width: 1.5px;
+  top: 24%;
+  bottom: 24%;
+  width: 1px;
   background-color: var(--border-color);
-  opacity: 0.65;
+  opacity: 0.7;
   transition: opacity 0.25s ease;
 }
 
@@ -626,38 +684,32 @@ body[data-page="data"] #page-region-data {
   transform: scale(0.98);
 }
 
-.uvar-left {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  min-width: 0;
-}
-
 .uvar-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 11px;
-  background-color: var(--reg-soft);
-  border: 1.5px solid var(--reg-soft-border);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--border-color);
   padding: 5px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition:
-    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.3s ease,
     background-color 0.3s ease;
 }
 
 .unified-var-btn:hover .uvar-icon {
-  transform: scale(1.06) rotate(-3deg);
+  transform: scale(1.05);
+  border-color: var(--reg-primary);
 }
 
 .unified-var-btn.active .uvar-icon {
-  border-color: var(--reg-primary);
-  background-color: var(--reg-soft);
-  transform: scale(1.08);
+  background-color: #FFFBEF;
+  border-color: rgba(255, 251, 239, 0.9);
+  transform: scale(1.06);
 }
 
 .uvar-icon svg {
@@ -669,66 +721,57 @@ body[data-page="data"] #page-region-data {
 .uvar-copy {
   display: flex;
   flex-direction: column;
-  gap: 0.14rem;
+  gap: 0.1rem;
   min-width: 0;
 }
 
 .uvar-name {
   font-family: var(--font-display);
-  font-size: 0.94rem;
+  font-size: 0.88rem;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.15;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.unified-var-btn.active .uvar-name {
+  color: #FFFBEF;
 }
 
 .uvar-status {
   display: inline-flex;
   align-items: center;
-  gap: 0.38rem;
-  font-size: 0.76rem;
+  gap: 0.32rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.unified-var-btn.active .uvar-status {
+  color: rgba(255, 251, 239, 0.92) !important;
 }
 
 .uvar-status-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: currentColor;
   flex-shrink: 0;
 }
 
-.uvar-state-pill {
-  font-family: var(--font-display);
-  font-size: 0.66rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.22rem 0.58rem;
-  border-radius: 999px;
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  flex-shrink: 0;
-  transition: all 0.28s ease;
-}
-
-.unified-var-btn.active .uvar-state-pill {
-  background-color: var(--reg-primary);
-  border-color: var(--reg-primary);
-  color: #ffffff;
-}
-
 .open-region-page-btn {
   appearance: none;
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
   border: none;
   background-color: var(--reg-primary);
   color: #ffffff;
   font-family: var(--font-display);
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   font-weight: 800;
-  padding: 0.85rem 2.1rem;
+  padding: 0.72rem 1.85rem;
   border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
@@ -842,6 +885,18 @@ body[data-page="data"] #page-region-data {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-muted);
+}
+
+.region-overview-callout {
+  margin: 0;
+  padding: 0.72rem 1.15rem;
+  border-radius: 14px;
+  background-color: var(--reg-soft);
+  border-left: 4px solid var(--reg-primary);
+  color: var(--text-main);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .change-region-Action-btn {
@@ -1405,169 +1460,112 @@ body[data-page="data"] #page-region-data {
 }
 
 /* ==========================================================================
-   REDESIGNED NASA SATELLITE DATA & REFERENCE PASSPORT
-   ("Cambia el apartado de Scientific Bibliography & Data Source")
+   EDITORIAL DATA SOURCE & SCIENTIFIC REFERENCE CARD
+   (Respects the calm, refined scientific-atlas aesthetic of Atlalli)
    ========================================================================== */
-.nasa-passport-card {
+.atlas-source-card {
   background-color: var(--card-bg);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  padding: 1.75rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   box-shadow: 0 8px 26px rgba(31, 58, 54, 0.04);
 }
 
-.passport-banner {
-  background-color: var(--reg-soft);
-  border-bottom: 1.5px solid var(--reg-soft-border);
-  padding: 1.25rem 2rem;
+.source-top-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1.25rem;
   flex-wrap: wrap;
+  padding-bottom: 1.05rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.passport-brand-left {
+.source-heading-group {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.22rem;
 }
 
-.passport-emblem-svg {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  background-color: var(--card-bg);
-  border: 2px solid var(--reg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.passport-emblem-svg svg {
-  width: 34px;
-  height: 34px;
-  display: block;
-}
-
-.passport-kicker {
+.source-eyebrow {
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--reg-primary);
 }
 
-.passport-title {
-  margin: 0.08rem 0 0;
+.source-title {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 1.28rem;
+  font-size: clamp(1.18rem, 1.8vw, 1.4rem);
   font-weight: 800;
   color: var(--text-main);
   letter-spacing: -0.02em;
 }
 
-.passport-actions {
+.source-actions {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
 
-.passport-copy-btn {
+.source-action-btn {
   appearance: none;
-  border: 1.5px solid var(--reg-primary);
-  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--app-bg);
   color: var(--text-main);
   font-family: var(--font-display);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  padding: 0.52rem 1rem;
-  border-radius: 10px;
+  padding: 0.46rem 0.95rem;
+  border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.42rem;
+  text-decoration: none;
   transition: all 0.2s ease;
 }
 
-.passport-copy-btn:hover {
-  background-color: var(--reg-primary);
-  color: #ffffff;
-}
-
-.passport-doi-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  text-decoration: none;
-  background-color: var(--reg-primary);
-  color: #ffffff;
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 800;
-  padding: 0.54rem 1.1rem;
-  border-radius: 10px;
-  transition: transform 0.18s ease, opacity 0.18s ease;
-}
-
-.passport-doi-btn:hover {
-  transform: translateY(-1px);
-  opacity: 0.94;
-}
-
-.passport-body {
-  padding: 1.5rem 2rem 1.7rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-}
-
-.passport-pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-.passport-pillar {
-  background-color: var(--app-bg);
-  border: 1.5px solid var(--border-color);
-  border-radius: 14px;
-  padding: 1rem 1.15rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-}
-
-.pillar-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background-color: var(--card-bg);
-  border: 1.5px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.source-action-btn:hover {
+  border-color: var(--reg-primary);
   color: var(--reg-primary);
 }
 
-.pillar-icon-box svg {
-  width: 22px;
-  height: 22px;
-  display: block;
+.source-action-btn.primary {
+  background-color: var(--reg-soft);
+  border-color: var(--reg-primary);
+  color: var(--text-main);
 }
 
-.pillar-copy {
+.source-action-btn.primary:hover {
+  background-color: var(--reg-primary);
+  color: #ffffff;
+}
+
+.source-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9rem;
+}
+
+.source-spec-item {
+  background-color: var(--app-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.16rem;
-  min-width: 0;
+  gap: 0.18rem;
 }
 
-.pillar-label {
+.source-spec-label {
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1575,71 +1573,51 @@ body[data-page="data"] #page-region-data {
   color: var(--text-muted);
 }
 
-.pillar-value {
+.source-spec-val {
   font-family: var(--font-display);
-  font-size: 0.93rem;
+  font-size: 0.9rem;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.25;
 }
 
-.pillar-sub {
-  font-size: 0.78rem;
+.source-spec-sub {
+  font-size: 0.76rem;
   color: var(--text-muted);
-  line-height: 1.38;
+  line-height: 1.35;
 }
 
-.passport-citation-strip {
+.source-citation-bar {
   background-color: var(--app-bg);
-  border: 1.5px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 0.85rem 1.15rem;
+  padding: 0.78rem 1.1rem;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-.citation-strip-left {
-  display: flex;
-  align-items: baseline;
-  gap: 0.65rem;
-  flex-wrap: wrap;
-  font-size: 0.88rem;
-  color: var(--text-main);
+  font-size: 0.84rem;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
-.citation-strip-tag {
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: var(--reg-soft);
-  border: 1px solid var(--reg-soft-border);
-  color: var(--reg-primary);
-  padding: 0.18rem 0.58rem;
-  border-radius: 6px;
-  flex-shrink: 0;
+.source-citation-bar strong {
+  color: var(--text-main);
+  font-weight: 700;
 }
 
-.citation-doi-pill {
+.source-doi-mono {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--reg-primary);
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  padding: 0.28rem 0.7rem;
-  border-radius: 8px;
   text-decoration: none;
-  transition: border-color 0.2s ease;
+  white-space: nowrap;
 }
 
-.citation-doi-pill:hover {
-  border-color: var(--reg-primary);
+.source-doi-mono:hover {
+  text-decoration: underline;
 }
 
 /* Responsive Breakpoints */
@@ -1658,8 +1636,8 @@ body[data-page="data"] #page-region-data {
     grid-template-columns: 1fr;
     padding: 1.5rem;
   }
-  .passport-pillars-grid {
-    grid-template-columns: 1fr;
+  .source-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   .mode-pill-group {
     min-width: 100%;
@@ -1685,8 +1663,7 @@ body[data-page="data"] #page-region-data {
     display: none;
   }
   .unified-var-btn.active {
-    background-color: var(--card-bg);
-    border: 2px solid var(--reg-primary);
+    background-color: var(--reg-primary);
   }
   .unified-var-btn:not(:last-child)::after {
     display: none;
@@ -1700,26 +1677,24 @@ body[data-page="data"] #page-region-data {
   .mode-pill-btn.active {
     background-color: var(--reg-primary);
   }
-  .circular-wheel-stage {
-    width: 330px;
-    height: 330px;
+  .selector-constellation-stage {
+    height: 230px;
   }
-  #wheel-pointer-group {
-    transform-origin: 165px 165px;
-  }
-  .wheel-center-hub {
-    width: 156px;
-    height: 156px;
+  .constellation-preview-pill {
+    display: none;
   }
   .wheel-node {
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
+    width: 74px;
+    height: 74px;
+    margin-left: -37px;
+    margin-top: -37px;
   }
   .node-mini-svg {
     width: 34px;
     height: 34px;
+  }
+  .source-specs-grid {
+    grid-template-columns: 1fr;
   }
   .graph-canvas-wrap {
     height: 340px;

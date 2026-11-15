@@ -1964,14 +1964,14 @@ window.ATLALLI_REGION_DATA = {
       "shortTag": "Semi-Arid High Plateau",
       "climateTag": "Dry plateau & cool winters",
       "colors": {
-        "primary": "#7B50A2",
+        "primary": "#8E4A35",
         "accent": "#B2673D",
-        "softBg": "#F2E8F7",
+        "softBg": "#F7EFE6",
         "combo": [
-          "#7B50A2",
-          "#E1649E",
+          "#8E4A35",
           "#B2673D",
-          "#A97508"
+          "#D4AA6A",
+          "#5E7A5A"
         ]
       },
       "simpleOverview": "Across the high plateau of Zacatecas, air temperatures have risen by +1.2 °C since 2000 (and even faster since 2005), while rain and soil water go through multi-year dry and wet cycles.",

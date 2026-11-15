@@ -955,7 +955,7 @@ footer small {
   font-size: 0.85rem;
 }
 
-/* ---------------- SEAMLESS ANIMATIONS ---------------- */
+/* ---------------- SEAMLESS ANIMATIONS (ENABLED ACROSS ALL DEVICES) ---------------- */
 .river-flow {
   stroke-dasharray: 10 38;
   opacity: 0.78;
@@ -966,18 +966,17 @@ footer small {
   opacity: 0.58;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  /* Scroll Reveal Choreography */
-  .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+/* Scroll Reveal Choreography */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
   /* Hero Weather Cycle (18s smooth loop) */
   .weather-art .sky {
@@ -1630,17 +1629,11 @@ footer small {
       transform: translate(-24px, 10px) scale(0.92);
     }
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  body[data-paused] .var-scene *,
+  body[data-paused] .card-scene * {
+    animation-play-state: paused !important;
   }
-  .weather-art .shower,
-  .weather-art .clouds {
-    opacity: 0;
-  }
-}
 
 /* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
 @media (max-width: 1060px) {

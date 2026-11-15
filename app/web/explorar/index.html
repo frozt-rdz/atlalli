@@ -14,7 +14,7 @@
 </head>
 <body data-region="morelos" data-page="selector">
 
-  <!-- AI-use notice: AI-generated auto-hiding top header with centered reactive 2-page switcher -->
+  <!-- AI-use notice: AI-generated auto-hiding top header with centered reactive 2-page switcher (no numbering) -->
   <header class="explorer-header" id="explorer-header">
     <div class="header-inner">
       <a class="brand-back" href="../index.html">
@@ -28,20 +28,20 @@
         </span>
       </a>
 
-      <!-- Centered Reactive Single-Rectangle Page Switcher (Auto-hides on scroll down) -->
+      <!-- Centered Reactive Single-Rectangle Page Switcher (No 1 & 2 numbering) -->
       <nav class="header-page-tabs" id="header-page-tabs" style="--page-idx: 0;" aria-label="Explorer view switcher">
         <span class="page-tabs-glider" aria-hidden="true"></span>
         <button type="button" class="page-tab-btn active" id="nav-tab-selector" data-goto-page="selector">
-          <svg class="tab-svg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
+          <svg class="tab-svg-icon" viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">
             <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
             <ellipse cx="10" cy="10" rx="3.6" ry="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
             <line x1="2.8" y1="10" x2="17.2" y2="10" stroke="currentColor" stroke-width="1.5"/>
           </svg>
-          <span>1. Region &amp; Variable Selector</span>
+          <span>Region Selector</span>
         </button>
         <button type="button" class="page-tab-btn" id="nav-tab-data" data-goto-page="data">
           <span class="active-region-dot" aria-hidden="true"></span>
-          <span id="header-region-name">2. View Graphs: Morelos · Precipitation</span>
+          <span id="header-region-name">View Graphs · Morelos</span>
         </button>
       </nav>
 
@@ -50,41 +50,36 @@
   </header>
 
   <!-- ========================================================================
-       INDEPENDENT PAGE 1: STANDALONE 6-REGION & VARIABLE SELECTOR PAGE
-       - Top Center: Region Name, Landmark & Overview
-       - Middle Center: Circular 6-Region Wheel with Animated Center Scene
-       - Bottom Center: Unified Single-Rectangle Reactive Variable Switcher + CTA
+       INDEPENDENT PAGE 1: FULL-SCREEN STEPPED 6-REGION & VARIABLE SELECTOR
+       - Clean Top Title Only (Subtitle & overview moved to View Graphs)
+       - Stepped 3 Top-Left + 3 Bottom-Right Connected Region Constellation
+       - Rectangle Background Changes Color Dynamically on Region Selection
+       - Sleek Segmented Pill Dock for Climate Variables
        ======================================================================== -->
-  <!-- AI-use notice: AI-generated standalone centered 6-region and variable selector page -->
+  <!-- AI-use notice: AI-generated full-screen stepped constellation region selector -->
   <main class="selector-page-wrap" id="page-region-selector" aria-label="Independent region selector page">
-    <section class="selector-standalone-card">
-      <!-- 1. TOP CENTER: Region Name & Overview -->
+    <section class="selector-standalone-card" id="selector-standalone-card">
+      <!-- Full-Bleed Animated Regional & Variable Background Scene for the Outer Rectangle -->
+      <div class="card-bg-scene" id="card-bg-scene" aria-hidden="true"></div>
+
+      <!-- 1. TOP CENTER: Eyebrow & Region Name Only -->
       <div class="selector-top-center">
-        <span class="selector-eyebrow">Select a Study Region &amp; Climate Variable</span>
+        <span class="selector-eyebrow">Select a Study Region</span>
         <h1 class="selector-main-title" id="selector-main-title">Morelos, Mexico</h1>
-        <p class="selector-sub-landmark" id="selector-sub-landmark">
-          Tepozteco Valley &amp; Bougainvillea · Warm valleys &amp; summer rains
-        </p>
-        <p class="selector-overview-banner" id="selector-regional-summary-text">
-          Morelos is getting steadily warmer (+1.3 °C over 25 years). Even though yearly rain totals bounce up and down without a permanent drop, the extra heat is slowly drying out the top layer of soil.
-        </p>
       </div>
 
-      <!-- 2. MIDDLE CENTER: Circular 6-Region Wheel with Animated SVG Inside Center Circle -->
-      <div class="selector-wheel-center">
-        <div class="circular-wheel-stage" id="circular-wheel-stage">
-          <!-- Built and animated by explorar.js -->
-        </div>
+      <!-- 2. MIDDLE CENTER: 3 Horizontal Top-Left + 3 Horizontal Bottom-Right Connected by Lines -->
+      <div class="selector-constellation-stage" id="circular-wheel-stage">
+        <!-- Populated and animated by explorar.js -->
       </div>
 
-      <!-- 3. BOTTOM CENTER: Single Unified Reactive Variable Switcher Below the Region Selector -->
+      <!-- 3. BOTTOM CENTER: Clean Segmented Variable Pill Dock + Primary Action -->
       <div class="selector-bottom-variables">
-        <span class="selector-preview-label">Choose a climate variable to explore in <strong id="selector-var-region-label">Morelos</strong>:</span>
         <div class="unified-var-switcher" id="selector-var-preview-list" style="--var-idx: 0;" role="tablist" aria-label="Select climate variable">
           <!-- Populated & updated reactively by explorar.js -->
         </div>
         <button type="button" class="open-region-page-btn" id="open-region-page-btn" data-goto-page="data">
-          <span id="open-region-btn-text">Open Morelos · Precipitation Graphs &amp; Analysis</span>
+          <span id="open-region-btn-text">Explore Morelos · Precipitation Graphs</span>
           <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
             <path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>

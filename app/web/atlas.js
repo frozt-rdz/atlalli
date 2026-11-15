@@ -53,14 +53,15 @@ if (screen && screen.dataset.pitchSrc && videoSlot) {
   screen.classList.add("has-video");
 }
 
+// Always show the Pause/Play motion toggle button across all devices
 if (screen) {
-  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const toggle = screen.querySelector(".weather-toggle");
   let paused = false;
   function updateWeather() {
     screen.toggleAttribute("data-paused", paused);
+    document.body.toggleAttribute("data-paused", paused);
     if (toggle) {
-      toggle.hidden = motion.matches;
+      toggle.hidden = false;
       toggle.textContent = paused ? "Play motion" : "Pause motion";
     }
   }
@@ -70,23 +71,19 @@ if (screen) {
       updateWeather();
     });
   }
-  motion.addEventListener("change", updateWeather);
   updateWeather();
 }
 
-// Respect reduced motion preference across interactive scenes and scroll reveals
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+// Enable regional card and variable animations across all devices
 const cards = document.querySelectorAll(".card");
+for (const card of cards) {
+  card.dataset.moving = "";
+}
 
-// Keep card vignettes smoothly animated while visible in viewport
 if ("IntersectionObserver" in window) {
   const sceneObserver = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (reducedMotion.matches) {
-          delete entry.target.dataset.moving;
-          continue;
-        }
         if (entry.isIntersecting) {
           entry.target.dataset.moving = "";
         } else {
@@ -94,7 +91,7 @@ if ("IntersectionObserver" in window) {
         }
       }
     },
-    { threshold: 0.15 }
+    { threshold: 0.08 }
   );
 
   for (const card of cards) {
@@ -106,15 +103,13 @@ if ("IntersectionObserver" in window) {
     ".telemetry-strip, .var-panel, .card, .method-card, .repo-card"
   );
   revealTargets.forEach((el, idx) => {
-    if (!reducedMotion.matches) {
-      el.classList.add("reveal");
-      if (
-        el.classList.contains("var-panel") ||
-        el.classList.contains("card") ||
-        el.classList.contains("method-card")
-      ) {
-        el.style.transitionDelay = `${(idx % 3) * 65}ms`;
-      }
+    el.classList.add("reveal");
+    if (
+      el.classList.contains("var-panel") ||
+      el.classList.contains("card") ||
+      el.classList.contains("method-card")
+    ) {
+      el.style.transitionDelay = `${(idx % 3) * 65}ms`;
     }
   });
 
@@ -127,14 +122,10 @@ if ("IntersectionObserver" in window) {
         }
       }
     },
-    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
   );
 
   for (const el of revealTargets) {
     revealObserver.observe(el);
-  }
-} else {
-  for (const card of cards) {
-    if (!reducedMotion.matches) card.dataset.moving = "";
   }
 }

@@ -226,7 +226,7 @@
               <rect x="0" y="10" width="54" height="14" rx="7"/>
               <circle cx="16" cy="10" r="10"/><circle cx="34" cy="8" r="12"/>
             </g>
-            <path d="M0,162 L56,102 L112,136 L174,86 L260,142 L260,260 L0,260 Z" fill="#7B50A2" opacity="0.68"/>
+            <path d="M0,162 L56,102 L112,136 L174,86 L260,142 L260,260 L0,260 Z" fill="#3D4A41" opacity="0.68"/>
             <path d="M0,178 Q78,138 158,168 T260,156 L260,260 L0,260 Z" fill="#619F4D"/>
             <path d="M0,204 Q130,180 260,202 L260,260 L0,260 Z" fill="#3B7A57"/>
             <g transform="translate(42, 146)">
@@ -324,11 +324,11 @@
         return `
           <svg viewBox="0 0 260 260" aria-label="Animated Zacatecas plateau and La Bufa">
             <rect width="260" height="260" fill="${c.softBg}"/>
-            <circle cx="186" cy="64" r="${(23 + sunPulse).toFixed(1)}" fill="#A97508"/>
-            <polygon points="28,178 104,78 178,178" fill="${c.accent}"/>
+            <circle cx="186" cy="64" r="${(23 + sunPulse).toFixed(1)}" fill="#D59625"/>
+            <polygon points="28,178 104,78 178,178" fill="#B2673D"/>
             <rect x="92" y="70" width="24" height="12" rx="2" fill="#8C4A2F"/>
-            <path d="M0,178 Q130,152 260,174 L260,260 L0,260 Z" fill="#B9A4D7"/>
-            <path d="M0,202 Q130,184 260,200 L260,260 L0,260 Z" fill="${c.primary}"/>
+            <path d="M0,178 Q130,152 260,174 L260,260 L0,260 Z" fill="#D4AA6A"/>
+            <path d="M0,202 Q130,184 260,200 L260,260 L0,260 Z" fill="#8C4A2F"/>
             <path d="M${(42 + breeze * 2.2).toFixed(1)},106 Q104,94 164,106" stroke="#FFFBEF" stroke-width="3.6" fill="none" stroke-linecap="round"/>
             <path d="M${(64 - breeze * 1.8).toFixed(1)},124 Q124,114 184,124" stroke="#FFFBEF" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85"/>
           </svg>`;
@@ -352,17 +352,14 @@
         const vm = DATA.variableMeta[vKey];
         return `
           <button type="button" class="unified-var-btn" data-select-var="${vKey}" role="tab">
-            <span class="uvar-left">
-              <span class="uvar-icon">${getVariableIconSvg(vKey)}</span>
-              <span class="uvar-copy">
-                <span class="uvar-name">${vm.shortLabel}</span>
-                <span class="uvar-status" data-var-status="${vKey}">
-                  <span class="uvar-status-dot" aria-hidden="true"></span>
-                  <span class="uvar-status-text"></span>
-                </span>
+            <span class="uvar-icon">${getVariableIconSvg(vKey)}</span>
+            <span class="uvar-copy">
+              <span class="uvar-name">${vm.shortLabel}</span>
+              <span class="uvar-status" data-var-status="${vKey}">
+                <span class="uvar-status-dot" aria-hidden="true"></span>
+                <span class="uvar-status-text"></span>
               </span>
             </span>
-            <span class="uvar-state-pill" data-var-pill="${vKey}">Select</span>
           </button>`;
       }).join("")}
     `;
@@ -389,126 +386,381 @@
         const txt = statusEl.querySelector(".uvar-status-text");
         if (txt) txt.textContent = vd.story.statusPill;
       }
-      const pillEl = containerEl.querySelector(`[data-var-pill="${vKey}"]`);
-      if (pillEl) {
-        pillEl.textContent = isAct ? "Active" : "Select";
-      }
     });
   }
 
   /* ==========================================================================
-     AI-use notice: Independent Region Selector Page (460x460 Persistent Wheel)
+     AI-use notice: Full-Bleed Animated Background for Outer Card Rectangle
+     (User requested: "la modificacion del fondo dependiendo de la region y
+      variable es en el rectangulo de fuera, en el que esta marcado de rojo,
+      y los colores de fondo de zacatecas, no hay suelo morado!")
+     - Covers the entire outer card (1140 x 590) with authentic regional scenery
+       and reactive atmospheric weather effects.
      ========================================================================== */
+  function renderOuterCardBackgroundSvg(regionId, varKey, phase, W, H) {
+    const r = DATA.regions[regionId] || DATA.regions.morelos;
+    const c = r.colors;
+    const breeze = Math.sin(phase * 2.2) * 8;
+    const floatY = Math.cos(phase * 1.8) * 5;
+    const sunPulse = Math.sin(phase * 2.8) * 4;
+
+    // 1. Authentic Regional Scenery
+    let scenerySvg = "";
+    switch (regionId) {
+      case "chiapas":
+        scenerySvg = `
+          <!-- Chiapas Highland Mist & Mountain Ridges -->
+          <path d="M0,240 Q280,170 560,215 T1140,195 L1140,${H} L0,${H} Z" fill="#7FA89E" opacity="0.45"/>
+          <path d="M0,310 Q340,240 700,285 T1140,265 L1140,${H} L0,${H} Z" fill="#2D5F59" opacity="0.48"/>
+          <!-- Palenque Maya Step Pyramid in Limestone & Moss Patina -->
+          <g transform="translate(930, 215)" fill="#2D5F59" opacity="0.72">
+            <rect x="0" y="90" width="170" height="20" rx="3"/>
+            <rect x="18" y="70" width="134" height="20" rx="3"/>
+            <rect x="36" y="50" width="98" height="20" rx="3"/>
+            <rect x="52" y="30" width="66" height="20" rx="3"/>
+            <rect x="66" y="10" width="38" height="20" rx="3"/>
+            <polygon points="78,110 82,30 88,30 92,110" fill="${c.softBg}" opacity="0.8"/>
+          </g>
+          <!-- Floating Highland Rainforest Mist -->
+          <path d="M${(40 + breeze * 3).toFixed(1)},230 Q380,215 760,230 T1140,225" stroke="#FFFBEF" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.45"/>
+          <path d="M${(100 - breeze * 2.5).toFixed(1)},270 Q480,255 860,270" stroke="#FFFBEF" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.35"/>
+          <!-- Tropical Rainforest Foreground Crest -->
+          <path d="M0,400 Q340,350 680,385 T1140,370 L1140,${H} L0,${H} Z" fill="#1B4D3E" opacity="0.55"/>
+          <!-- Chiapas Jaguar Pacing on Jungle Rock Outcrop -->
+          <g transform="translate(${(140 + breeze * 2.4).toFixed(1)}, 385)" fill="#D59625" opacity="0.85">
+            <rect x="0" y="10" width="46" height="20" rx="10"/>
+            <circle cx="50" cy="12" r="10"/>
+            <polygon points="53,4 57,10 49,10" fill="#D59625"/>
+            <rect x="6" y="26" width="6" height="16" rx="3"/>
+            <rect x="34" y="26" width="6" height="16" rx="3"/>
+            <circle cx="16" cy="18" r="2.4" fill="#1F3A36" opacity="0.7"/>
+            <circle cx="28" cy="16" r="2.4" fill="#1F3A36" opacity="0.7"/>
+            <circle cx="36" cy="20" r="2.4" fill="#1F3A36" opacity="0.7"/>
+            <path d="M0,16 Q-14,7 -18,20" stroke="#D59625" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          </g>`;
+        break;
+
+      case "morelos":
+        scenerySvg = `
+          <!-- Morelos Tepozteco Basalt Cliffs & Valley Slopes -->
+          <path d="M0,230 L160,140 L320,210 L540,120 L780,200 L980,130 L1140,185 L1140,${H} L0,${H} Z" fill="#3D4A41" opacity="0.40"/>
+          <path d="M0,290 Q280,225 620,270 T1140,255 L1140,${H} L0,${H} Z" fill="#4E8752" opacity="0.48"/>
+          <path d="M0,370 Q420,325 840,360 T1140,350 L1140,${H} L0,${H} Z" fill="#2E5A36" opacity="0.55"/>
+          <!-- Swaying Bougainvillea Clusters -->
+          <g transform="translate(${(breeze * 1.5).toFixed(1)}, 0)" fill="${c.primary}" opacity="0.80">
+            <circle cx="160" cy="390" r="10"/><circle cx="175" cy="382" r="8"/><circle cx="187" cy="392" r="9"/>
+            <circle cx="560" cy="375" r="11"/><circle cx="578" cy="368" r="9"/><circle cx="592" cy="378" r="10"/>
+            <circle cx="940" cy="395" r="10"/><circle cx="956" cy="388" r="8.5"/>
+          </g>`;
+        break;
+
+      case "zacatecas":
+        scenerySvg = `
+          <!-- Zacatecas Authentic Altiplano & Cerro de la Bufa (Zero purple soil!) -->
+          <polygon points="160,320 340,140 520,320" fill="#B2673D" opacity="0.50"/>
+          <rect x="314" y="128" width="52" height="20" rx="3" fill="#8C4A2F" opacity="0.70"/>
+          <!-- Rolling Sandstone & Clay Ridges -->
+          <path d="M0,290 Q380,230 760,280 T1140,260 L1140,${H} L0,${H} Z" fill="#C08253" opacity="0.45"/>
+          <path d="M0,360 Q460,315 920,350 L1140,345 L1140,${H} L0,${H} Z" fill="#8C4A2F" opacity="0.52"/>
+          <!-- Golden Semi-Arid Steppe Grassland -->
+          <path d="M0,440 Q360,410 720,435 T1140,425 L1140,${H} L0,${H} Z" fill="#D4AA6A" opacity="0.65"/>
+          <!-- Native Nopal Clusters in Desert Sage Green -->
+          <g transform="translate(180, 410)" fill="#5E7A5A">
+            <ellipse cx="0" cy="0" rx="14" ry="10" transform="rotate(-15)"/>
+            <ellipse cx="14" cy="-8" rx="12" ry="9" transform="rotate(20 14 -8)"/>
+            <ellipse cx="-12" cy="-9" rx="11" ry="8" transform="rotate(-30 -12 -9)"/>
+            <circle cx="16" cy="-17" r="3" fill="#B23D3D"/>
+            <circle cx="-14" cy="-18" r="3" fill="#B23D3D"/>
+          </g>
+          <g transform="translate(920, 420)" fill="#5E7A5A">
+            <ellipse cx="0" cy="0" rx="13" ry="9" transform="rotate(10)"/>
+            <ellipse cx="12" cy="-7" rx="11" ry="8" transform="rotate(-20 12 -7)"/>
+            <circle cx="14" cy="-15" r="2.8" fill="#B23D3D"/>
+          </g>`;
+        break;
+
+      case "sonora":
+        scenerySvg = `
+          <!-- Sonora Desert Canyon, Mesas & Giant Saguaro Cacti -->
+          <polygon points="40,300 200,155 360,300" fill="#8C4A2F" opacity="0.45"/>
+          <polygon points="290,310 470,140 650,310" fill="#B2673D" opacity="0.45"/>
+          <path d="M0,310 Q360,255 740,300 T1140,285 L1140,${H} L0,${H} Z" fill="#DCBA89" opacity="0.50"/>
+          <path d="M0,380 Q400,340 820,370 L1140,360 L1140,${H} L0,${H} Z" fill="#8C4A2F" opacity="0.55"/>
+          <!-- Giant Saguaro Silhouettes -->
+          <g transform="translate(220, 210)" fill="#2D5D4E" opacity="0.80">
+            <rect x="15" y="0" width="11" height="110" rx="5.5"/>
+            <path d="M20,54 L40,54 L40,24 L30,24 L30,44 L20,44 Z"/>
+            <path d="M20,66 L2,66 L2,36 L12,36 L12,54 L20,54 Z"/>
+          </g>
+          <g transform="translate(820, 225)" fill="#2D5D4E" opacity="0.75">
+            <rect x="13" y="0" width="9" height="92" rx="4.5"/>
+            <path d="M17,46 L34,46 L34,20 L26,20 L26,38 L17,38 Z"/>
+          </g>`;
+        break;
+
+      case "south_amazon":
+        scenerySvg = `
+          <!-- Southern Amazon Canopy & Winding River Channel -->
+          <path d="M0,250 Q260,185 560,230 T1140,215 L1140,${H} L0,${H} Z" fill="#1B4332" opacity="0.48"/>
+          <path d="M0,310 Q340,250 700,295 T1140,280 L1140,${H} L0,${H} Z" fill="#2D6A4F" opacity="0.52"/>
+          <!-- Meandering Blue Amazon River with Shimmering Reflections -->
+          <path d="M460,290 Q360,370 230,${H} L490,${H} Q530,360 480,290 Z" fill="#1B8E96" opacity="0.75"/>
+          <line x1="${(290 + breeze * 2.2).toFixed(1)}" y1="380" x2="${(390 + breeze * 2.2).toFixed(1)}" y2="380" stroke="#FFFBEF" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+          <line x1="${(320 - breeze * 2.0).toFixed(1)}" y1="420" x2="${(430 - breeze * 2.0).toFixed(1)}" y2="420" stroke="#FFFBEF" stroke-width="3" stroke-linecap="round" opacity="0.75"/>`;
+        break;
+
+      case "sahel":
+      default:
+        scenerySvg = `
+          <!-- Sahel Golden Savanna Dunes & Umbrella Acacia Tree -->
+          <path d="M0,280 Q380,220 760,270 T1140,250 L1140,${H} L0,${H} Z" fill="#DCBA89" opacity="0.50"/>
+          <path d="M0,350 Q420,310 860,345 T1140,335 L1140,${H} L0,${H} Z" fill="#A97508" opacity="0.52"/>
+          <!-- Umbrella Acacia Silhouette -->
+          <g transform="translate(820, 195)">
+            <path d="M40,110 L40,42 L18,20 M40,50 L64,22" stroke="#3E3A36" stroke-width="4.8" fill="none" stroke-linecap="round"/>
+            <ellipse cx="40" cy="18" rx="52" ry="12" fill="#556B2F" opacity="0.82"/>
+            <ellipse cx="18" cy="26" rx="24" ry="8" fill="#6B8E23" opacity="0.82"/>
+          </g>`;
+        break;
+    }
+
+    // 2. Reactive Weather & Climate Variable Atmospheric Overlay across the outer card
+    let weatherSvg = "";
+    if (varKey === "precipitation_rate") {
+      const cloud1X = (140 + breeze * 2.4).toFixed(1);
+      const cloud2X = (640 - breeze * 2.0).toFixed(1);
+      const cloudsSvg = `
+        <g transform="translate(${cloud1X}, 25)" fill="#2A5F8F" opacity="0.32">
+          <rect x="0" y="18" width="145" height="28" rx="14"/>
+          <circle cx="40" cy="18" r="22"/><circle cx="82" cy="12" r="28"/><circle cx="118" cy="20" r="18"/>
+        </g>
+        <g transform="translate(${cloud2X}, 32)" fill="#2A5F8F" opacity="0.28">
+          <rect x="0" y="16" width="155" height="26" rx="13"/>
+          <circle cx="44" cy="16" r="20"/><circle cx="90" cy="10" r="26"/><circle cx="128" cy="18" r="17"/>
+        </g>`;
+
+      let rainLines = "";
+      for (let i = 0; i < 30; i++) {
+        const rx = (i * 39 + 30) % (W - 50);
+        const progress = (phase * 1.4 + ((i * 37) % 100) * 0.01) % 1;
+        const ry = 40 + progress * (H - 70);
+        const x1 = rx - progress * 18;
+        const y1 = ry;
+        const x2 = x1 - 5.5;
+        const y2 = y1 + 22;
+        rainLines += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#2A5F8F" stroke-width="2.2" stroke-linecap="round" opacity="0.34"/>`;
+      }
+
+      const rippleSvg = `<path d="M0,${H - 14} Q280,${H - 20} 560,${H - 14} T1140,${H - 14} L1140,${H} L0,${H} Z" fill="#2A5F8F" opacity="0.28"/>`;
+      weatherSvg = `${cloudsSvg}${rainLines}${rippleSvg}`;
+    } else if (varKey === "soil_moisture_0_10cm") {
+      const soilLayer = `<rect x="0" y="${H - 65}" width="${W}" height="65" fill="#5A3D28" opacity="0.22"/>`;
+
+      let bubblesSvg = "";
+      for (let i = 0; i < 20; i++) {
+        const bx = (i * 58 + 40) % (W - 60);
+        const progress = (phase * 0.45 + ((i * 53) % 100) * 0.01) % 1;
+        const by = H - 20 - progress * 95;
+        const br = 2.5 + (i % 3);
+        const bobX = bx + Math.sin(phase * 2 + i) * 7;
+        bubblesSvg += `<circle cx="${bobX.toFixed(1)}" cy="${by.toFixed(1)}" r="${br}" fill="#2A5F8F" opacity="${(0.44 - progress * 0.38).toFixed(2)}"/>`;
+      }
+
+      const shootsSvg = [120, 320, 560, 800, 1020]
+        .map((sx, idx) => {
+          const sway = Math.sin(phase * 2.2 + idx) * 3.5;
+          return `
+            <g transform="translate(${sx}, ${H - 58}) rotate(${sway.toFixed(1)})" fill="#40916C" opacity="0.70">
+              <line x1="0" y1="0" x2="0" y2="-30" stroke="#40916C" stroke-width="3" stroke-linecap="round"/>
+              <path d="M0,-12 Q-14,-24 -18,-11 Q-8,-5 0,-11 Z"/>
+              <path d="M0,-20 Q14,-32 18,-19 Q8,-13 0,-19 Z"/>
+              <circle cx="0" cy="-30" r="4" fill="#2D6A4F"/>
+            </g>`;
+        })
+        .join("");
+
+      weatherSvg = `${soilLayer}${bubblesSvg}${shootsSvg}`;
+    } else {
+      let raysSvg = "";
+      for (let r = 0; r < 8; r++) {
+        const ang = (r * Math.PI) / 4;
+        const x1 = Math.cos(ang) * 38;
+        const y1 = Math.sin(ang) * 38;
+        const x2 = Math.cos(ang) * 54;
+        const y2 = Math.sin(ang) * 54;
+        raysSvg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+      }
+
+      const sunSvg = `
+        <g transform="translate(1010, ${(75 + floatY).toFixed(1)})" opacity="0.70">
+          <circle cx="0" cy="0" r="${(42 + sunPulse).toFixed(1)}" fill="#C2410C" opacity="0.25"/>
+          <circle cx="0" cy="0" r="28" fill="#D59625"/>
+          <g transform="rotate(${((phase * 18) % 360).toFixed(1)})" stroke="#C2410C" stroke-width="3.2" stroke-linecap="round">
+            ${raysSvg}
+          </g>
+        </g>`;
+
+      let shimmerSvg = "";
+      const shimmerX = [150, 320, 520, 720, 920];
+      shimmerX.forEach((hx, idx) => {
+        let d = `M ${hx},${H - 25}`;
+        for (let y = H - 25; y >= 200; y -= 20) {
+          const xOff = Math.sin((H - y) * 0.045 - phase * 3 + idx) * 9;
+          d += ` L ${(hx + xOff).toFixed(1)},${y}`;
+        }
+        shimmerSvg += `<path d="${d}" fill="none" stroke="#C2410C" stroke-width="2.6" stroke-linecap="round" opacity="0.32"/>`;
+      });
+
+      weatherSvg = `${sunSvg}${shimmerSvg}`;
+    }
+
+    return `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+        <rect width="${W}" height="${H}" fill="${c.softBg}" opacity="0.75"/>
+        ${scenerySvg}
+        ${weatherSvg}
+      </svg>`;
+  }
+
+  /* ==========================================================================
+     AI-use notice: Independent Region Selector Page
+     Stepped Constellation Layout: 3 Horizontal Top-Left + 3 Horizontal Bottom-Right,
+     Centered and Connected with SVG Lines over a Translucent Frosted Stage!
+     ========================================================================== */
+  const CONSTELLATION_NODES = [
+    // Top-Left 3 Horizontal Nodes (y = 28% / 87px in 960x310 viewBox)
+    { id: "morelos", pctX: 18, pctY: 28, svgX: 173, svgY: 87 },
+    { id: "chiapas", pctX: 40, pctY: 28, svgX: 384, svgY: 87 },
+    { id: "zacatecas", pctX: 62, pctY: 28, svgX: 595, svgY: 87 },
+    // Bottom-Right 3 Horizontal Nodes (y = 72% / 223px in 960x310 viewBox)
+    { id: "sonora", pctX: 38, pctY: 72, svgX: 365, svgY: 223 },
+    { id: "south_amazon", pctX: 60, pctY: 72, svgX: 576, svgY: 223 },
+    { id: "sahel", pctX: 82, pctY: 72, svgX: 787, svgY: 223 },
+  ];
+
+  function buildConstellationActivePath(activeId) {
+    const idx = CONSTELLATION_NODES.findIndex((n) => n.id === activeId);
+    if (idx <= 0) {
+      return `M 173,87 L 384,87`;
+    }
+    let d = `M ${CONSTELLATION_NODES[0].svgX},${CONSTELLATION_NODES[0].svgY}`;
+    for (let i = 1; i <= idx; i++) {
+      d += ` L ${CONSTELLATION_NODES[i].svgX},${CONSTELLATION_NODES[i].svgY}`;
+    }
+    return d;
+  }
+
   function initCircularWheelOnce() {
     const wheelStage = document.getElementById("circular-wheel-stage");
     if (!wheelStage || state.wheelInitialized) return;
 
-    const cx = 230;
-    const cy = 230;
-    const radius = 176;
-    let backgroundSpokes = "";
+    // Ensure outer card background container exists
+    const outerCard = document.getElementById("selector-standalone-card");
+    if (outerCard && !document.getElementById("card-bg-scene")) {
+      const bg = document.createElement("div");
+      bg.className = "card-bg-scene";
+      bg.id = "card-bg-scene";
+      bg.setAttribute("aria-hidden", "true");
+      outerCard.prepend(bg);
+    }
+
     let nodesHtml = "";
-
-    REGION_ORDER.forEach((id, idx) => {
-      const angleDeg = -90 + idx * 60;
-      const rad = (angleDeg * Math.PI) / 180;
-      const nx = cx + Math.cos(rad) * radius;
-      const ny = cy + Math.sin(rad) * radius;
-      const pctX = (nx / 460) * 100;
-      const pctY = (ny / 460) * 100;
-      const rObj = DATA.regions[id];
-
-      backgroundSpokes += `<line x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#E2D5B0" stroke-width="2" stroke-dasharray="6,6"/>`;
-
+    CONSTELLATION_NODES.forEach((node) => {
+      const rObj = DATA.regions[node.id];
       nodesHtml += `
         <button
           type="button"
           class="wheel-node"
-          id="wheel-node-${id}"
-          style="left:${pctX.toFixed(2)}%; top:${pctY.toFixed(2)}%; --node-color:${rObj.colors.primary}; --node-soft:${rObj.colors.softBg}"
-          data-select-region="${id}"
+          id="wheel-node-${node.id}"
+          style="left:${node.pctX}%; top:${node.pctY}%; --node-color:${rObj.colors.primary}; --node-soft:${rObj.colors.softBg}"
+          data-select-region="${node.id}"
           aria-label="Select ${rObj.name} region"
         >
-          <span class="node-mini-svg">${getRegionMiniNodeSvg(id)}</span>
+          <span class="node-mini-svg" id="node-svg-${node.id}">${getRegionMiniNodeSvg(node.id)}</span>
           <span class="node-label">${rObj.name}</span>
         </button>`;
     });
 
+    const fullRouteD = "M 173,87 L 384,87 L 595,87 L 365,223 L 576,223 L 787,223";
+    const crossLinksD = "M 384,87 L 365,223 M 595,87 L 576,223";
+
     wheelStage.innerHTML = `
-      <svg class="wheel-orbit-svg" viewBox="0 0 460 460" aria-hidden="true">
-        <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="#E2D5B0" stroke-width="2.5" stroke-dasharray="8,8"/>
-        <circle id="wheel-inner-ring" cx="${cx}" cy="${cy}" r="124" fill="none" stroke="#D51761" stroke-width="2.2" stroke-opacity="0.38"/>
-        ${backgroundSpokes}
-        <g id="wheel-pointer-group">
-          <line id="wheel-pointer-line" x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - radius}" stroke="#D51761" stroke-width="4.5" stroke-linecap="round"/>
-        </g>
+      <!-- Connecting SVG Constellation Lines with Protective Halo -->
+      <svg class="constellation-svg" viewBox="0 0 960 310" preserveAspectRatio="none" aria-hidden="true">
+        <path class="constellation-line-halo" d="${fullRouteD}"/>
+        <path class="constellation-line-halo" d="${crossLinksD}"/>
+        <path class="constellation-line-base" d="${fullRouteD}"/>
+        <path class="constellation-line-dash" d="${crossLinksD}"/>
+        <path class="constellation-line-dash" d="${fullRouteD}"/>
+        <path class="constellation-line-active" id="constellation-active-path" d="${buildConstellationActivePath(state.regionId)}"/>
       </svg>
-      <div class="wheel-center-hub" id="wheel-center-hub" data-goto-page="data" title="Click to open ${DATA.regions[state.regionId].name} climate data">
-        <div class="hub-svg-wrap" id="hub-svg-wrap"></div>
-        <span class="hub-caption-pill" id="hub-caption-pill">Morelos · Mexico</span>
+
+      <!-- Bottom-Left Region Coordinates & Biome Pill -->
+      <div class="constellation-preview-pill bottom-left" aria-hidden="true">
+        <div class="preview-pill-meta">
+          <span class="preview-pill-kicker" id="constellation-coord-kicker">18.5°N – 19.1°N</span>
+          <span class="preview-pill-val" id="constellation-biome-val">Sub-humid temperate valley</span>
+        </div>
       </div>
+
       ${nodesHtml}
     `;
 
     state.wheelInitialized = true;
   }
 
-  function updateCircularWheelSelection(animatePop) {
+  function updateCircularWheelSelection() {
     initCircularWheelOnce();
 
     const currReg = DATA.regions[state.regionId];
-    const activeIdx = REGION_ORDER.indexOf(state.regionId);
-    const angleDeg = activeIdx * 60;
+    const activeVMeta = DATA.variableMeta[state.activeVar];
 
-    REGION_ORDER.forEach((id) => {
-      const btn = document.getElementById(`wheel-node-${id}`);
+    CONSTELLATION_NODES.forEach((node) => {
+      const btn = document.getElementById(`wheel-node-${node.id}`);
       if (btn) {
-        btn.classList.toggle("active", id === state.regionId);
+        btn.classList.toggle("active", node.id === state.regionId);
+      }
+      if (node.id !== state.regionId) {
+        const svgSpan = document.getElementById(`node-svg-${node.id}`);
+        if (svgSpan && svgSpan.getAttribute("data-animated") === "1") {
+          svgSpan.innerHTML = getRegionMiniNodeSvg(node.id);
+          svgSpan.removeAttribute("data-animated");
+        }
       }
     });
 
-    const pointerGroup = document.getElementById("wheel-pointer-group");
-    const pointerLine = document.getElementById("wheel-pointer-line");
-    const innerRing = document.getElementById("wheel-inner-ring");
-    if (pointerGroup) pointerGroup.style.transform = `rotate(${angleDeg}deg)`;
-    if (pointerLine) pointerLine.setAttribute("stroke", currReg.colors.primary);
-    if (innerRing) innerRing.setAttribute("stroke", currReg.colors.primary);
-
-    const mainTitle = document.getElementById("selector-main-title");
-    const subLandmark = document.getElementById("selector-sub-landmark");
-    const summaryText = document.getElementById("selector-regional-summary-text");
-    const hubCaption = document.getElementById("hub-caption-pill");
-    const varRegionLabel = document.getElementById("selector-var-region-label");
-    const openBtnTxt = document.getElementById("open-region-btn-text");
-    const activeVMeta = DATA.variableMeta[state.activeVar];
-
-    if (mainTitle) mainTitle.textContent = currReg.fullName;
-    if (subLandmark) subLandmark.textContent = `${currReg.landmarkLabel} · ${currReg.climateTag}`;
-    if (summaryText) summaryText.textContent = currReg.simpleOverview || currReg.regionalSummary || "";
-    if (hubCaption) hubCaption.textContent = `${currReg.name} · ${currReg.country}`;
-    if (varRegionLabel) varRegionLabel.textContent = currReg.name;
-    if (openBtnTxt) {
-      openBtnTxt.textContent = `Open ${currReg.name} · ${activeVMeta.shortLabel} Graphs & Analysis`;
+    const activePath = document.getElementById("constellation-active-path");
+    if (activePath) {
+      activePath.setAttribute("d", buildConstellationActivePath(state.regionId));
     }
 
-    const hubWrap = document.getElementById("hub-svg-wrap");
-    if (hubWrap) {
-      hubWrap.innerHTML = renderAnimatedHubRegionSvg(state.regionId, state.phaseTime);
+    const mainTitle = document.getElementById("selector-main-title");
+    const coordKicker = document.getElementById("constellation-coord-kicker");
+    const biomeVal = document.getElementById("constellation-biome-val");
+    const openBtnTxt = document.getElementById("open-region-btn-text");
+
+    if (mainTitle) mainTitle.textContent = currReg.fullName;
+    if (coordKicker) coordKicker.textContent = currReg.bbox.coordLabel;
+    if (biomeVal) biomeVal.textContent = currReg.climateTag;
+    if (openBtnTxt) {
+      openBtnTxt.textContent = `Open ${currReg.name} · ${activeVMeta.shortLabel} Graphs`;
+    }
+
+    // Update Outer Rectangle Animated Background Scene
+    const cardBg = document.getElementById("card-bg-scene");
+    if (cardBg) {
+      cardBg.innerHTML = renderOuterCardBackgroundSvg(state.regionId, state.activeVar, state.phaseTime, 1140, 590);
+    }
+
+    const activeNodeSvg = document.getElementById(`node-svg-${state.regionId}`);
+    if (activeNodeSvg) {
+      activeNodeSvg.innerHTML = renderAnimatedHubRegionSvg(state.regionId, state.phaseTime);
+      activeNodeSvg.setAttribute("data-animated", "1");
     }
 
     // Update unified single-rectangle variable switcher on the Selector Page
     const previewList = document.getElementById("selector-var-preview-list");
     syncUnifiedVarSwitcherDom(previewList, currReg);
-
-    if (animatePop) {
-      const hub = document.getElementById("wheel-center-hub");
-      if (hub) {
-        hub.classList.add("hub-transitioning");
-        setTimeout(() => {
-          hub.classList.remove("hub-transitioning");
-        }, 220);
-      }
-    }
   }
 
   /* ==========================================================================
@@ -1180,6 +1432,9 @@
           </button>
         </div>
 
+        <!-- Regional Overview Paragraph (Moved from Region Selector to View Graphs!) -->
+        <p class="region-overview-callout" id="data-region-overview"></p>
+
         <!-- Single Unified Rectangle Variable Switcher with Sliding Glider -->
         <nav class="unified-var-switcher" id="data-var-switcher" style="--var-idx: 0;" role="tablist" aria-label="Switch climate variable">
         </nav>
@@ -1309,9 +1564,11 @@
     const emblemEl = document.getElementById("data-region-emblem");
     const h1El = document.getElementById("data-region-h1");
     const subEl = document.getElementById("data-region-sub");
+    const overviewEl = document.getElementById("data-region-overview");
     if (emblemEl) emblemEl.innerHTML = getRegionMiniNodeSvg(state.regionId);
     if (h1El) h1El.textContent = region.fullName;
     if (subEl) subEl.textContent = `${region.landmarkLabel} · ${region.climateTag}`;
+    if (overviewEl) overviewEl.textContent = region.simpleOverview || region.regionalSummary || "";
 
     const dataVarSwitcher = document.getElementById("data-var-switcher");
     syncUnifiedVarSwitcherDom(dataVarSwitcher, region);
@@ -1451,93 +1708,62 @@
         </div>
       </section>
 
-      <!-- REDESIGNED NASA SATELLITE DATA & REFERENCE PASSPORT -->
-      <section class="nasa-passport-card" aria-label="NASA satellite data and reference passport">
-        <div class="passport-banner">
-          <div class="passport-brand-left">
-            <div class="passport-emblem-svg">${getSatelliteBiblioSvg(region.colors.primary)}</div>
-            <div>
-              <span class="passport-kicker">Verified NASA Earth Observation Passport</span>
-              <h3 class="passport-title">NASA Satellite Data &amp; Reference</h3>
-            </div>
+      <!-- EDITORIAL DATA SOURCE & SCIENTIFIC REFERENCE CARD -->
+      <section class="atlas-source-card" aria-label="Data source and scientific reference">
+        <div class="source-top-row">
+          <div class="source-heading-group">
+            <span class="source-eyebrow">Data Source &amp; Scientific Reference</span>
+            <h3 class="source-title">NASA GLDAS-2.1 Noah Land Surface Model · ${vMeta.label}</h3>
           </div>
-          <div class="passport-actions">
-            <button type="button" class="passport-copy-btn" data-copy-citation="${fullCitationString.replace(/"/g, "&quot;")}">
-              <svg viewBox="0 0 18 18" width="15" height="15" aria-hidden="true">
+          <div class="source-actions">
+            <button type="button" class="source-action-btn" data-copy-citation="${fullCitationString.replace(/"/g, "&quot;")}">
+              <svg viewBox="0 0 18 18" width="14" height="14" aria-hidden="true">
                 <rect x="6" y="6" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
                 <path d="M12 6V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2" fill="none" stroke="currentColor" stroke-width="1.7"/>
               </svg>
               <span id="copy-citation-label">Copy Citation</span>
             </button>
-            <a class="passport-doi-btn" href="https://doi.org/${vData.provenance.doi}" target="_blank" rel="noopener noreferrer">
-              <span>Official NASA DOI</span>
-              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <a class="source-action-btn primary" href="https://doi.org/${vData.provenance.doi}" target="_blank" rel="noopener noreferrer">
+              <span>DOI: ${vData.provenance.doi}</span>
+              <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
                 <path d="M5 11L11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
           </div>
         </div>
 
-        <div class="passport-body">
-          <div class="passport-pillars-grid">
-            <div class="passport-pillar">
-              <div class="pillar-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="3"/>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                </svg>
-              </div>
-              <div class="pillar-copy">
-                <span class="pillar-label">Mission &amp; Sensor</span>
-                <span class="pillar-value">${vMeta.sensorTag}</span>
-                <span class="pillar-sub">${vData.provenance.source} · 300 monthly records (2000–2024)</span>
-              </div>
-            </div>
-
-            <div class="passport-pillar">
-              <div class="pillar-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/>
-                  <line x1="3" y1="9" x2="21" y2="9"/>
-                  <line x1="3" y1="15" x2="21" y2="15"/>
-                  <line x1="9" y1="3" x2="9" y2="21"/>
-                  <line x1="15" y1="3" x2="15" y2="21"/>
-                </svg>
-              </div>
-              <div class="pillar-copy">
-                <span class="pillar-label">Observation Grid</span>
-                <span class="pillar-value">${region.fullName} (${region.bbox.coordLabel})</span>
-                <span class="pillar-sub">${vData.provenance.gridCells} satellite grid cells · ${vData.provenance.cellKm} spatial resolution</span>
-              </div>
-            </div>
-
-            <div class="passport-pillar">
-              <div class="pillar-icon-box" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-                  <polyline points="16 7 22 7 22 13"/>
-                </svg>
-              </div>
-              <div class="pillar-copy">
-                <span class="pillar-label">Verification Protocol</span>
-                <span class="pillar-value">Sen’s Slope &amp; Mann–Kendall</span>
-                <span class="pillar-sub">Benjamini–Hochberg (1995) false-discovery filter across all 18 series</span>
-              </div>
-            </div>
+        <div class="source-specs-grid">
+          <div class="source-spec-item">
+            <span class="source-spec-label">Dataset &amp; Sensor</span>
+            <span class="source-spec-val">${vMeta.sensorTag}</span>
+            <span class="source-spec-sub">${vData.provenance.source}</span>
           </div>
-
-          <div class="passport-citation-strip">
-            <div class="citation-strip-left">
-              <span class="citation-strip-tag">Dataset Citation</span>
-              <span>
-                <strong>${vData.provenance.citationAuthor || vMeta.citationAuthor}.</strong>
-                ${vData.provenance.citationTitle || vMeta.citationTitle}.
-              </span>
-            </div>
-            <a class="citation-doi-pill" href="https://doi.org/${vData.provenance.doi}" target="_blank" rel="noopener noreferrer">
-              doi.org/${vData.provenance.doi}
-            </a>
+          <div class="source-spec-item">
+            <span class="source-spec-label">Spatial Domain</span>
+            <span class="source-spec-val">${region.fullName} (${region.bbox.coordLabel})</span>
+            <span class="source-spec-sub">${vData.provenance.gridCells} grid cells · ${vData.provenance.cellKm} resolution</span>
           </div>
+          <div class="source-spec-item">
+            <span class="source-spec-label">Temporal Record</span>
+            <span class="source-spec-val">Jan 2000 – Dec 2024</span>
+            <span class="source-spec-sub">300 continuous monthly records (25 years)</span>
+          </div>
+          <div class="source-spec-item">
+            <span class="source-spec-label">Statistical Protocol</span>
+            <span class="source-spec-val">Theil–Sen &amp; Mann–Kendall</span>
+            <span class="source-spec-sub">Benjamini–Hochberg FDR filter (q ≤ 0.05)</span>
+          </div>
+        </div>
+
+        <div class="source-citation-bar">
+          <span>
+            <strong>Reference:</strong>
+            ${vData.provenance.citationAuthor || vMeta.citationAuthor}.
+            ${vData.provenance.citationTitle || vMeta.citationTitle}.
+          </span>
+          <a class="source-doi-mono" href="https://doi.org/${vData.provenance.doi}" target="_blank" rel="noopener noreferrer">
+            https://doi.org/${vData.provenance.doi}
+          </a>
         </div>
       </section>
     `;
@@ -1595,7 +1821,7 @@
 
     const headerBadge = document.getElementById("header-region-name");
     if (headerBadge) {
-      headerBadge.textContent = `2. View Graphs: ${region.name} · ${vMeta.shortLabel}`;
+      headerBadge.textContent = `View Graphs · ${region.name} · ${vMeta.shortLabel}`;
     }
 
     updateCircularWheelSelection(animateTransition);
@@ -1615,9 +1841,14 @@
     const dec = state.activeVar === "precipitation_rate" ? 0 : 2;
 
     if (state.activePage === "selector") {
-      const hubWrap = document.getElementById("hub-svg-wrap");
-      if (hubWrap) {
-        hubWrap.innerHTML = renderAnimatedHubRegionSvg(state.regionId, state.phaseTime);
+      const cardBg = document.getElementById("card-bg-scene");
+      if (cardBg) {
+        cardBg.innerHTML = renderOuterCardBackgroundSvg(state.regionId, state.activeVar, state.phaseTime, 1140, 590);
+      }
+      const activeNodeSvg = document.getElementById(`node-svg-${state.regionId}`);
+      if (activeNodeSvg) {
+        activeNodeSvg.innerHTML = renderAnimatedHubRegionSvg(state.regionId, state.phaseTime);
+        activeNodeSvg.setAttribute("data-animated", "1");
       }
       return;
     }
