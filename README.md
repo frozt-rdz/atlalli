@@ -6,7 +6,7 @@ change is statistically significant.
 
 NASA Space Apps Challenge 2026 · *Be an Earth System Trend Detective*
 
-> Live app: _add the public Streamlit link here_
+> Live app: (https://atlalli.earth/)
 
 ## What it does
 
