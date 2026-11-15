@@ -1,4 +1,4 @@
-# Trend Detective
+# Atlalli
 
 **Is the Earth changing where you live?** An interactive tool that picks variables measured by
 NASA Earth-science missions and models, shows how they change over time, and tests whether the

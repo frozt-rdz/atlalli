@@ -1,6 +1,6 @@
 # AI-use notice: this file was written with the assistance of Claude (Anthropic)
 # and reviewed by the team.
-"""Trend Detective: is the Earth changing where you live? (Streamlit app)
+"""Atlalli: is the Earth changing where you live? (Streamlit app)
 
 Run from the repository root:
     streamlit run app/main.py
@@ -58,7 +58,7 @@ VERDICT = {
 }
 TIER_COLOR = {"significant": "#1f77b4", "suggestive": "#e69f00"}
 
-st.set_page_config(page_title="Trend Detective", page_icon="🌍", layout="wide")
+st.set_page_config(page_title="Atlalli", page_icon="🌍", layout="wide")
 
 
 @st.cache_data
@@ -118,7 +118,7 @@ def box_caption(info_row: pd.Series) -> str:
 
 # ---------------------------------------------------------------- data loading
 if not INPUT_CSV.exists() or not INFO_CSV.exists():
-    st.title("Trend Detective")
+    st.title("Atlalli")
     st.error(
         "Data files are missing. From the repository root run: "
         "`python -m pipeline.ingest_giovanni` and `python -m pipeline.make_series_info`."
@@ -135,7 +135,7 @@ except (ValueError, OSError, pd.errors.ParserError) as exc:
     st.stop()
 
 # ---------------------------------------------------------------------- header
-st.title("Trend Detective")
+st.title("Atlalli")
 st.write(
     "**Is the Earth changing where you live?** Pick a variable and a region to see "
     "25 years (2000–2024) of NASA data, how much it changed, and whether the change is "

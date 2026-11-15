@@ -3,7 +3,7 @@
 NASA Giovanni Data Ingestion Pipeline.
 
 Validates and normalizes NASA Giovanni monthly area-averaged
-CSV exports into the Trend Detective data contract.
+CSV exports into the Atlalli data contract.
 
 Run from the repository root:
     python -m pipeline.ingest_giovanni
