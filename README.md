@@ -127,8 +127,9 @@ fix that at this length: 25 years is limited evidence.
   its own precipitation forcing, so its soil-moisture trends are not a fully independent confirmation of
   the IMERG precipitation trends.
 - Linear trends only.
-- Some Giovanni reproduction URLs list more than one dataset (flag `url_lists_several_datasets` in
-  `series_info.csv`); each CSV still contains a single variable.
+- For 8 series the URL printed in the original Giovanni export listed more than one dataset (flag
+  `url_lists_several_datasets` in `series_info.csv`). The URL stored in `series_info.csv` keeps only the
+  series' own dataset; it was rebuilt from the export and each CSV contains a single variable.
 
 ## Tests
 
