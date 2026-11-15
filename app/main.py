@@ -346,8 +346,7 @@ with tab_about:
     st.markdown(
         "- 25 years is short. Rainfall in Mexico also swings with El Niño and other multi-year cycles.\n"
         "- A result that is not significant does not prove that nothing is changing.\n"
-        "- Boxes are averages over many grid cells; trends can differ inside a box. "
-        "The four Mexican boxes are approximate areas of interest. The Sahel and Southern Amazon were added as "
+        "- The four Mexican boxes are approximate areas of interest, chosen before running any trend test. The Sahel and Southern Amazon were added as  "
         "reference regions because a stronger signal is known there, so they are not a neutral sample.\n"
         "- Temperature and soil moisture come from models fed with observations; precipitation is a satellite estimate.\n"
         "- Linear trends only; seasonal or non-linear changes are out of scope.\n"
