@@ -1,4 +1,4 @@
-﻿# Trend Detective
+# Trend Detective
 
 **Is the Earth changing where you live?** An interactive tool that picks variables measured by
 NASA Earth-science missions and models, shows how they change over time, and tests whether the
@@ -20,20 +20,29 @@ For three variables (precipitation, soil moisture, air temperature) in six regio
 | How much? | Sen's slope per decade with a 95 % interval, and a yearly chart |
 | Is it significant? | Mann-Kendall / Hamed-Rao p-value, corrected for 18 comparisons (Benjamini-Hochberg q) |
 
-Regions were chosen by the data, not by labels such as "dry" or "rainy": a very rainy region can be
-drying. The app states the size of each box and how many grid cells it covers.
+Regions are named by place, not by labels such as "dry" or "rainy": a very rainy region can be
+drying. The four Mexican boxes are the local focus; the Sahel and Southern Amazon are reference
+regions with a known stronger signal, added for contrast. The app states the size of each box and how
+many grid cells it covers.
 
 ## Main findings (2000–2024)
 
-- **Precipitation moves in opposite directions:** Sahel **+41.7 mm/decade** (q = 0.028) and Southern
-  Amazon **−143 mm/decade** (q = 0.001). Both stay significant after correcting for 18 comparisons.
-- **The four Mexican regions show no significant precipitation trend** after the correction
-  (Chiapas: p = 0.042, q = 0.069). A non-significant result is a result: 25 years is short and
-  Mexican rainfall varies with ENSO.
-- Soil moisture is falling significantly in Chiapas and Southern Amazon; air temperature is rising
-  significantly in Chiapas, Morelos, Zacatecas and Southern Amazon.
-- Robustness: from 2005 the Sahel increase is no longer significant (p = 0.18) while the Southern
-  Amazon decline remains (p = 0.002). The app shows this check for every series.
+Of the 18 planned comparisons, 8 are significant after correcting for all 18 together
+(Benjamini-Hochberg, q ≤ 0.05). "Suggestive" below means p < 0.05 but q > 0.05: a lead, not a finding.
+
+- **Mexico, air temperature is rising** in Chiapas (+0.47 °C/decade), Morelos (+0.51) and Zacatecas
+  (+0.48), all with q < 0.02. Sonora (+0.38, p = 0.034, q = 0.060) is only suggestive.
+- **Mexico, soil moisture is falling in Chiapas** (−0.81 kg/m²/decade, q = 0.0015), but the result is
+  sensitive to the start year (p = 0.064 from 2005).
+- **No Mexican region has a significant precipitation trend** after the correction. Chiapas is
+  borderline (−146 mm/decade, p = 0.042, q = 0.069). This is not proof of no change: with 25 years, a
+  change of one standard deviation over the whole period is flagged only about 3 times in 10 (see
+  `python -m stats.simulate_size`).
+- **Reference regions, precipitation moves in opposite directions:** Sahel **+41.7 mm/decade**
+  (q = 0.028) and Southern Amazon **−143 mm/decade** (q = 0.001). The Sahel increase is not robust (p = 0.18
+  from 2005); the Southern Amazon decline is (p = 0.002).
+- Robustness: of the 8 significant series, 6 stay significant when the start year moves to 2005;
+  Sahel precipitation and Chiapas soil moisture do not. The app's 2005 check shows this for every series.
 
 ## Run it locally
 
@@ -57,6 +66,8 @@ python -m streamlit run app/main.py
 | `pipeline/make_series_info.py` | Writes `series_info.csv`: source, DOI, box, grid cells, checksum, reproduction URL |
 | `stats/trends.py` | `trend_report`: Sen's slope, Mann-Kendall / Hamed-Rao |
 | `stats/analyze_giovanni.py` | Annual series, the 18 planned tests and FDR correction |
+| `stats/simulate_size.py` | False-positive rate and power of the test at 25 years (reproduces the numbers below) |
+| `docs/ADR-001-trend-test.md` | Why the lag-1 rule is kept (Mann-Kendall by default, Hamed-Rao for positive autocorrelation) and what each alternative would change |
 | `app/main.py` | The Streamlit app |
 | `stats/tests/` | Automated tests |
 
@@ -74,15 +85,29 @@ Data contract (`giovanni_observations.csv`): `variable, region, date, value, uni
    correlation; with negative correlation its correction can inflate the statistic or make the variance
    negative (for example Sahel precipitation: Mann-Kendall p = 0.012 against an invalid Hamed-Rao
    variance), so negative autocorrelation falls back to the original test. The 0.2 threshold is a
-   practical heuristic, not a universal criterion.
+   practical heuristic, not a universal criterion. The 0.2 value was in the first version of the code,
+   set in advance from background reading. The restriction to *positive* autocorrelation was added later,
+   after Hamed-Rao failed for Sahel precipitation, so that choice was made with the data in view: the
+   first version (|r1| > 0.2) sent Chiapas precipitation to Hamed-Rao (p = 0.0002 against 0.042) and left
+   Sahel precipitation unresolved. Mann-Kendall alone gives the same 8 significant series as the current
+   rule, and so does any threshold between 0 and 0.5. At 25 years the lag-1 estimate is noisy (standard
+   deviation about 0.2), so the choice of test is itself uncertain (`docs/ADR-001-trend-test.md`).
 4. **Multiple comparisons.** The 18 planned comparisons (3 variables × 6 regions) are corrected
    together with Benjamini-Hochberg (q-value). A result is called significant when q ≤ 0.05.
 5. **Robustness.** The app repeats the test from 2005 for the selected series. It is a check, not part
    of the 18 planned tests.
 
-Simulated check (3 000 series of 25 years, no real trend, α = 0.05): false positives with this rule are
-4.6 % for white noise and 0.3 % with negative autocorrelation. With strong *positive* autocorrelation
-(+0.5) about 18 % of series still pass, which is one reason 25 years is limited evidence.
+Simulated check (`python -m stats.simulate_size`: 3 000 trend-free AR(1) series of 25 years, α = 0.05).
+False-positive rate of the rule used here / Mann-Kendall only / Hamed-Rao always:
+
+| True autocorrelation | Rule used | Mann-Kendall only | Hamed-Rao always |
+|---|---|---|---|
+| 0 (white noise) | 4.5 % | 4.3 % | 7.2 % |
+| −0.5 | 0.5 % | 0.5 % | 10.7 % |
+| +0.5 | 21.0 % | 21.6 % | 21.8 % |
+
+With positively correlated years about one trend-free series in five is flagged, and Hamed-Rao does not
+fix that at this length: 25 years is limited evidence.
 
 ## Limitations
 
@@ -90,8 +115,17 @@ Simulated check (3 000 series of 25 years, no real trend, α = 0.05): false posi
 - Boxes are averages over many grid cells and trends can differ inside a box.
 - Temperature (MERRA-2) and soil moisture (GLDAS) are model outputs fed with observations;
   precipitation (IMERG) is a satellite estimate calibrated with rain gauges.
-- The 2-m temperature in the Sahel shows a small decrease (−0.24 °C/decade, not significant after
-  correction); it should be checked against another source before being interpreted.
+- The 2-m temperature in the Sahel shows a decrease (−0.24 °C/decade, p = 0.047, q = 0.071: suggestive
+  only). It is fragile (p ranges from 0.008 to 0.097 when any single year is dropped; p = 0.098 from
+  2005) and it is anticorrelated with Sahel rainfall (r = −0.51), so it may partly reflect wetter years
+  rather than long-term cooling. It has not been checked against another temperature product.
+- IMERG V07 joins the TRMM era (to mid-2014) and the GPM era, and NASA documents that continuity
+  between them is still being improved. The largest precipitation declines (Southern Amazon, Chiapas)
+  coincide with a drop between the 2000–2013 and 2014–2024 averages, close to that boundary. This has
+  not been checked against an independent precipitation product.
+- GLDAS-2.1 is a model run started in January 2000 whose forcing changed in March 2001, and it uses
+  its own precipitation forcing, so its soil-moisture trends are not a fully independent confirmation of
+  the IMERG precipitation trends.
 - Linear trends only.
 - Some Giovanni reproduction URLs list more than one dataset (flag `url_lists_several_datasets` in
   `series_info.csv`); each CSV still contains a single variable.
@@ -114,8 +148,23 @@ All data come from NASA Giovanni (time series, area-averaged, monthly, 2000–20
 - Huffman, G. J., Stocker, E. F., Bolvin, D. T., Nelkin, E. J., & Tan, J. (2023). GPM IMERG Final Precipitation L3 1 month 0.1 degree x 0.1 degree V07 [Data set]. NASA GES DISC. https://doi.org/10.5067/GPM/IMERG/3B-MONTH/07
 - Global Modeling and Assimilation Office & Pawson, S. (2015). MERRA-2 tavgM_2d_slv_Nx: 2d, Monthly mean, Time-averaged, Single-Level, Assimilation, Single-Level Diagnostics V5.12.4 [Data set]. NASA GES DISC. https://doi.org/10.5067/AP1B0BA5PD2K
 
-Software: Streamlit, pandas, NumPy, SciPy, pyMannKendall, Plotly, pytest (open source).
 This project uses NASA open data and contains no NASA logos or branding; it is not endorsed by NASA.
+
+Method references:
+
+- Mann, H. B. (1945). Nonparametric tests against trend. *Econometrica*, 13, 245–259.
+- Kendall, M. G. (1975). *Rank Correlation Methods*. Griffin.
+- Sen, P. K. (1968). Estimates of the regression coefficient based on Kendall's tau. *Journal of the American Statistical Association*, 63, 1379–1389.
+- Hamed, K. H., & Rao, A. R. (1998). A modified Mann-Kendall trend test for autocorrelated data. *Journal of Hydrology*, 204, 182–196.
+- Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate. *Journal of the Royal Statistical Society B*, 57, 289–300.
+- Hussain, M., & Mahmud, I. (2019). pyMannKendall: a python package for non parametric Mann Kendall family of trend tests. *Journal of Open Source Software*, 4(39), 1556.
+
+## Licences
+
+The code and text of this project are released under the MIT licence (see `LICENSE`). Third-party
+software, all open source: Streamlit (Apache-2.0), pandas (BSD-3-Clause), NumPy (BSD-3-Clause),
+SciPy (BSD-3-Clause), pyMannKendall (MIT), Plotly (MIT), pytest (MIT). NASA data are used under
+NASA's open data policy; see the DOIs above.
 
 ## Use of AI
 
