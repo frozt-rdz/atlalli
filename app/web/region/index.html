@@ -1,0 +1,24 @@
+<!-- AI-use notice: this file includes AI-generated content and code, reviewed by the team. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redirecting to Regional Climate Explorer · Atlalli</title>
+  <link rel="icon" href="../Logo_Atlalli.svg" type="image/svg+xml">
+  <script>
+    /* AI-use notice: Seamless redirect from legacy /region/ route to the unified /explorar/ view */
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("region") && !params.get("page")) {
+        params.set("page", "data");
+      }
+      var qs = params.toString();
+      window.location.replace("../explorar/index.html" + (qs ? "?" + qs : ""));
+    })();
+  </script>
+</head>
+<body>
+  <p>Opening <a href="../explorar/index.html">Atlalli Regional Climate Explorer</a>…</p>
+</body>
+</html>

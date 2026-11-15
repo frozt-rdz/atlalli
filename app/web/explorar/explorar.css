@@ -1,0 +1,1727 @@
+/* AI-use notice: this file includes AI-generated content and code, reviewed by the team. */
+/* ==========================================================================
+   Atlalli · Independent 6-Region Selector Page & Dedicated Region Climate
+   Data Page (Unified Reactive Glider Switchers, Auto-Hiding Centered Header,
+   Speed-Adjustable Year Evolution, and Visual NASA Data Passport).
+   ========================================================================== */
+
+:root {
+  --font-display: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-sans: "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Official Global Colors */
+  --app-bg: #F9EFD4;
+  --card-bg: #FFFBEF;
+  --text-main: #1F3A36;
+  --text-muted: #4B5F5A;
+  --border-color: #E2D5B0;
+  --more-rain: #2A5F8F;
+  --less-rain: #C2410C;
+
+  /* Default Regional Colors: Morelos */
+  --reg-primary: #D51761;
+  --reg-accent: #E1649E;
+  --reg-soft: #F9DBDB;
+  --reg-soft-border: #ebb5c2;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+}
+
+/* AI-use notice: Official regional palettes with smooth CSS custom property transitions */
+body[data-region="morelos"] {
+  --reg-primary: #D51761;
+  --reg-accent: #E1649E;
+  --reg-soft: #F9DBDB;
+  --reg-soft-border: #ebb5c2;
+}
+
+body[data-region="zacatecas"] {
+  --reg-primary: #7B50A2;
+  --reg-accent: #B2673D;
+  --reg-soft: #F2E8F7;
+  --reg-soft-border: #d5bee3;
+}
+
+body[data-region="chiapas"] {
+  --reg-primary: #1B8E96;
+  --reg-accent: #D59625;
+  --reg-soft: #DFEFE9;
+  --reg-soft-border: #b5d8ce;
+}
+
+body[data-region="south_amazon"] {
+  --reg-primary: #619F4D;
+  --reg-accent: #B9A4D7;
+  --reg-soft: #E9EED8;
+  --reg-soft-border: #c6d6a7;
+}
+
+body[data-region="sahel"] {
+  --reg-primary: #A97508;
+  --reg-accent: #CD8F2C;
+  --reg-soft: #F3E8CF;
+  --reg-soft-border: #dfc796;
+}
+
+body[data-region="sonora"] {
+  --reg-primary: #8C4A2F;
+  --reg-accent: #DCBA89;
+  --reg-soft: #EFE2D4;
+  --reg-soft-border: #d9bfa6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--app-bg);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.45s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(var(--border-color) 1.15px, transparent 1.15px);
+  background-size: 24px 24px;
+  opacity: 0.55;
+}
+
+/* ==========================================================================
+   Strict Independent Page Visibility Rules
+   ========================================================================== */
+body[data-page="selector"] #page-region-data {
+  display: none !important;
+}
+
+body[data-page="selector"] #page-region-selector {
+  display: block;
+}
+
+body[data-page="data"] #page-region-selector {
+  display: none !important;
+}
+
+body[data-page="data"] #page-region-data {
+  display: block;
+}
+
+/* ==========================================================================
+   Auto-Hiding Top Navbar with Centered Reactive 2-Page Switcher
+   ("Lo de region y view graphs que este en medio arriba pero que se oculta
+    al ir bajando para que no estorbe")
+   ========================================================================== */
+.explorer-header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background-color: rgba(255, 251, 239, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1.5px solid var(--border-color);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+
+.explorer-header.nav-hidden {
+  transform: translateY(-115%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0.58rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-back img {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.back-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.brand-back:hover .back-pill {
+  border-color: var(--reg-primary);
+  color: var(--reg-primary);
+  transform: translateX(-2px);
+}
+
+.header-right-spacer {
+  justify-self: end;
+}
+
+/* Unified Single-Rectangle Centered Top Switcher with Sliding Glider */
+.header-page-tabs {
+  justify-self: center;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background-color: var(--app-bg);
+  padding: 4px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-color);
+  box-shadow: inset 0 1px 2px rgba(31, 58, 54, 0.04);
+}
+
+.page-tabs-glider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 2);
+  border-radius: 10px;
+  background-color: var(--reg-soft);
+  border: 1.5px solid var(--reg-primary);
+  box-shadow: 0 3px 10px rgba(31, 58, 54, 0.09);
+  transform: translateX(calc(var(--page-idx, 0) * 100%));
+  transition:
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    border-color 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-tab-btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.44rem 1.15rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.48rem;
+  white-space: nowrap;
+  transition: color 0.22s ease, transform 0.18s ease;
+}
+
+.page-tab-btn:hover {
+  color: var(--text-main);
+}
+
+.page-tab-btn:active {
+  transform: scale(0.98);
+}
+
+.page-tab-btn.active {
+  color: var(--text-main);
+}
+
+.tab-svg-icon {
+  color: var(--reg-primary);
+  flex-shrink: 0;
+  transition: transform 0.3s ease, color 0.35s ease;
+}
+
+.page-tab-btn.active .tab-svg-icon {
+  transform: rotate(-10deg) scale(1.06);
+}
+
+.active-region-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--reg-primary);
+  flex-shrink: 0;
+  transition: background-color 0.4s ease, transform 0.25s ease;
+}
+
+.page-tab-btn.active .active-region-dot {
+  transform: scale(1.18);
+}
+
+/* ==========================================================================
+   INDEPENDENT PAGE 1: STANDALONE 6-REGION SELECTOR PAGE
+   - Top Center: Region Name, Subtitle & Overview
+   - Middle Center: Circular 6-Region Wheel with Animated Landscape Hub
+   - Bottom Center: Unified Single-Rectangle Reactive Variable Switcher
+   ========================================================================== */
+.selector-page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.35rem 1.5rem 3.5rem;
+}
+
+.selector-standalone-card {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.4rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  box-shadow: 0 12px 34px rgba(31, 58, 54, 0.06);
+}
+
+.selector-top-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 780px;
+  gap: 0.38rem;
+}
+
+.selector-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--reg-primary);
+  background-color: var(--reg-soft);
+  padding: 0.28rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--reg-soft-border);
+  transition: all 0.4s ease;
+}
+
+.selector-main-title {
+  margin: 0.12rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  line-height: 1.08;
+}
+
+.selector-sub-landmark {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--reg-primary);
+  transition: color 0.4s ease;
+}
+
+.selector-overview-banner {
+  margin: 0.4rem 0 0;
+  background-color: var(--reg-soft);
+  border: 1.5px solid var(--reg-soft-border);
+  border-radius: 14px;
+  padding: 0.72rem 1.25rem;
+  font-size: 0.94rem;
+  color: var(--text-main);
+  line-height: 1.55;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.selector-wheel-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 0;
+}
+
+/* Well-proportioned 460x460 Circular Wheel */
+.circular-wheel-stage {
+  position: relative;
+  width: 460px;
+  height: 460px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.wheel-orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#wheel-pointer-group {
+  transform-origin: 230px 230px;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#wheel-inner-ring,
+#wheel-pointer-line {
+  transition: stroke 0.45s ease;
+}
+
+/* 216x216 Animated Center Hub inside the Circle */
+.wheel-center-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 216px;
+  height: 216px;
+  transform: translate(-50%, -50%) scale(1);
+  border-radius: 50%;
+  background-color: var(--reg-soft);
+  border: 4.5px solid var(--reg-primary);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(31, 58, 54, 0.14);
+  transition:
+    border-color 0.45s ease,
+    background-color 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wheel-center-hub:hover {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.wheel-center-hub.hub-transitioning {
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+.hub-svg-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.28s ease;
+}
+
+.wheel-center-hub.hub-transitioning .hub-svg-wrap {
+  opacity: 0.25;
+}
+
+.hub-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hub-caption-pill {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 14px;
+  padding: 0.28rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--card-bg);
+  border: 2px solid var(--reg-primary);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  transition: border-color 0.45s ease;
+}
+
+/* 6 Orbital Region Medallions */
+.wheel-node {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  margin-left: -48px;
+  margin-top: -48px;
+  border-radius: 50%;
+  background-color: var(--card-bg);
+  border: 2.5px solid var(--border-color);
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition:
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background-color 0.35s ease;
+  z-index: 3;
+}
+
+.wheel-node:hover {
+  transform: scale(1.11);
+  border-color: var(--node-color, var(--reg-primary));
+}
+
+.wheel-node.active {
+  transform: scale(1.24);
+  background-color: var(--node-soft, var(--reg-soft));
+  border-width: 4px;
+  border-color: var(--node-color, var(--reg-primary));
+  box-shadow: 0 10px 24px rgba(31, 58, 54, 0.18);
+  z-index: 5;
+}
+
+.node-mini-svg {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+}
+
+.node-label {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.05;
+  text-align: center;
+  max-width: 82px;
+}
+
+/* ==========================================================================
+   SINGLE UNIFIED RECTANGLE REACTIVE VARIABLE SWITCHER
+   ("empezando por el selector de variables, hazlo mas dinamico, reactivo quizas,
+    un solo rectangulo para los 3")
+   Used on BOTH the Region Selector Page and the Region Data Page!
+   ========================================================================== */
+.selector-bottom-variables {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding-top: 0.25rem;
+}
+
+.selector-preview-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.unified-var-switcher {
+  position: relative;
+  width: 100%;
+  background-color: var(--app-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 18px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  box-shadow: inset 0 2px 5px rgba(31, 58, 54, 0.04);
+}
+
+/* Sliding Active Glider Pill Inside the Single Variable Rectangle */
+.var-switcher-glider {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: calc((100% - 12px) / 3);
+  border-radius: 13px;
+  background-color: var(--card-bg);
+  border: 2px solid var(--reg-primary);
+  box-shadow: 0 6px 18px rgba(31, 58, 54, 0.10);
+  transform: translateX(calc(var(--var-idx, 0) * 100%));
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.unified-var-btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: none;
+  background: transparent;
+  border-radius: 13px;
+  padding: 0.72rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Subtle divider lines between segments */
+.unified-var-btn:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 1.5px;
+  background-color: var(--border-color);
+  opacity: 0.65;
+  transition: opacity 0.25s ease;
+}
+
+.unified-var-btn.active::after,
+.unified-var-btn:hover::after {
+  opacity: 0;
+}
+
+.unified-var-btn:hover {
+  transform: translateY(-1px);
+}
+
+.unified-var-btn:active {
+  transform: scale(0.98);
+}
+
+.uvar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.uvar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background-color: var(--reg-soft);
+  border: 1.5px solid var(--reg-soft-border);
+  padding: 5px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.unified-var-btn:hover .uvar-icon {
+  transform: scale(1.06) rotate(-3deg);
+}
+
+.unified-var-btn.active .uvar-icon {
+  border-color: var(--reg-primary);
+  background-color: var(--reg-soft);
+  transform: scale(1.08);
+}
+
+.uvar-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.uvar-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+  min-width: 0;
+}
+
+.uvar-name {
+  font-family: var(--font-display);
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.15;
+}
+
+.uvar-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.uvar-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.uvar-state-pill {
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.22rem 0.58rem;
+  border-radius: 999px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all 0.28s ease;
+}
+
+.unified-var-btn.active .uvar-state-pill {
+  background-color: var(--reg-primary);
+  border-color: var(--reg-primary);
+  color: #ffffff;
+}
+
+.open-region-page-btn {
+  appearance: none;
+  margin-top: 0.2rem;
+  border: none;
+  background-color: var(--reg-primary);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 800;
+  padding: 0.85rem 2.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: 0 8px 22px rgba(31, 58, 54, 0.16);
+  transition: background-color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.open-region-page-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 26px rgba(31, 58, 54, 0.22);
+}
+
+.open-region-page-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.open-region-page-btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   INDEPENDENT PAGE 2: REGION INFO, UNIFIED VARIABLE SWITCHER, GRAPH & STORIES
+   ========================================================================== */
+.data-page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 1.4rem 1.5rem 5rem;
+}
+
+.single-variable-studio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.55rem;
+}
+
+/* Top Region Identity & Variable Switcher Card */
+.region-data-top-banner {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  box-shadow: 0 8px 26px rgba(31, 58, 54, 0.04);
+}
+
+.region-banner-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.region-identity-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.region-mini-emblem {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 3px solid var(--reg-primary);
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: var(--reg-soft);
+  transition: border-color 0.4s ease;
+}
+
+.region-mini-emblem svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.region-identity-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+}
+
+.region-identity-kicker {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--reg-primary);
+}
+
+.region-identity-h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.42rem, 2.3vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
+  line-height: 1.12;
+}
+
+.region-identity-sub {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.change-region-Action-btn {
+  appearance: none;
+  border: 2px solid var(--reg-primary);
+  background-color: var(--reg-soft);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.54rem 1.15rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.change-region-Action-btn:hover {
+  background-color: var(--reg-primary);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.status-wetting {
+  color: var(--more-rain);
+}
+
+.status-drying,
+.status-warming {
+  color: var(--less-rain);
+}
+
+.status-borderline {
+  color: #9a5b13;
+}
+
+.status-neutral {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Full-Width Graph Card & Single-Rectangle Reactive Chart Mode Switcher
+   ("Lo mismo para el selector de yearly trend, monthly, above/below")
+   ========================================================================== */
+.fullwidth-graph-card {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(31, 58, 54, 0.05);
+}
+
+.studio-header {
+  padding: 1.2rem 1.85rem;
+  border-bottom: 1.5px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.studio-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.studio-badge-svg {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background-color: var(--reg-soft);
+  border: 2px solid var(--reg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.35s ease, background-color 0.35s ease;
+}
+
+.studio-badge-svg svg {
+  width: 34px;
+  height: 34px;
+}
+
+.studio-question {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.1vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.studio-subtitle {
+  margin: 0.16rem 0 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* Single Unified Rectangle for Chart Modes with Sliding Glider */
+.mode-pill-group {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  background-color: var(--app-bg);
+  padding: 4px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-color);
+  min-width: 520px;
+}
+
+.mode-glider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 3);
+  border-radius: 10px;
+  background-color: var(--reg-primary);
+  box-shadow: 0 4px 12px rgba(31, 58, 54, 0.15);
+  transform: translateX(calc(var(--mode-idx, 0) * 100%));
+  transition:
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mode-pill-btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.48rem 0.85rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  white-space: nowrap;
+  transition: color 0.22s ease, transform 0.18s ease;
+}
+
+.mode-pill-btn:hover {
+  color: var(--text-main);
+}
+
+.mode-pill-btn:active {
+  transform: scale(0.97);
+}
+
+.mode-pill-btn.active {
+  color: #ffffff;
+}
+
+.mode-pill-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.soft-regional-stage {
+  background-color: var(--reg-soft);
+  padding: 1.35rem 1.75rem 1.55rem;
+  transition: background-color 0.4s ease;
+}
+
+.fullwidth-graph-frame {
+  background-color: var(--card-bg);
+  border: 2px solid var(--reg-soft-border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.35rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.graph-top-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.graph-legend-items {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  flex-wrap: wrap;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.g-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.g-swatch-line {
+  width: 20px;
+  height: 4px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.g-swatch-band {
+  width: 16px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.live-hud-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hud-pill {
+  padding: 0.34rem 0.85rem;
+  border-radius: 999px;
+  background-color: var(--app-bg);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-display);
+  font-size: 0.81rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.hud-pill.primary {
+  background-color: var(--reg-primary);
+  border-color: var(--reg-primary);
+  color: #ffffff;
+}
+
+.graph-canvas-wrap {
+  width: 100%;
+  height: 450px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-color);
+  cursor: ew-resize;
+  user-select: none;
+  position: relative;
+}
+
+.graph-canvas-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   Full-Width Year Evolution Scrubber Bar + Reactive Speed Selector
+   ("Que se pueda ajustar la velocidad del play years")
+   ========================================================================== */
+.graph-year-evolution-bar {
+  padding: 0.75rem 1.15rem;
+  background-color: var(--reg-soft);
+  border: 1.5px solid var(--reg-soft-border);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.play-evolution-btn {
+  appearance: none;
+  border: none;
+  background-color: var(--reg-primary);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 800;
+  padding: 0.56rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+}
+
+.play-evolution-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.94;
+}
+
+.play-evolution-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.evolution-slider-col {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.evolution-range-input {
+  width: 100%;
+  accent-color: var(--reg-primary);
+  height: 7px;
+  cursor: pointer;
+}
+
+.evolution-year-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* Single-Rectangle Speed Control (0.5x | 1x | 2x | 4x) */
+.evolution-speed-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.speed-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.speed-pill-group {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  padding: 3px;
+  min-width: 172px;
+}
+
+.speed-glider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc((100% - 6px) / 4);
+  border-radius: 7px;
+  background-color: var(--reg-primary);
+  transform: translateX(calc(var(--speed-idx, 1) * 100%));
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.speed-pill-btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.28rem 0.4rem;
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.speed-pill-btn:hover {
+  color: var(--text-main);
+}
+
+.speed-pill-btn.active {
+  color: #ffffff;
+}
+
+.evolution-active-badge {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-main);
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  padding: 0.42rem 0.85rem;
+  border-radius: 10px;
+  min-width: 152px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   3 Wide Full-Width Story Sections (Honest Scales, Zero Jargon, Super Clear)
+   ========================================================================== */
+.wide-stories-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.wide-story-section {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.9rem 2.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: 2.1rem;
+  align-items: center;
+}
+
+.wide-story-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.82rem;
+}
+
+.wide-story-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.story-step-pill {
+  padding: 0.28rem 0.8rem;
+  border-radius: 999px;
+  background-color: var(--reg-primary);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.story-tag-pill {
+  padding: 0.28rem 0.8rem;
+  border-radius: 999px;
+  background-color: var(--reg-soft);
+  border: 1px solid var(--reg-soft-border);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 0.77rem;
+  font-weight: 800;
+}
+
+.wide-story-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.38rem, 2.1vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
+  line-height: 1.22;
+}
+
+.wide-story-body {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.62;
+}
+
+.story-key-takeaway-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.15rem;
+}
+
+.takeaway-chip {
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.48rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.takeaway-chip-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.takeaway-chip-val {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.inline-toggle-2005 {
+  align-self: flex-start;
+  appearance: none;
+  border: 2px solid var(--reg-primary);
+  background-color: var(--reg-soft);
+  color: var(--reg-primary);
+  font-family: var(--font-display);
+  font-size: 0.83rem;
+  font-weight: 800;
+  padding: 0.48rem 1.1rem;
+  border-radius: 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.18s ease;
+}
+
+.inline-toggle-2005:hover,
+.inline-toggle-2005.active {
+  background-color: var(--reg-primary);
+  color: #ffffff;
+}
+
+.wide-story-art {
+  width: 100%;
+  height: 256px;
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.wide-story-art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   REDESIGNED NASA SATELLITE DATA & REFERENCE PASSPORT
+   ("Cambia el apartado de Scientific Bibliography & Data Source")
+   ========================================================================== */
+.nasa-passport-card {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 26px rgba(31, 58, 54, 0.04);
+}
+
+.passport-banner {
+  background-color: var(--reg-soft);
+  border-bottom: 1.5px solid var(--reg-soft-border);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.passport-brand-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.passport-emblem-svg {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background-color: var(--card-bg);
+  border: 2px solid var(--reg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.passport-emblem-svg svg {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+
+.passport-kicker {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--reg-primary);
+}
+
+.passport-title {
+  margin: 0.08rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.passport-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.passport-copy-btn {
+  appearance: none;
+  border: 1.5px solid var(--reg-primary);
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.52rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.passport-copy-btn:hover {
+  background-color: var(--reg-primary);
+  color: #ffffff;
+}
+
+.passport-doi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  background-color: var(--reg-primary);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.54rem 1.1rem;
+  border-radius: 10px;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.passport-doi-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.94;
+}
+
+.passport-body {
+  padding: 1.5rem 2rem 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.passport-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.passport-pillar {
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1rem 1.15rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.pillar-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--reg-primary);
+}
+
+.pillar-icon-box svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.pillar-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.16rem;
+  min-width: 0;
+}
+
+.pillar-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.pillar-value {
+  font-family: var(--font-display);
+  font-size: 0.93rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.pillar-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.38;
+}
+
+.passport-citation-strip {
+  background-color: var(--app-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.85rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.citation-strip-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.citation-strip-tag {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--reg-soft);
+  border: 1px solid var(--reg-soft-border);
+  color: var(--reg-primary);
+  padding: 0.18rem 0.58rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.citation-doi-pill {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--reg-primary);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 0.28rem 0.7rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.citation-doi-pill:hover {
+  border-color: var(--reg-primary);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .header-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .brand-back {
+    justify-self: center;
+  }
+  .header-right-spacer {
+    display: none;
+  }
+  .wide-story-section {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  .passport-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .mode-pill-group {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 780px) {
+  .header-page-tabs {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .page-tabs-glider {
+    display: none;
+  }
+  .page-tab-btn.active {
+    background-color: var(--reg-soft);
+    border: 1.5px solid var(--reg-primary);
+  }
+  .unified-var-switcher {
+    grid-template-columns: 1fr;
+  }
+  .var-switcher-glider {
+    display: none;
+  }
+  .unified-var-btn.active {
+    background-color: var(--card-bg);
+    border: 2px solid var(--reg-primary);
+  }
+  .unified-var-btn:not(:last-child)::after {
+    display: none;
+  }
+  .mode-pill-group {
+    grid-template-columns: 1fr;
+  }
+  .mode-glider {
+    display: none;
+  }
+  .mode-pill-btn.active {
+    background-color: var(--reg-primary);
+  }
+  .circular-wheel-stage {
+    width: 330px;
+    height: 330px;
+  }
+  #wheel-pointer-group {
+    transform-origin: 165px 165px;
+  }
+  .wheel-center-hub {
+    width: 156px;
+    height: 156px;
+  }
+  .wheel-node {
+    width: 72px;
+    height: 72px;
+    margin-left: -36px;
+    margin-top: -36px;
+  }
+  .node-mini-svg {
+    width: 34px;
+    height: 34px;
+  }
+  .graph-canvas-wrap {
+    height: 340px;
+  }
+}

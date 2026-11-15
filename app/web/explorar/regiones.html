@@ -1,0 +1,89 @@
+<!-- AI-use notice: this file includes AI-generated content and code, reviewed by the team. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Select a Study Region · Atlalli</title>
+  <meta name="description" content="Interactive 6-region circular wheel selector for Atlalli Climate Trend Atlas (2000–2024).">
+  <link rel="icon" href="../Logo_Atlalli.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="explorar.css">
+</head>
+<body data-region="morelos" data-page="selector" data-default-page="selector">
+
+  <!-- AI-use notice: AI-generated auto-hiding top header with centered reactive 2-page switcher -->
+  <header class="explorer-header" id="explorer-header">
+    <div class="header-inner">
+      <a class="brand-back" href="../index.html">
+        <img src="../Logo_Atlalli.svg" width="32" height="32" alt="Atlalli official logo">
+        <span>Atlalli</span>
+        <span class="back-pill">
+          <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+            <path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Home</span>
+        </span>
+      </a>
+
+      <nav class="header-page-tabs" id="header-page-tabs" style="--page-idx: 0;" aria-label="Explorer view switcher">
+        <span class="page-tabs-glider" aria-hidden="true"></span>
+        <button type="button" class="page-tab-btn active" id="nav-tab-selector" data-goto-page="selector">
+          <svg class="tab-svg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
+            <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <ellipse cx="10" cy="10" rx="3.6" ry="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="2.8" y1="10" x2="17.2" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span>1. Region &amp; Variable Selector</span>
+        </button>
+        <button type="button" class="page-tab-btn" id="nav-tab-data" data-goto-page="data">
+          <span class="active-region-dot" aria-hidden="true"></span>
+          <span id="header-region-name">2. View Graphs: Morelos · Precipitation</span>
+        </button>
+      </nav>
+
+      <div class="header-right-spacer" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <!-- AI-use notice: AI-generated standalone centered 6-region and variable selector page -->
+  <main class="selector-page-wrap" id="page-region-selector" aria-label="Independent region selector page">
+    <section class="selector-standalone-card">
+      <div class="selector-top-center">
+        <span class="selector-eyebrow">Select a Study Region &amp; Climate Variable</span>
+        <h1 class="selector-main-title" id="selector-main-title">Morelos, Mexico</h1>
+        <p class="selector-sub-landmark" id="selector-sub-landmark">
+          Tepozteco Valley &amp; Bougainvillea · Warm valleys &amp; summer rains
+        </p>
+        <p class="selector-overview-banner" id="selector-regional-summary-text">
+          Morelos is getting steadily warmer (+1.3 °C over 25 years). Even though yearly rain totals bounce up and down without a permanent drop, the extra heat is slowly drying out the top layer of soil.
+        </p>
+      </div>
+
+      <div class="selector-wheel-center">
+        <div class="circular-wheel-stage" id="circular-wheel-stage"></div>
+      </div>
+
+      <div class="selector-bottom-variables">
+        <span class="selector-preview-label">Choose a climate variable to explore in <strong id="selector-var-region-label">Morelos</strong>:</span>
+        <div class="unified-var-switcher" id="selector-var-preview-list" style="--var-idx: 0;" role="tablist" aria-label="Select climate variable"></div>
+        <button type="button" class="open-region-page-btn" id="open-region-page-btn" data-goto-page="data">
+          <span id="open-region-btn-text">Open Morelos · Precipitation Graphs &amp; Analysis</span>
+          <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+            <path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <main class="data-page-wrap" id="page-region-data" aria-label="Region climate data and visualization page">
+    <section class="single-variable-studio" id="single-variable-studio"></section>
+  </main>
+
+  <script src="region-data.js"></script>
+  <script src="explorar.js"></script>
+</body>
+</html>
