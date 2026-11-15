@@ -635,13 +635,40 @@ h1 {
   pointer-events: none;
 }
 
-.caption > span:first-child {
+.caption > span:first-child,
+.card-caption-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   background: #fffefa;
   color: var(--ink);
   border: 1.5px solid var(--line);
-  border-radius: 10px;
-  padding: 0.42rem 0.9rem 0.48rem;
+  border-radius: 12px;
+  padding: 0.38rem 0.95rem 0.42rem 0.5rem;
   box-shadow: 0 3px 0 #193f401a;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.card:is(:hover, :focus-visible) .card-caption-pill {
+  border-color: var(--green);
+}
+
+.card-logo-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  object-fit: contain;
+  padding: 2px;
+  flex-shrink: 0;
+  display: block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card-caption-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .caption strong {
