@@ -31,7 +31,8 @@ Of the 18 planned comparisons, 8 are significant after correcting for all 18 tog
 (Benjamini-Hochberg, q ≤ 0.05). "Suggestive" below means p < 0.05 but q > 0.05: a lead, not a finding.
 
 - **Mexico, air temperature is rising** in Chiapas (+0.47 °C/decade), Morelos (+0.51) and Zacatecas
-  (+0.48), all with q < 0.02. Sonora (+0.38, p = 0.034, q = 0.060) is only suggestive. An independent
+  (+0.48), all with q < 0.02. Zacatecas is the least stable of the three: it is not significant when
+  the series ends in 2019 (+0.18 °C/decade, p = 0.54), so it leans on 2020–2024. Sonora (+0.38, p = 0.034, q = 0.060) is only suggestive. An independent
   check with ERA5 confirms the direction in all four boxes, but not the size (see Limitations): for
   Morelos and Zacatecas ERA5 gives about half of the MERRA-2 slope, so quote the rise as a range.
 - **Mexico, soil moisture is falling in Chiapas** (−0.81 kg/m²/decade, q = 0.0015), but the result is
@@ -40,11 +41,24 @@ Of the 18 planned comparisons, 8 are significant after correcting for all 18 tog
   borderline (−146 mm/decade, p = 0.042, q = 0.069). This is not proof of no change: with 25 years, a
   change of one standard deviation over the whole period is flagged only about 3 times in 10 (see
   `python -m stats.simulate_size`).
-- **Reference regions, precipitation moves in opposite directions:** Sahel **+41.7 mm/decade**
-  (q = 0.028) and Southern Amazon **−143 mm/decade** (q = 0.001). The Sahel increase is not robust (p = 0.18
-  from 2005); the Southern Amazon decline is (p = 0.002).
+- **Reference regions, precipitation has opposite signs:** Sahel **+41.7 mm/decade**
+  (q = 0.028) and Southern Amazon **−143 mm/decade** (q = 0.001). Only the Southern Amazon decline is
+  robust (p = 0.002 from 2005; it also survives every test below). The Sahel increase is not (p = 0.18 from
+  2005, not significant with pre-whitening or Benjamini-Yekutieli), so read it as a lead.
 - Robustness: of the 8 significant series, 6 stay significant when the start year moves to 2005;
   Sahel precipitation and Chiapas soil moisture do not. The app's 2005 check shows this for every series.
+
+How many series are significant (q ≤ 0.05) depends on the test, so 8 is not a method-free number:
+
+| Test applied to all 18 series | Significant |
+|---|---|
+| Mann-Kendall / current rule (primary) | 8 |
+| Hamed-Rao always (invalid variance for Sahel precipitation) | 10 |
+| Trend-free pre-whitening | 12 |
+| Mann-Kendall + Benjamini-Yekutieli | 6 |
+
+7 of the 8 are significant under Mann-Kendall, Hamed-Rao and pre-whitening (Sahel precipitation is the
+exception); 6 also survive Benjamini-Yekutieli.
 
 ## Run it locally
 
@@ -90,12 +104,18 @@ Data contract (`giovanni_observations.csv`): `variable, region, date, value, uni
    set in advance from background reading. The restriction to *positive* autocorrelation was added later,
    after Hamed-Rao failed for Sahel precipitation, so that choice was made with the data in view: the
    first version (|r1| > 0.2) sent Chiapas precipitation to Hamed-Rao (p = 0.0002 against 0.042) and left
-   Sahel precipitation unresolved. Mann-Kendall alone gives the same 8 significant series as the current
+   Sahel precipitation unresolved. In practice Mann-Kendall is the primary test: the Hamed-Rao switch
+   applies to only 3 series (Morelos precipitation, Southern Amazon precipitation, Zacatecas soil moisture)
+   and changes no classification. Mann-Kendall alone gives the same 8 significant series as the current
    rule, and so does any threshold between 0 and 0.5. At 25 years the lag-1 estimate is noisy (standard
    deviation about 0.2), so the choice of test is itself uncertain (`docs/ADR-001-trend-test.md`).
 4. **Multiple comparisons.** The 18 planned comparisons (3 variables × 6 regions) are corrected
    together with Benjamini-Hochberg (q-value). A result is called significant when q ≤ 0.05.
-5. **Robustness.** The app repeats the test from 2005 for the selected series. It is a check, not part
+5. **Dependence between tests.** Benjamini-Hochberg assumes independent or positively dependent tests,
+   but temperature and rainfall of one region can be negatively correlated (Sahel r = −0.51). With the
+   more conservative Benjamini-Yekutieli correction 6 of the 8 series remain significant (Sahel
+   precipitation and Zacatecas temperature drop out).
+6. **Robustness.** The app repeats the test from 2005 for the selected series. It is a check, not part
    of the 18 planned tests.
 
 Simulated check (`python -m stats.simulate_size`: 3 000 trend-free AR(1) series of 25 years, α = 0.05).
@@ -117,7 +137,7 @@ fix that at this length: 25 years is limited evidence.
 - Temperature (MERRA-2) and soil moisture (GLDAS) are model outputs fed with observations;
   precipitation (IMERG) is a satellite estimate calibrated with rain gauges.
 - 2-m temperature was cross-checked with ERA5 (reanalysis, average of 9 to 15 points per box, obtained
-  through the Open-Meteo archive API; `check_all_regions_era5.py`). Slopes in °C/decade, 2000–2024:
+  through the Open-Meteo archive API; the check script is not included in this repository). Slopes in °C/decade, 2000–2024:
 
   | Region | MERRA-2 (the app) | ERA5 | Reading |
   |---|---|---|---|
