@@ -1,3 +1,30 @@
+// Auto-hide sticky header when scrolling down, reveal when scrolling up
+const header = document.querySelector("header");
+if (header) {
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          if (currentScrollY > lastScrollY + 8 && currentScrollY > 84) {
+            header.classList.add("nav-hidden");
+          } else if (currentScrollY < lastScrollY - 6 || currentScrollY <= 60) {
+            header.classList.remove("nav-hidden");
+          }
+          lastScrollY = Math.max(0, currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+}
+
 // Set data-pitch-src on .screen when the team supplies its explanatory pitch video.
 // It will mount directly inside the right-hand video frame (#pitch-video-slot).
 const screen = document.querySelector(".screen");
@@ -75,7 +102,7 @@ if ("IntersectionObserver" in window) {
 
   // Gentle scroll-reveal choreography for sections and cards
   const revealTargets = document.querySelectorAll(
-    ".telemetry-strip, .var-panel, .card, .method-card, .transect-banner"
+    ".telemetry-strip, .var-panel, .card, .method-card, .repo-card"
   );
   revealTargets.forEach((el, idx) => {
     if (!reducedMotion.matches) {
