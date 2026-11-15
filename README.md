@@ -61,8 +61,7 @@ python -m streamlit run app/main.py
 | Path | Purpose |
 |---|---|
 | `data/giovanni/` | The 18 original Giovanni exports (`temp_`, `precip_`, `soil_` + region) |
-| `data/catalog.csv`, `data/regions.csv` | Product units/DOIs and region boxes |
-| `pipeline/ingest_giovanni.py` | Validates exports and writes the common data contract + `giovanni_catalog.json` |
+| `pipeline/ingest_giovanni.py` | Validates exports (regions, units and DOIs are defined here) and writes the common data contract + `giovanni_catalog.json` |
 | `pipeline/make_series_info.py` | Writes `series_info.csv`: source, DOI, box, grid cells, checksum, reproduction URL |
 | `stats/trends.py` | `trend_report`: Sen's slope, Mann-Kendall / Hamed-Rao |
 | `stats/analyze_giovanni.py` | Annual series, the 18 planned tests and FDR correction |
