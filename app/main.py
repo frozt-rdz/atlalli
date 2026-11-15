@@ -52,9 +52,11 @@ REGIONS = {
 
 VERDICT = {
     "significant": "A trend is detected",
+    "suggestive": "Suggestive, not confirmed",
     "not significant": "No trend can be claimed",
     "unresolved": "The test could not decide",
 }
+TIER_COLOR = {"significant": "#1f77b4", "suggestive": "#e69f00"}
 
 st.set_page_config(page_title="Trend Detective", page_icon="🌍", layout="wide")
 
@@ -79,6 +81,23 @@ def fmt_p(p: float) -> str:
 
 def fmt_slope(value: float, unit: str) -> str:
     return f"{value:+.3g} {unit}/decade"
+
+
+def evidence_tier(row: pd.Series) -> str:
+    """significant (q <= 0.05) / suggestive (p < 0.05 but q > 0.05) / not significant / unresolved."""
+    if row.classification == "not significant" and pd.notna(row.p_value) and row.p_value < ALPHA:
+        return "suggestive"
+    return row.classification
+
+
+def start_year_check(annual: pd.DataFrame, row: pd.Series):
+    """Repeat the test from 2005. Returns (result, same_direction, still_significant) or None."""
+    later = annual[annual.index >= 2005]
+    if len(later) < 4:
+        return None
+    check = trend_report(later.index.to_numpy(), later.annual_value.to_numpy(), alpha=ALPHA)
+    same_sign = bool(np.sign(check.sen_slope_decade) == np.sign(row.sen_slope_decade))
+    return check, same_sign, bool(check.significant)
 
 
 def region_name(region: str) -> str:
@@ -152,10 +171,28 @@ with tab_explore:
         c2.metric("Evidence (p-value)", "n/a")
         c3.metric("After correcting for 18 comparisons (q)", "n/a")
 
-    verdict = VERDICT[row.classification]
-    if row.classification == "significant":
-        st.success(f"{verdict}: the {'increase' if row.sen_slope_decade > 0 else 'decrease'} is unlikely to be chance.")
-    elif row.classification == "not significant":
+    series = monthly[(monthly.variable == variable) & (monthly.region == region)]
+    annual, _ = build_annual_series(series, variable)
+    robustness = start_year_check(annual, row)
+    tier = evidence_tier(row)
+    verdict = VERDICT[tier]
+    direction = "rise" if row.sen_slope_decade > 0 else "fall"
+    if tier == "significant":
+        fragile = robustness is not None and (not robustness[1] or not robustness[2])
+        if fragile:
+            st.warning(
+                f"{verdict} over 2000–2024, but it is sensitive to the start year: from 2005 it is "
+                f"{'in the opposite direction' if not robustness[1] else 'no longer significant'} "
+                f"(p = {fmt_p(robustness[0].p_value)}). See the check below."
+            )
+        else:
+            st.success(f"{verdict}: a {direction} this large would be unusual if nothing were changing.")
+    elif tier == "suggestive":
+        st.info(
+            f"{verdict}: p < 0.05, but not after correcting for 18 comparisons, so it could be a "
+            "lucky result. Treat it as a lead, not a finding."
+        )
+    elif tier == "not significant":
         st.info(f"{verdict} with these data. This does not prove nothing is changing; 25 years is short.")
     else:
         st.warning(f"{verdict}.")
@@ -168,8 +205,6 @@ with tab_explore:
         f"Method: {row.method}."
     )
 
-    series = monthly[(monthly.variable == variable) & (monthly.region == region)]
-    annual, _ = build_annual_series(series, variable)
     figure = go.Figure()
     figure.add_scatter(x=annual.index, y=annual.annual_value, mode="markers", name="Yearly value")
     if np.isfinite(row.sen_slope_decade):
@@ -186,15 +221,12 @@ with tab_explore:
     st.caption(box_caption(info_row))
 
     with st.expander("Does the result hold if we start later (2005–2024)?"):
-        later = annual[annual.index >= 2005]
-        if len(later) >= 4:
-            check = trend_report(later.index.to_numpy(), later.annual_value.to_numpy(), alpha=ALPHA)
+        if robustness is not None:
+            check, same_sign, still_significant = robustness
             st.write(
                 f"From 2005: {fmt_slope(check.sen_slope_decade, unit)}, p = {fmt_p(check.p_value)} "
                 f"({check.method}, {check.n} years)."
             )
-            same_sign = np.sign(check.sen_slope_decade) == np.sign(row.sen_slope_decade)
-            still_significant = bool(check.significant)
             if not same_sign:
                 st.write("The direction changes: the result is fragile.")
             elif still_significant:
@@ -229,10 +261,11 @@ with tab_compare:
         )
 
     ordered = regional.sort_values("sen_slope_decade")
+    tiers = ordered.apply(evidence_tier, axis=1)
     names = ordered.region.map(region_name)
     compare = go.Figure(go.Scatter(
         x=ordered.sen_slope_decade, y=names, mode="markers",
-        marker=dict(size=10, color=np.where(ordered.classification == "significant", "#1f77b4", "#9e9e9e")),
+        marker=dict(size=10, color=[TIER_COLOR.get(t, "#9e9e9e") for t in tiers]),
         error_x=dict(
             type="data", symmetric=False,
             array=ordered.ci_high_decade - ordered.sen_slope_decade,
@@ -244,8 +277,10 @@ with tab_compare:
     compare.update_layout(template="plotly_white", xaxis_title=f"Change per decade ({unit}/decade)", showlegend=False)
     st.plotly_chart(compare)
     st.caption(
-        "Blue dots: significant after correcting for 18 comparisons. Grey dots: not significant. "
-        "Bars are conventional 95% intervals; they do not adjust for autocorrelation."
+        "Blue dots: significant after correcting for 18 comparisons. Orange dots: suggestive "
+        "(p < 0.05 but not after the correction). Grey dots: not significant. "
+        "Bars are conventional 95% intervals; they adjust neither for autocorrelation nor for the "
+        "18 comparisons, so a bar that excludes zero can sit on an orange or grey dot."
     )
 
     table = pd.DataFrame({
@@ -253,7 +288,7 @@ with tab_compare:
         "Change per decade": [fmt_slope(v, unit) for v in ordered.sen_slope_decade],
         "p": [fmt_p(v) for v in ordered.p_value],
         "q": [fmt_p(v) for v in ordered.q_value],
-        "Verdict": ordered.classification.map(VERDICT),
+        "Verdict": tiers.map(VERDICT),
     })
     st.dataframe(table, hide_index=True)
 
@@ -274,7 +309,8 @@ with tab_about:
         "- **q-value:** the p-value corrected for running 18 comparisons at once, so lucky results are not "
         "overstated (Benjamini-Hochberg).\n"
         "- **Method:** Mann-Kendall tests whether values tend to rise or fall. Hamed-Rao is used instead when "
-        "consecutive years are positively correlated, which would otherwise make the test too confident."
+        "consecutive years are clearly positively correlated (lag-1 above 0.2). With only 25 years neither "
+        "choice fully protects against false alarms when years are correlated."
     )
 
     st.header("Limitations")
@@ -284,7 +320,10 @@ with tab_about:
         "- Boxes are averages over many grid cells; trends can differ inside a box. "
         "Boxes were chosen by the data, not by labels such as dry or rainy.\n"
         "- Temperature and soil moisture come from models fed with observations; precipitation is a satellite estimate.\n"
-        "- Linear trends only; seasonal or non-linear changes are out of scope."
+        "- Linear trends only; seasonal or non-linear changes are out of scope.\n"
+        "- Satellite and model records can change character over time. IMERG joins the TRMM era (until "
+        "mid-2014) and the GPM era, and GLDAS-2.1 changed its forcing in March 2001, so a trend can partly "
+        "reflect the record itself. The 2005–2024 check helps, but does not remove this risk."
     )
 
     st.header("Data provenance")
