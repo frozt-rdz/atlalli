@@ -1,6 +1,6 @@
 # ADR-001: Primary significance test and autocorrelation handling
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-11-14
 **Deciders:** Science lead (Briana), team
 
@@ -120,7 +120,7 @@ Measured on the 18 real series (BH over the planned family of 18, q ≤ 0.05):
 | TFPW for every series | 12 | 6 series |
 
 Threshold sweep on the same 18 series (`threshold_sweep.py`, a standalone script from the independent
-review; it is not part of the repository):
+review; it is not included in this repository):
 
 | Threshold for using HR | Series sent to HR | Significant | Same set as MK only |
 |------------------------|-------------------|-------------|---------------------|
@@ -156,6 +156,6 @@ possible positive autocorrelation, a single significant series is a lead, not pr
 1. [x] State in the README that the 0.2 threshold was fixed in advance, that the positive-only restriction
    was added later, and that MK alone and every threshold from 0 to 0.5 give the same 8 series.
 2. [x] Commit `stats/simulate_size.py` and cite its output instead of unreproducible numbers.
-3. [ ] Add the literature reference behind the 0.2 value to the README (Methods, item 3) and here.
-4. [ ] Label series with q > 0.05 but p < 0.05 as "suggestive" in the app (separate patch: app verdicts).
+3. [ ] The 0.2 value is a practical heuristic with no literature citation; the README says so.
+4. [x] Label series with q > 0.05 but p < 0.05 as "suggestive" in the app (separate patch: app verdicts).
 5. [ ] Optional: if the team prefers a single test for simplicity, move to Option B; it changes no result.

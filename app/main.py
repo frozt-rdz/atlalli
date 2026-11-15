@@ -143,11 +143,16 @@ st.write(
 )
 
 variable = st.sidebar.selectbox(
-    "Variable", list(VARIABLES), format_func=lambda v: VARIABLES[v]["label"]
+    "Variable", list(VARIABLES),
+    index=list(VARIABLES).index("air_temperature_2m"),
+    format_func=lambda v: VARIABLES[v]["label"],
 )
 regional = report[report.variable == variable].copy()
+region_options = [r for r in REGIONS if r in set(regional.region)]
 region = st.sidebar.selectbox(
-    "Region", [r for r in REGIONS if r in set(regional.region)], format_func=region_name
+    "Region", region_options,
+    index=region_options.index("morelos") if "morelos" in region_options else 0,
+    format_func=region_name,
 )
 st.sidebar.caption("Results cover the planned window 2000–2024 and years with all 12 months.")
 
@@ -198,6 +203,11 @@ with tab_explore:
         st.warning(f"{verdict}.")
     if row.warnings:
         st.warning(row.warnings)
+    if variable == "air_temperature_2m" and region == "sahel":
+        st.warning(
+            "Not a finding: MERRA-2 shows a decrease here, but an independent ERA5 check shows an "
+            "increase (+0.24 °C/decade). Read it as product-dependent, not as cooling."
+        )
 
     st.write(
         f"Conventional 95% interval for the change: {row.ci_low_decade:+.3g} to "
@@ -251,14 +261,33 @@ with tab_compare:
 
     rising = regional[(regional.classification == "significant") & (regional.sen_slope_decade > 0)]
     falling = regional[(regional.classification == "significant") & (regional.sen_slope_decade < 0)]
+
+    def holds_from_2005(region_key: str) -> bool:
+        """True if the series keeps its sign and significance when it starts in 2005."""
+        series_ = monthly[(monthly.variable == variable) & (monthly.region == region_key)]
+        annual_, _ = build_annual_series(series_, variable)
+        check_ = start_year_check(annual_, regional[regional.region == region_key].iloc[0])
+        return check_ is not None and check_[1] and check_[2]
+
     if len(rising) and len(falling):
-        st.success(
-            "**Opposite trends:** rising in "
-            + ", ".join(region_name(r) for r in rising.region)
-            + "; falling in "
-            + ", ".join(region_name(r) for r in falling.region)
-            + "."
-        )
+        up_ok = [r for r in rising.region if holds_from_2005(r)]
+        down_ok = [r for r in falling.region if holds_from_2005(r)]
+        if up_ok and down_ok:
+            st.success(
+                "**Opposite trends:** rising in "
+                + ", ".join(region_name(r) for r in up_ok)
+                + "; falling in "
+                + ", ".join(region_name(r) for r in down_ok)
+                + "."
+            )
+        else:
+            st.info(
+                "**Opposite signs, with caution:** rising in "
+                + ", ".join(region_name(r) for r in rising.region)
+                + "; falling in "
+                + ", ".join(region_name(r) for r in falling.region)
+                + ". At least one of these is sensitive to the start year (see each region's check)."
+            )
 
     ordered = regional.sort_values("sen_slope_decade")
     tiers = ordered.apply(evidence_tier, axis=1)
@@ -318,9 +347,11 @@ with tab_about:
         "- 25 years is short. Rainfall in Mexico also swings with El Niño and other multi-year cycles.\n"
         "- A result that is not significant does not prove that nothing is changing.\n"
         "- Boxes are averages over many grid cells; trends can differ inside a box. "
-        "Boxes were chosen by the data, not by labels such as dry or rainy.\n"
+        "The four Mexican boxes are approximate areas of interest. The Sahel and Southern Amazon were added as "
+        "reference regions because a stronger signal is known there, so they are not a neutral sample.\n"
         "- Temperature and soil moisture come from models fed with observations; precipitation is a satellite estimate.\n"
         "- Linear trends only; seasonal or non-linear changes are out of scope.\n"
+        "- Results can depend on the end year too: the 2000-2024 trends include the warm and dry 2020-2024 years.\n"
         "- Satellite and model records can change character over time. IMERG joins the TRMM era (until "
         "mid-2014) and the GPM era, and GLDAS-2.1 changed its forcing in March 2001, so a trend can partly "
         "reflect the record itself. The 2005–2024 check helps, but does not remove this risk."
