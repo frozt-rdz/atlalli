@@ -39,6 +39,7 @@
           <span>Region Selector</span>
         </button>
         <button type="button" class="page-tab-btn" id="nav-tab-data" data-goto-page="data">
+          <span class="header-region-logo" id="header-region-logo" aria-hidden="true"></span>
           <span class="active-region-dot" aria-hidden="true"></span>
           <span id="header-region-name">View Graphs · Morelos</span>
         </button>
@@ -54,9 +55,15 @@
       <!-- Full-Bleed Animated Regional & Variable Background Scene for the Outer Rectangle -->
       <div class="card-bg-scene" id="card-bg-scene" aria-hidden="true"></div>
 
+      <!-- 1. TOP CENTER: Official Logo Badge, Eyebrow & Region Name -->
       <div class="selector-top-center">
-        <span class="selector-eyebrow">Select a Study Region</span>
-        <h1 class="selector-main-title" id="selector-main-title">Morelos, Mexico</h1>
+        <div class="selector-active-badge-wrap">
+          <div class="selector-active-emblem" id="selector-active-emblem"></div>
+          <div class="selector-active-text-block">
+            <span class="selector-eyebrow">Select a Study Region</span>
+            <h1 class="selector-main-title" id="selector-main-title">Morelos, Mexico</h1>
+          </div>
+        </div>
       </div>
 
       <div class="selector-constellation-stage" id="circular-wheel-stage"></div>

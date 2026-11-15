@@ -186,26 +186,26 @@
   }
 
   /* ==========================================================================
-     AI-use notice: Miniature & Large Central Animated SVG Landscapes (6 Regions)
+     Official Vector Logos for 6 Study Regions (Atlalli Tlacuache Mascots)
      ========================================================================== */
-  function getRegionMiniNodeSvg(regionId) {
+  const REGION_LOGOS = {
+    morelos: "../LOGO_MORELOS.svg",
+    chiapas: "../LOGO_CHIAPAS.svg",
+    south_amazon: "../LOGO_AMAZONIA.svg",
+    sahel: "../LOGO_AZAHEL.svg",
+    sonora: "../LOGO_SONORA.svg",
+    zacatecas: "../LOGO_ZACATECAS.svg"
+  };
+
+  function getRegionLogoHtml(regionId, className = "region-logo-asset", customAlt = "") {
+    const src = REGION_LOGOS[regionId] || (DATA.regions[regionId] && DATA.regions[regionId].logoFile ? `../${DATA.regions[regionId].logoFile}` : "../Logo_Atlalli.svg");
     const r = DATA.regions[regionId];
-    const c = r.colors;
-    switch (regionId) {
-      case "morelos":
-        return `<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="${c.softBg}"/><circle cx="44" cy="18" r="8" fill="${c.accent}"/><path d="M0,42 L18,24 L36,38 L52,22 L60,32 L60,60 L0,60 Z" fill="${c.primary}" opacity="0.75"/><path d="M0,46 Q30,34 60,44 L60,60 L0,60 Z" fill="#619F4D"/><circle cx="20" cy="50" r="3" fill="${c.primary}"/><circle cx="38" cy="48" r="3" fill="${c.primary}"/></svg>`;
-      case "chiapas":
-        return `<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="${c.softBg}"/><circle cx="44" cy="16" r="8" fill="${c.accent}"/><polygon points="14,44 22,26 38,26 46,44" fill="#4B5F5A"/><rect x="25" y="19" width="10" height="7" fill="#4B5F5A"/><path d="M0,44 Q30,36 60,44 L60,60 L0,60 Z" fill="${c.primary}"/></svg>`;
-      case "south_amazon":
-        return `<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="${c.softBg}"/><circle cx="44" cy="16" r="8" fill="#D59625"/><path d="M0,38 Q30,26 60,38 L60,60 L0,60 Z" fill="${c.primary}"/><path d="M24,38 Q18,48 10,60 L34,60 Q36,48 24,38 Z" fill="#1B8E96"/></svg>`;
-      case "sahel":
-        return `<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="${c.softBg}"/><circle cx="18" cy="18" r="9" fill="${c.accent}"/><path d="M0,42 Q30,34 60,42 L60,60 L0,60 Z" fill="${c.primary}"/><ellipse cx="38" cy="26" rx="14" ry="4" fill="#619F4D"/><line x1="38" y1="26" x2="38" y2="42" stroke="#4B5F5A" stroke-width="2.5"/></svg>`;
-      case "sonora":
-        return `<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="${c.softBg}"/><circle cx="18" cy="18" r="8" fill="#CD8F2C"/><polygon points="6,45 24,22 42,45" fill="${c.primary}"/><path d="M0,44 Q30,38 60,44 L60,60 L0,60 Z" fill="${c.accent}"/><rect x="43" y="24" width="4" height="20" rx="2" fill="#1B8E96"/></svg>`;
-      case "zacatecas":
-      default:
-        return `<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="${c.softBg}"/><circle cx="44" cy="18" r="8" fill="#A97508"/><polygon points="8,44 26,20 44,44" fill="${c.accent}"/><path d="M0,44 Q30,36 60,44 L60,60 L0,60 Z" fill="${c.primary}"/></svg>`;
-    }
+    const alt = customAlt || (r ? `${r.fullName} official emblem` : "Region emblem");
+    return `<img src="${src}" class="${className}" alt="${alt}" loading="lazy" />`;
+  }
+
+  function getRegionMiniNodeSvg(regionId) {
+    return getRegionLogoHtml(regionId, "node-logo-img");
   }
 
   function renderAnimatedHubRegionSvg(regionId, phase) {
@@ -720,12 +720,9 @@
       if (btn) {
         btn.classList.toggle("active", node.id === state.regionId);
       }
-      if (node.id !== state.regionId) {
-        const svgSpan = document.getElementById(`node-svg-${node.id}`);
-        if (svgSpan && svgSpan.getAttribute("data-animated") === "1") {
-          svgSpan.innerHTML = getRegionMiniNodeSvg(node.id);
-          svgSpan.removeAttribute("data-animated");
-        }
+      const svgSpan = document.getElementById(`node-svg-${node.id}`);
+      if (svgSpan && !svgSpan.querySelector("img")) {
+        svgSpan.innerHTML = getRegionMiniNodeSvg(node.id);
       }
     });
 
@@ -735,11 +732,13 @@
     }
 
     const mainTitle = document.getElementById("selector-main-title");
+    const activeEmblem = document.getElementById("selector-active-emblem");
     const coordKicker = document.getElementById("constellation-coord-kicker");
     const biomeVal = document.getElementById("constellation-biome-val");
     const openBtnTxt = document.getElementById("open-region-btn-text");
 
     if (mainTitle) mainTitle.textContent = currReg.fullName;
+    if (activeEmblem) activeEmblem.innerHTML = getRegionLogoHtml(state.regionId, "selector-emblem-img");
     if (coordKicker) coordKicker.textContent = currReg.bbox.coordLabel;
     if (biomeVal) biomeVal.textContent = currReg.climateTag;
     if (openBtnTxt) {
@@ -750,12 +749,6 @@
     const cardBg = document.getElementById("card-bg-scene");
     if (cardBg) {
       cardBg.innerHTML = renderOuterCardBackgroundSvg(state.regionId, state.activeVar, state.phaseTime, 1140, 590);
-    }
-
-    const activeNodeSvg = document.getElementById(`node-svg-${state.regionId}`);
-    if (activeNodeSvg) {
-      activeNodeSvg.innerHTML = renderAnimatedHubRegionSvg(state.regionId, state.phaseTime);
-      activeNodeSvg.setAttribute("data-animated", "1");
     }
 
     // Update unified single-rectangle variable switcher on the Selector Page
@@ -1565,7 +1558,7 @@
     const h1El = document.getElementById("data-region-h1");
     const subEl = document.getElementById("data-region-sub");
     const overviewEl = document.getElementById("data-region-overview");
-    if (emblemEl) emblemEl.innerHTML = getRegionMiniNodeSvg(state.regionId);
+    if (emblemEl) emblemEl.innerHTML = getRegionLogoHtml(state.regionId, "region-emblem-img");
     if (h1El) h1El.textContent = region.fullName;
     if (subEl) subEl.textContent = `${region.landmarkLabel} · ${region.climateTag}`;
     if (overviewEl) overviewEl.textContent = region.simpleOverview || region.regionalSummary || "";
@@ -1823,6 +1816,10 @@
     if (headerBadge) {
       headerBadge.textContent = `View Graphs · ${region.name} · ${vMeta.shortLabel}`;
     }
+    const headerLogo = document.getElementById("header-region-logo");
+    if (headerLogo) {
+      headerLogo.innerHTML = getRegionLogoHtml(state.regionId, "header-logo-img");
+    }
 
     updateCircularWheelSelection(animateTransition);
     renderStudioContent();
@@ -1844,11 +1841,6 @@
       const cardBg = document.getElementById("card-bg-scene");
       if (cardBg) {
         cardBg.innerHTML = renderOuterCardBackgroundSvg(state.regionId, state.activeVar, state.phaseTime, 1140, 590);
-      }
-      const activeNodeSvg = document.getElementById(`node-svg-${state.regionId}`);
-      if (activeNodeSvg) {
-        activeNodeSvg.innerHTML = renderAnimatedHubRegionSvg(state.regionId, state.phaseTime);
-        activeNodeSvg.setAttribute("data-animated", "1");
       }
       return;
     }

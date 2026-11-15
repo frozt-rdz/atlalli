@@ -287,6 +287,33 @@ body[data-page="data"] #page-region-data {
   transform: scale(1.18);
 }
 
+.header-region-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--reg-primary);
+  background-color: #FFFFFF;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 1px;
+  transition: border-color 0.4s ease, transform 0.25s ease;
+}
+
+.header-region-logo img,
+.header-region-logo .header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.page-tab-btn:has(.header-region-logo img) .active-region-dot {
+  display: none;
+}
+
 /* ==========================================================================
    INDEPENDENT PAGE 1: STANDALONE 6-REGION SELECTOR PAGE
    - Fits comfortably in 100vh full-screen viewports
@@ -350,8 +377,57 @@ body[data-page="data"] #page-region-data {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 680px;
+  max-width: 720px;
   gap: 0.25rem;
+}
+
+.selector-active-badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: rgba(255, 251, 239, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid var(--border-color);
+  border-radius: 999px;
+  padding: 0.4rem 1.3rem 0.4rem 0.5rem;
+  box-shadow: 0 4px 18px rgba(31, 58, 54, 0.08);
+  transition: border-color 0.35s ease;
+}
+
+.selector-active-emblem {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2.8px solid var(--reg-primary);
+  background-color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(20, 40, 36, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: border-color 0.4s ease, transform 0.25s ease;
+}
+
+.selector-active-emblem:hover {
+  transform: scale(1.06);
+}
+
+.selector-active-emblem img,
+.selector-active-emblem .selector-emblem-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.selector-active-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .selector-eyebrow {
@@ -558,19 +634,38 @@ body[data-page="data"] #page-region-data {
 }
 
 .node-mini-svg {
-  width: 66px;
-  height: 66px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   overflow: hidden;
-  display: block;
-  border: 1.5px solid rgba(31, 58, 54, 0.12);
-  background-color: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(31, 58, 54, 0.14);
+  background-color: #FFFFFF;
+  padding: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+.node-mini-svg img,
+.node-mini-svg .node-logo-img,
 .node-mini-svg svg {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   display: block;
+}
+
+.wheel-node:hover .node-mini-svg {
+  transform: scale(1.06);
+  border-color: var(--node-color, var(--reg-primary));
+}
+
+.wheel-node.active .node-mini-svg {
+  border-color: var(--node-color, var(--reg-primary));
+  box-shadow: 0 4px 14px rgba(20, 40, 36, 0.16);
+  transform: scale(1.08);
 }
 
 .node-label {
@@ -839,19 +934,33 @@ body[data-page="data"] #page-region-data {
 }
 
 .region-mini-emblem {
-  width: 58px;
-  height: 58px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  border: 3px solid var(--reg-primary);
+  border: 3.5px solid var(--reg-primary);
   overflow: hidden;
   flex-shrink: 0;
-  background-color: var(--reg-soft);
-  transition: border-color 0.4s ease;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(20, 40, 36, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.25s ease;
 }
 
+.region-mini-emblem:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(20, 40, 36, 0.18);
+}
+
+.region-mini-emblem img,
+.region-mini-emblem .region-emblem-img,
 .region-mini-emblem svg {
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
