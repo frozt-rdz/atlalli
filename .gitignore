@@ -5,3 +5,6 @@ data/raw/*
 *.nc
 *.hdf
 .ipynb_checkpoints/
+
+# Git bundles are local backups, not part of the repository
+*.bundle
