@@ -22,6 +22,7 @@ REPORT_CSV = ROOT / "data" / "processed" / "giovanni_significance.csv"
 ALPHA = 0.05
 
 UNITS = {"precipitation_rate": "mm", "air_temperature_2m": "°C", "soil_moisture_0_10cm": "kg/m²"}
+YEARLY = {"precipitation_rate": "mm/yr", "air_temperature_2m": "°C", "soil_moisture_0_10cm": "kg/m²"}
 NOUN = {"precipitation_rate": "rainfall", "air_temperature_2m": "air temperature",
         "soil_moisture_0_10cm": "topsoil moisture"}
 PILL = {  # (variable, sign) -> short status label for a detected or suggestive change
@@ -54,6 +55,35 @@ def tier_of(series: dict) -> str:
 def _eq(formatted: str) -> str:
     """'= 0.016' or '< 0.001' (the atlas stores '< 0.001' for tiny values)."""
     return formatted if formatted.startswith("<") else f"= {formatted}"
+
+
+def _headline_and_story(variable: str, series: dict, tier: str) -> tuple[str, str]:
+    """Plain-language headline and story built only from the statistics (no causes, no impacts)."""
+    noun = NOUN[variable]
+    unit = YEARLY[variable]
+    story = series["story"]
+    start, end = story["startEst2000"], story["endEst2024"]
+    amount = f"{abs(end - start):.3g} {unit}"
+    verb = "rose" if end >= start else "fell"
+    trend = (f"The fitted trend (Sen's slope, {series['senSlopeDecade']:+.3g} {UNITS[variable]}/decade) goes from about "
+             f"{start:.1f} {unit} in 2000 to {end:.1f} {unit} in 2024")
+    p, q = _eq(series["pFormatted"]), _eq(series["qFormatted"])
+    p05 = _eq(series["robustness2005"]["pFormatted"])
+    if tier == "robust":
+        return (f"{noun.capitalize()} {verb} by about {amount} over 2000–2024",
+                f"{trend}. The change is significant after correcting for 18 comparisons (q {q}). "
+                "It describes the data, not what causes it.")
+    if tier == "fragile":
+        return (f"{noun.capitalize()} {verb} by about {amount} over 2000–2024, but the result is fragile",
+                f"{trend} (q {q}), but it is not significant when the series starts in 2005 (p {p05}). "
+                "Treat it as a lead, not a firm finding.")
+    if tier == "suggestive":
+        return (f"{noun.capitalize()}: a possible change of about {amount} over 2000–2024",
+                f"{trend} (p {p}, q {q}). It is not confirmed after correcting for 18 comparisons, so treat it as a lead.")
+    return (f"No trend can be claimed for {noun}",
+            f"Yearly values average {series['meanAnnual']:.1f} {unit} and range from {series['minValue']:.1f} "
+            f"({series['minYear']}) to {series['maxValue']:.1f} ({series['maxYear']}). The test finds no trend that stands "
+            "out from normal variability; this does not prove that nothing is changing, because 25 years is short.")
 
 
 def _recent(series: dict, tier: str, unit: str) -> dict:
@@ -129,6 +159,8 @@ def reword(region_key: str, variable: str, series: dict) -> None:
                           "is short."),
         )
     story.update(_recent(series, tier, unit))
+    story["headline"], story["story"] = _headline_and_story(variable, series, tier)
+    series["evidenceTier"] = tier
     story["signalPct"] = None  # the old value was 1 - q read as "% sure", which is not a probability
 
     if (region_key, variable) == SAHEL_T:
@@ -141,8 +173,6 @@ def reword(region_key: str, variable: str, series: dict) -> None:
             whyConfident=("Not a finding: the sign differs between two reanalyses, and the MERRA-2 result "
                           "depends on the start year and on single years."),
         )
-    elif variable == "air_temperature_2m" and sign < 0:
-        story["story"] = story["story"].replace("with warming becoming much clearer during the last 20 years", "")
 
 
 def main() -> None:

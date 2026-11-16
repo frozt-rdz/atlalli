@@ -6,7 +6,7 @@ change is statistically significant.
 
 NASA Space Apps Challenge 2026 · *Be an Earth System Trend Detective*
 
-> Live app: [https://atlalli.earth/]
+> Live app: <https://atlalli.earth/>
 
 ## What it does
 
@@ -84,6 +84,8 @@ python -m streamlit run app/main.py
 | `stats/simulate_size.py` | False-positive rate and power of the test at 25 years (reproduces the numbers below) |
 | `docs/ADR-001-trend-test.md` | Why the lag-1 rule is kept (Mann-Kendall by default, Hamed-Rao for positive autocorrelation) and what each alternative would change |
 | `app/main.py` | The Streamlit app |
+| `app/web/` | The static web atlas (explorer and region pages); its verdict wording is generated from the statistics |
+| `pipeline/refresh_atlas_wording.py` | Rewrites the atlas verdict text from `giovanni_significance.csv` (four evidence tiers), so it cannot say more than the tests |
 | `stats/tests/` | Automated tests |
 
 Data contract (`giovanni_observations.csv`): `variable, region, date, value, units, source, doi`.
@@ -208,6 +210,13 @@ NASA's open data policy; see the DOIs above.
 ## Use of AI
 
 Parts of the code (the trend module, the Giovanni pipeline and analysis, the Streamlit app, the
-provenance script and the tests) were written with the assistance of Claude (Anthropic) and reviewed
-by the team; files carry an AI-use notice. The project idea, the selection of variables and regions
-and the interpretation of results are the team's own.
+web atlas and its wording script, the provenance script and the tests) were written with the assistance of Claude (Anthropic) and reviewed
+by the team; files carry an AI-use notice.
+
+- **Animations and video:** the animations in the web atlas and in the pitch video were created with AI
+  assistance and reviewed by the team.
+- **Statistical review:** the method audit, the sensitivity checks and the wording fixes were led by Briana
+  Brito (science lead) with the assistance of Claude. Every change was reviewed, applied and committed by
+  the team under its own names.
+- The project idea, the selection of variables and regions and the interpretation of results are the
+  team's own.

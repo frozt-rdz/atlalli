@@ -119,7 +119,7 @@ Measured on the 18 real series (BH over the planned family of 18, q ≤ 0.05):
 | HR for every series | 10 | Chiapas precip (inflated), Sahel precip (invalid), Morelos soil, Sahel temp |
 | TFPW for every series | 12 | 6 series |
 
-Threshold sweep on the same 18 series (`threshold_sweep.py`, a standalone script from the independent review)
+Threshold sweep on the same 18 series (`threshold_sweep.py`, a standalone script written for the team's statistical review, with AI assistance)
 
 | Threshold for using HR | Series sent to HR | Significant | Same set as MK only |
 |------------------------|-------------------|-------------|---------------------|

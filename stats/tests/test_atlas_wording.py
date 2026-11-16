@@ -44,3 +44,25 @@ def test_fragile_and_contradicted_series_are_flagged():
     assert atlas["sahel"]["variables"]["precipitation_rate"]["story"]["signalLabel"] == "Detected, but fragile"
     sahel_t = atlas["sahel"]["variables"]["air_temperature_2m"]["story"]
     assert "ERA5" in sahel_t["story"] and not re.search(r"warming becoming", sahel_t["story"])
+
+
+def test_gauge_and_labels_follow_the_evidence_tier():
+    js = (ROOT / "app" / "web" / "explorar" / "explorar.js").read_text(encoding="utf-8")
+    assert "Proven" not in js and "Certainty Level" not in js and "REAL 25-YEAR" not in js
+    assert 'evidenceTier === "robust"' in js
+    expected = {"robust": "Trend detected", "fragile": "Detected, but fragile",
+                "suggestive": "Suggestive, not confirmed", "none": "No trend can be claimed"}
+    for data in _atlas()["regions"].values():
+        for series in data["variables"].values():
+            assert series["story"]["signalLabel"] == expected[series["evidenceTier"]] or (
+                series["evidenceTier"] == "suggestive" and series["story"]["signalLabel"] == expected["suggestive"])
+
+
+def test_series_without_a_trend_do_not_describe_a_change_or_a_cause():
+    for data in _atlas()["regions"].values():
+        for series in data["variables"].values():
+            story = series["story"]
+            if series["evidenceTier"] == "none":
+                assert story["headline"].startswith("No trend can be claimed")
+                assert not re.search(r"\b(lost|rose|fell|slipped|moved)\b", story["story"])
+            assert "evaporates" not in story["story"] and "Seeds and shallow roots" not in story["story"]
