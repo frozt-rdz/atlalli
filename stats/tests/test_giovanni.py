@@ -1,13 +1,11 @@
 # AI Generated
 """Checks against original exports and independently known aggregation results."""
 
-from pathlib import Path
 from shutil import copyfile
 
 import numpy as np
 import pandas as pd
 import pytest
-from streamlit.testing.v1 import AppTest
 
 from pipeline.ingest_giovanni import (
     INPUT_DIR, GiovanniValidationError, build_giovanni_dataset, read_giovanni_csv,
@@ -87,13 +85,3 @@ def test_real_sahel_regression_and_determinism():
     absent = build_report(monthly[monthly.region != "sahel"]).query("region == 'sahel'")
     assert set(absent.status) == {"insufficient_years"}
     assert absent.significant_fdr.isna().all()
-
-
-def test_dashboard_sahel():
-    script = Path(__file__).resolve().parents[1] / "visualize_giovanni.py"
-    app = AppTest.from_file(str(script), default_timeout=30).run()
-    assert not app.exception
-    app.selectbox[1].set_value("sahel").run()
-    assert not app.exception
-    assert not any("unavailable" in item.value for item in app.warning)
-    assert len(app.get("plotly_chart")) == 3

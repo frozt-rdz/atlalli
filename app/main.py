@@ -1,6 +1,6 @@
 # AI-use notice: this file was written with the assistance of Claude (Anthropic)
 # and reviewed by the team.
-"""Trend Detective: is the Earth changing where you live? (Streamlit app)
+"""Atlalli: is the Earth changing where you live? (Streamlit app)
 
 Run from the repository root:
     streamlit run app/main.py
@@ -52,11 +52,13 @@ REGIONS = {
 
 VERDICT = {
     "significant": "A trend is detected",
+    "suggestive": "Suggestive, not confirmed",
     "not significant": "No trend can be claimed",
     "unresolved": "The test could not decide",
 }
+TIER_COLOR = {"significant": "#1f77b4", "suggestive": "#e69f00"}
 
-st.set_page_config(page_title="Trend Detective", page_icon="🌍", layout="wide")
+st.set_page_config(page_title="Atlalli", page_icon="🌍", layout="wide")
 
 
 @st.cache_data
@@ -81,6 +83,23 @@ def fmt_slope(value: float, unit: str) -> str:
     return f"{value:+.3g} {unit}/decade"
 
 
+def evidence_tier(row: pd.Series) -> str:
+    """significant (q <= 0.05) / suggestive (p < 0.05 but q > 0.05) / not significant / unresolved."""
+    if row.classification == "not significant" and pd.notna(row.p_value) and row.p_value < ALPHA:
+        return "suggestive"
+    return row.classification
+
+
+def start_year_check(annual: pd.DataFrame, row: pd.Series):
+    """Repeat the test from 2005. Returns (result, same_direction, still_significant) or None."""
+    later = annual[annual.index >= 2005]
+    if len(later) < 4:
+        return None
+    check = trend_report(later.index.to_numpy(), later.annual_value.to_numpy(), alpha=ALPHA)
+    same_sign = bool(np.sign(check.sen_slope_decade) == np.sign(row.sen_slope_decade))
+    return check, same_sign, bool(check.significant)
+
+
 def region_name(region: str) -> str:
     return REGIONS.get(region, region.replace("_", " ").title())
 
@@ -99,7 +118,7 @@ def box_caption(info_row: pd.Series) -> str:
 
 # ---------------------------------------------------------------- data loading
 if not INPUT_CSV.exists() or not INFO_CSV.exists():
-    st.title("Trend Detective")
+    st.title("Atlalli")
     st.error(
         "Data files are missing. From the repository root run: "
         "`python -m pipeline.ingest_giovanni` and `python -m pipeline.make_series_info`."
@@ -116,7 +135,7 @@ except (ValueError, OSError, pd.errors.ParserError) as exc:
     st.stop()
 
 # ---------------------------------------------------------------------- header
-st.title("Trend Detective")
+st.title("Atlalli")
 st.write(
     "**Is the Earth changing where you live?** Pick a variable and a region to see "
     "25 years (2000–2024) of NASA data, how much it changed, and whether the change is "
@@ -124,11 +143,16 @@ st.write(
 )
 
 variable = st.sidebar.selectbox(
-    "Variable", list(VARIABLES), format_func=lambda v: VARIABLES[v]["label"]
+    "Variable", list(VARIABLES),
+    index=list(VARIABLES).index("air_temperature_2m"),
+    format_func=lambda v: VARIABLES[v]["label"],
 )
 regional = report[report.variable == variable].copy()
+region_options = [r for r in REGIONS if r in set(regional.region)]
 region = st.sidebar.selectbox(
-    "Region", [r for r in REGIONS if r in set(regional.region)], format_func=region_name
+    "Region", region_options,
+    index=region_options.index("morelos") if "morelos" in region_options else 0,
+    format_func=region_name,
 )
 st.sidebar.caption("Results cover the planned window 2000–2024 and years with all 12 months.")
 
@@ -152,15 +176,38 @@ with tab_explore:
         c2.metric("Evidence (p-value)", "n/a")
         c3.metric("After correcting for 18 comparisons (q)", "n/a")
 
-    verdict = VERDICT[row.classification]
-    if row.classification == "significant":
-        st.success(f"{verdict}: the {'increase' if row.sen_slope_decade > 0 else 'decrease'} is unlikely to be chance.")
-    elif row.classification == "not significant":
+    series = monthly[(monthly.variable == variable) & (monthly.region == region)]
+    annual, _ = build_annual_series(series, variable)
+    robustness = start_year_check(annual, row)
+    tier = evidence_tier(row)
+    verdict = VERDICT[tier]
+    direction = "rise" if row.sen_slope_decade > 0 else "fall"
+    if tier == "significant":
+        fragile = robustness is not None and (not robustness[1] or not robustness[2])
+        if fragile:
+            st.warning(
+                f"{verdict} over 2000–2024, but it is sensitive to the start year: from 2005 it is "
+                f"{'in the opposite direction' if not robustness[1] else 'no longer significant'} "
+                f"(p = {fmt_p(robustness[0].p_value)}). See the check below."
+            )
+        else:
+            st.success(f"{verdict}: a {direction} this large would be unusual if nothing were changing.")
+    elif tier == "suggestive":
+        st.info(
+            f"{verdict}: p < 0.05, but not after correcting for 18 comparisons, so it could be a "
+            "lucky result. Treat it as a lead, not a finding."
+        )
+    elif tier == "not significant":
         st.info(f"{verdict} with these data. This does not prove nothing is changing; 25 years is short.")
     else:
         st.warning(f"{verdict}.")
     if row.warnings:
         st.warning(row.warnings)
+    if variable == "air_temperature_2m" and region == "sahel":
+        st.warning(
+            "Not a finding: MERRA-2 shows a decrease here, but an independent ERA5 check shows an "
+            "increase (+0.24 °C/decade). Read it as product-dependent, not as cooling."
+        )
 
     st.write(
         f"Conventional 95% interval for the change: {row.ci_low_decade:+.3g} to "
@@ -168,8 +215,6 @@ with tab_explore:
         f"Method: {row.method}."
     )
 
-    series = monthly[(monthly.variable == variable) & (monthly.region == region)]
-    annual, _ = build_annual_series(series, variable)
     figure = go.Figure()
     figure.add_scatter(x=annual.index, y=annual.annual_value, mode="markers", name="Yearly value")
     if np.isfinite(row.sen_slope_decade):
@@ -186,15 +231,12 @@ with tab_explore:
     st.caption(box_caption(info_row))
 
     with st.expander("Does the result hold if we start later (2005–2024)?"):
-        later = annual[annual.index >= 2005]
-        if len(later) >= 4:
-            check = trend_report(later.index.to_numpy(), later.annual_value.to_numpy(), alpha=ALPHA)
+        if robustness is not None:
+            check, same_sign, still_significant = robustness
             st.write(
                 f"From 2005: {fmt_slope(check.sen_slope_decade, unit)}, p = {fmt_p(check.p_value)} "
                 f"({check.method}, {check.n} years)."
             )
-            same_sign = np.sign(check.sen_slope_decade) == np.sign(row.sen_slope_decade)
-            still_significant = bool(check.significant)
             if not same_sign:
                 st.write("The direction changes: the result is fragile.")
             elif still_significant:
@@ -219,20 +261,40 @@ with tab_compare:
 
     rising = regional[(regional.classification == "significant") & (regional.sen_slope_decade > 0)]
     falling = regional[(regional.classification == "significant") & (regional.sen_slope_decade < 0)]
+
+    def holds_from_2005(region_key: str) -> bool:
+        """True if the series keeps its sign and significance when it starts in 2005."""
+        series_ = monthly[(monthly.variable == variable) & (monthly.region == region_key)]
+        annual_, _ = build_annual_series(series_, variable)
+        check_ = start_year_check(annual_, regional[regional.region == region_key].iloc[0])
+        return check_ is not None and check_[1] and check_[2]
+
     if len(rising) and len(falling):
-        st.success(
-            "**Opposite trends:** rising in "
-            + ", ".join(region_name(r) for r in rising.region)
-            + "; falling in "
-            + ", ".join(region_name(r) for r in falling.region)
-            + "."
-        )
+        up_ok = [r for r in rising.region if holds_from_2005(r)]
+        down_ok = [r for r in falling.region if holds_from_2005(r)]
+        if up_ok and down_ok:
+            st.success(
+                "**Opposite trends:** rising in "
+                + ", ".join(region_name(r) for r in up_ok)
+                + "; falling in "
+                + ", ".join(region_name(r) for r in down_ok)
+                + "."
+            )
+        else:
+            st.info(
+                "**Opposite signs, with caution:** rising in "
+                + ", ".join(region_name(r) for r in rising.region)
+                + "; falling in "
+                + ", ".join(region_name(r) for r in falling.region)
+                + ". At least one of these is sensitive to the start year (see each region's check)."
+            )
 
     ordered = regional.sort_values("sen_slope_decade")
+    tiers = ordered.apply(evidence_tier, axis=1)
     names = ordered.region.map(region_name)
     compare = go.Figure(go.Scatter(
         x=ordered.sen_slope_decade, y=names, mode="markers",
-        marker=dict(size=10, color=np.where(ordered.classification == "significant", "#1f77b4", "#9e9e9e")),
+        marker=dict(size=10, color=[TIER_COLOR.get(t, "#9e9e9e") for t in tiers]),
         error_x=dict(
             type="data", symmetric=False,
             array=ordered.ci_high_decade - ordered.sen_slope_decade,
@@ -244,8 +306,10 @@ with tab_compare:
     compare.update_layout(template="plotly_white", xaxis_title=f"Change per decade ({unit}/decade)", showlegend=False)
     st.plotly_chart(compare)
     st.caption(
-        "Blue dots: significant after correcting for 18 comparisons. Grey dots: not significant. "
-        "Bars are conventional 95% intervals; they do not adjust for autocorrelation."
+        "Blue dots: significant after correcting for 18 comparisons. Orange dots: suggestive "
+        "(p < 0.05 but not after the correction). Grey dots: not significant. "
+        "Bars are conventional 95% intervals; they adjust neither for autocorrelation nor for the "
+        "18 comparisons, so a bar that excludes zero can sit on an orange or grey dot."
     )
 
     table = pd.DataFrame({
@@ -253,7 +317,7 @@ with tab_compare:
         "Change per decade": [fmt_slope(v, unit) for v in ordered.sen_slope_decade],
         "p": [fmt_p(v) for v in ordered.p_value],
         "q": [fmt_p(v) for v in ordered.q_value],
-        "Verdict": ordered.classification.map(VERDICT),
+        "Verdict": tiers.map(VERDICT),
     })
     st.dataframe(table, hide_index=True)
 
@@ -274,17 +338,22 @@ with tab_about:
         "- **q-value:** the p-value corrected for running 18 comparisons at once, so lucky results are not "
         "overstated (Benjamini-Hochberg).\n"
         "- **Method:** Mann-Kendall tests whether values tend to rise or fall. Hamed-Rao is used instead when "
-        "consecutive years are positively correlated, which would otherwise make the test too confident."
+        "consecutive years are clearly positively correlated (lag-1 above 0.2). With only 25 years neither "
+        "choice fully protects against false alarms when years are correlated."
     )
 
     st.header("Limitations")
     st.markdown(
         "- 25 years is short. Rainfall in Mexico also swings with El Niño and other multi-year cycles.\n"
         "- A result that is not significant does not prove that nothing is changing.\n"
-        "- Boxes are averages over many grid cells; trends can differ inside a box. "
-        "Boxes were chosen by the data, not by labels such as dry or rainy.\n"
+        "- The four Mexican boxes are approximate areas of interest, chosen before running any trend test. The Sahel and Southern Amazon were added as  "
+        "reference regions because a stronger signal is known there, so they are not a neutral sample.\n"
         "- Temperature and soil moisture come from models fed with observations; precipitation is a satellite estimate.\n"
-        "- Linear trends only; seasonal or non-linear changes are out of scope."
+        "- Linear trends only; seasonal or non-linear changes are out of scope.\n"
+        "- Results can depend on the end year too: the 2000-2024 trends include the warm and dry 2020-2024 years.\n"
+        "- Satellite and model records can change character over time. IMERG joins the TRMM era (until "
+        "mid-2014) and the GPM era, and GLDAS-2.1 changed its forcing in March 2001, so a trend can partly "
+        "reflect the record itself. The 2005–2024 check helps, but does not remove this risk."
     )
 
     st.header("Data provenance")

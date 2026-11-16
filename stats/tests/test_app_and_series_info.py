@@ -39,8 +39,15 @@ def test_app_runs_for_every_variable_and_region():
             assert not app.exception
 
 
-def test_app_shows_opposite_precipitation_trends():
+def test_opposite_precipitation_trends_are_flagged_as_fragile():
+    # Sahel precipitation loses significance from 2005, so the green banner must not appear.
     app = AppTest.from_file(str(APP), default_timeout=90).run()
     app.sidebar.selectbox[0].set_value("precipitation_rate").run()
-    messages = [item.value for item in app.success]
-    assert any("Opposite trends" in m and "Sahel" in m and "Amazon" in m for m in messages)
+    assert not any("Opposite trends" in item.value for item in app.success)
+    assert any("Opposite signs, with caution" in item.value and "Sahel" in item.value for item in app.info)
+
+
+def test_sahel_temperature_shows_era5_caveat():
+    app = AppTest.from_file(str(APP), default_timeout=90).run()
+    app.sidebar.selectbox[1].set_value("sahel").run()
+    assert any("ERA5" in item.value and "Not a finding" in item.value for item in app.warning)
