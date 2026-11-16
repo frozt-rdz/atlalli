@@ -1934,3 +1934,25 @@ html.intro-on, html.intro-on body { overflow: hidden; }
   #intro { display: none; }
 }
 body[data-paused] .walker { animation-play-state: paused; }
+
+/* ================= RESPONSIVE POLISH (peek / nav) ================= */
+@media (max-width: 1060px) {
+  .peek-hero { left: auto; right: 6%; }
+  .repo-visual { margin-top: 5.5rem; }
+  .peek-repo { right: 8%; }
+}
+@media (max-width: 680px) {
+  .bar { gap: 0.6rem; }
+  .brand { flex: none; }
+  nav {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a { flex: none; white-space: nowrap; }
+}
