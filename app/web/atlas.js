@@ -31,12 +31,12 @@ if (header) {
 const screen = document.querySelector(".screen");
 const videoSlot = document.getElementById("pitch-video-slot");
 
-if (screen && screen.dataset.pitchSrc && videoSlot) {
+// Click "Pitch & Explanatory Video" to load and play the video in place.
+function mountPitchVideo() {
   const player = document.createElement("video");
   player.controls = true;
   player.playsInline = true;
-  player.preload = "metadata";
-  player.poster = "pitch-poster.svg#still";
+  player.preload = "auto";
   player.src = screen.dataset.pitchSrc;
   player.setAttribute("aria-label", "The Atlalli project explanatory pitch video");
   if (screen.dataset.captionsSrc) {
@@ -47,10 +47,20 @@ if (screen && screen.dataset.pitchSrc && videoSlot) {
     captions.src = screen.dataset.captionsSrc;
     player.append(captions);
   }
+  player.className = "pitch-player";
   videoSlot.innerHTML = "";
   videoSlot.append(player);
-  player.className = "pitch-player";
   screen.classList.add("has-video");
+  player.play().catch(() => {});
+  player.focus();
+}
+
+if (screen && screen.dataset.pitchSrc && videoSlot) {
+  const placeholder = videoSlot.querySelector(".video-placeholder");
+  if (placeholder) {
+    placeholder.style.cursor = "pointer";
+    placeholder.addEventListener("click", mountPitchVideo, { once: true });
+  }
 }
 
 // Always show the Pause/Play motion toggle button across all devices

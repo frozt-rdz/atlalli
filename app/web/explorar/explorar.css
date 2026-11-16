@@ -1809,3 +1809,29 @@ body[data-page="data"] #page-region-data {
     height: 340px;
   }
 }
+
+
+/* AI-use notice: AI-generated disclosure footer (fixed pill, always visible) */
+.explorer-ai-footer {
+  position: fixed;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 251, 239, 0.92);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(31, 58, 54, 0.08);
+  font-size: 0.72rem;
+  line-height: 1.3;
+  font-style: italic;
+  color: var(--text-muted);
+}
+.explorer-ai-footer svg { flex: none; color: var(--reg-primary); }
+body { padding-bottom: 40px; }

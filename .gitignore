@@ -8,3 +8,10 @@ data/raw/*
 
 # Git bundles are local backups, not part of the repository
 *.bundle
+
+# Third-party agent skill bundle (not our code, no LICENSE) — keep out of the repo
+.agent/
+
+# Local tooling and raw video sources
+.claude/
+video/

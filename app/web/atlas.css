@@ -1736,3 +1736,27 @@ footer small {
     border-bottom: 0;
   }
 }
+
+
+/* ---------------- HOW TO USE SECTION (AI-generated) ---------------- */
+.howto-shell { width: min(93%, 1380px); margin-inline: auto; }
+#howto { padding-block: clamp(3.8rem, 7vw, 6.2rem); border-bottom: 1.5px solid var(--line); }
+.howto-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; }
+.howto-step { display: flex; flex-direction: column; background: var(--card-bg); border: 1.5px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 5px 0 #1b36320f; transition: transform .25s ease, box-shadow .25s ease; }
+.howto-step:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #1b363218; }
+.howto-shot { margin: 0; background: var(--paper-deep); border-bottom: 1.5px solid var(--line); position: relative; }
+.howto-shot img { display: block; width: 100%; aspect-ratio: 16 / 9.4; object-fit: cover; object-position: top center; }
+.howto-shot figcaption { position: absolute; right: .6rem; bottom: .6rem; font: 600 .68rem/1 var(--font-sans); color: #fffefa; background: #1b3632cc; padding: .3rem .55rem; border-radius: 999px; }
+.howto-text { padding: 1.2rem 1.4rem 1.4rem; }
+.howto-num { display: inline-flex; align-items: center; gap: .45rem; font: 700 .72rem/1 var(--font-display); letter-spacing: .08em; color: #fffefa; background: var(--green); padding: .35rem .7rem .35rem .45rem; border-radius: 999px; margin-bottom: .7rem; }
+.howto-icon { width: 18px; height: 18px; }
+.howto-text h3 { margin: 0 0 .45rem; font: 700 1.25rem/1.25 var(--font-display); letter-spacing: -.02em; color: var(--ink); }
+.howto-text p { margin: 0; font-size: .93rem; color: var(--muted); }
+.howto-cta-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; }
+.ai-note, .footer-ai { color: var(--muted); font-size: .8rem; font-style: italic; }
+.footer-ai { display: inline-flex; align-items: center; gap: .4rem; flex-basis: 100%; }
+@media (max-width: 860px) { .howto-list { grid-template-columns: 1fr; } }
+
+/* AI-generated: in-place pitch video player */
+.pitch-player { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+button.video-play-pill { cursor: pointer; }
