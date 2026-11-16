@@ -170,6 +170,8 @@ fix that at this length: 25 years is limited evidence.
 - For 8 series the URL printed in the original Giovanni export listed more than one dataset (flag
   `url_lists_several_datasets` in `series_info.csv`). The URL stored in `series_info.csv` keeps only the
   series' own dataset; it was rebuilt from the export and each CSV contains a single variable.
+- The web atlas is designed for desktop and tablet, where layout and all features work as intended.
+  The phone (narrow-screen) view is not fully polished yet and may show layout glitches.
 
 ## Tests
 
