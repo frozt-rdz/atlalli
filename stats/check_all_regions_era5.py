@@ -3,12 +3,12 @@
 ERA5 comes from the free Open-Meteo archive API (no key; non-commercial use). RUN IT ON YOUR OWN
 COMPUTER (needs internet). Answers are cached in ./_era5_cache, so an interrupted run can be repeated.
 
-Usage (run it from C:\\dev\\patches so the cache folder does not land inside the repository):
-    python check_all_regions_era5.py C:\\dev\\trend-detective\\data\\processed\\giovanni_observations.csv
+Usage (run it from `stats\` so the cache folder does not land inside the repository):
+    python check_all_regions_era5.py `data/processed/giovanni_observations.csv`
 
 Takes about 10-15 minutes (66 requests, 1 s apart; it waits and retries if the API says "too many").
-Needs: numpy pandas scipy pymannkendall.  Status: the statistics were tested with synthetic data;
-the download itself has NOT been tested by the author (the review environment cannot reach the API).
+Needs: numpy pandas scipy pymannkendall.  Status: the statistics were tested with synthetic data.
+The team ran the code and verified the results, which can be found in the README.
 """
 import json, sys, time, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
