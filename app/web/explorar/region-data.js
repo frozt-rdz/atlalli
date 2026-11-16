@@ -718,21 +718,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-100,18,-98.2,19.6&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)%2CGLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Ups & Downs (Stable)",
+            "statusPill": "No clear trend",
             "verdictTone": "neutral",
             "headline": "Wet and dry years alternate without a permanent change",
             "story": "Rainfall here averages 1030 mm/yr, bouncing between dry years (782 mm) and rainy years (1223 mm). After 25 years, the overall average stays practically the same.",
             "startEst2000": 1023.28,
             "endEst2024": 1020.29,
-            "signalPct": 18,
-            "signalLabel": "Normal Weather Ups & Downs",
-            "signalTag": "Natural Variability",
-            "verdictHuman": "Normal year-to-year weather cycles",
-            "confidenceHuman": "No permanent direction proven yet",
-            "whyConfident": "In this region, normal year-to-year weather swings (wet years followed by dry years) are much bigger than any slow 25-year change. That means the ups and downs you see on the graph are normal climate cycles.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "No trend can be claimed",
+            "signalTag": "p = 0.981, q = 0.981",
+            "verdictHuman": "No trend can be claimed",
+            "confidenceHuman": "Not significant (q = 0.981)",
+            "whyConfident": "The yearly values rise and fall without a direction that the test can tell apart from normal variability. This does not prove that nothing is changing; 25 years is short.",
+            "recentTitle": "Also no clear trend from 2005",
+            "recentBody": "From 2005 the change is -50.1 mm per decade (p = 0.256, 20 years): still no trend that can be told apart from normal variability.",
+            "recentConclusion": "No trend either way"
           }
         },
         "soil_moisture_0_10cm": {
@@ -1328,21 +1328,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-100,18,-98.2,19.6&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)%2CGLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Borderline Soil Drying",
+            "statusPill": "Suggestive drier topsoil",
             "verdictTone": "borderline",
             "headline": "Topsoil lost ~1.5 liters of water per m²",
             "story": "Water in the top 10 cm of ground slipped from 25.6 to 24.2 liters per m². Even when total yearly rain stays steady, warmer air evaporates more water out of the soil.",
             "startEst2000": 25.63,
             "endEst2024": 24.19,
-            "signalPct": 91,
-            "signalLabel": "Strong Clue (Near Proof Limit)",
-            "signalTag": "Moderate-High Certainty (~91%)",
-            "verdictHuman": "Noticeable shift, nearly confirmed",
-            "confidenceHuman": "Around 91% sure (slight weather noise)",
-            "whyConfident": "We see a clear push in one direction over the 25 years, but because this region also has strong year-to-year weather swings, scientists call this a 'strong clue' that is very close to full confirmation.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "Suggestive, not confirmed",
+            "signalTag": "p = 0.027, q = 0.053",
+            "verdictHuman": "Suggestive, not confirmed",
+            "confidenceHuman": "p < 0.05, but not after correcting for 18 comparisons",
+            "whyConfident": "On its own this change looks unusual (p < 0.05), but not after correcting for running 18 tests at once, so it could be a lucky result. Treat it as a lead.",
+            "recentTitle": "Not significant when starting in 2005",
+            "recentBody": "From 2005 the change is -0.749 kg/m² per decade (p = 0.056, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
+            "recentConclusion": "Depends on the start year"
           }
         },
         "air_temperature_2m": {
@@ -1938,21 +1938,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-100,18,-98.2,19.6&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)%2CGLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Confirmed Warming",
+            "statusPill": "Warming detected",
             "verdictTone": "warming",
             "headline": "The air is +1.28 °C warmer than in the year 2000",
             "story": "Average annual air temperature rose from 18.4 °C in 2000 to 19.6 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
             "startEst2000": 18.39,
             "endEst2024": 19.62,
-            "signalPct": 99,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (99%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 99% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "Yes — And the change sped up in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Trend detected",
+            "signalTag": "Significant (q < 0.001)",
+            "verdictHuman": "A trend is detected",
+            "confidenceHuman": "q < 0.001: unlikely to be chance alone",
+            "whyConfident": "The yearly values move in one direction over 2000–2024 and the change is significant after correcting for 18 comparisons. It shows that the change is present in this dataset, not what causes it.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is +0.648 °C per decade (p < 0.001, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         }
       }
@@ -2580,21 +2580,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-103.5,22.3,-101.5,24.5&data=GPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)&dataKeyword=GPM_3IMERGM%20v07&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Ups & Downs (Stable)",
+            "statusPill": "No clear trend",
             "verdictTone": "neutral",
             "headline": "Wet and dry years alternate without a permanent change",
             "story": "Rainfall here averages 485 mm/yr, bouncing between dry years (274 mm) and rainy years (731 mm). After 25 years, the overall average stays practically the same.",
             "startEst2000": 489.06,
             "endEst2024": 447.58,
-            "signalPct": 18,
-            "signalLabel": "Normal Weather Ups & Downs",
-            "signalTag": "Natural Variability",
-            "verdictHuman": "Normal year-to-year weather cycles",
-            "confidenceHuman": "No permanent direction proven yet",
-            "whyConfident": "In this region, normal year-to-year weather swings (wet years followed by dry years) are much bigger than any slow 25-year change. That means the ups and downs you see on the graph are normal climate cycles.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "No trend can be claimed",
+            "signalTag": "p = 0.726, q = 0.769",
+            "verdictHuman": "No trend can be claimed",
+            "confidenceHuman": "Not significant (q = 0.769)",
+            "whyConfident": "The yearly values rise and fall without a direction that the test can tell apart from normal variability. This does not prove that nothing is changing; 25 years is short.",
+            "recentTitle": "Also no clear trend from 2005",
+            "recentBody": "From 2005 the change is -7.76 mm per decade (p = 0.974, 20 years): still no trend that can be told apart from normal variability.",
+            "recentConclusion": "No trend either way"
           }
         },
         "soil_moisture_0_10cm": {
@@ -3190,21 +3190,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-103.5,22.3,-101.5,24.5&data=GLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&variableFacets=dataFieldDepth%3A0%20-%2010%20cm%2C0-10%20cm%2C0-10cm%3B&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Borderline Soil Drying",
-            "verdictTone": "borderline",
+            "statusPill": "No clear trend",
+            "verdictTone": "neutral",
             "headline": "Topsoil lost ~2.7 liters of water per m²",
             "story": "Water in the top 10 cm of ground slipped from 18.6 to 15.9 liters per m². Even when total yearly rain stays steady, warmer air evaporates more water out of the soil.",
             "startEst2000": 18.56,
             "endEst2024": 15.95,
-            "signalPct": 91,
-            "signalLabel": "Strong Clue (Near Proof Limit)",
-            "signalTag": "Moderate-High Certainty (~91%)",
-            "verdictHuman": "Noticeable shift, nearly confirmed",
-            "confidenceHuman": "Around 91% sure (slight weather noise)",
-            "whyConfident": "We see a clear push in one direction over the 25 years, but because this region also has strong year-to-year weather swings, scientists call this a 'strong clue' that is very close to full confirmation.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "No trend can be claimed",
+            "signalTag": "p = 0.068, q = 0.094",
+            "verdictHuman": "No trend can be claimed",
+            "confidenceHuman": "Not significant (q = 0.094)",
+            "whyConfident": "The yearly values rise and fall without a direction that the test can tell apart from normal variability. This does not prove that nothing is changing; 25 years is short.",
+            "recentTitle": "Also no clear trend from 2005",
+            "recentBody": "From 2005 the change is -1.16 kg/m² per decade (p = 0.086, 20 years): still no trend that can be told apart from normal variability.",
+            "recentConclusion": "No trend either way"
           }
         },
         "air_temperature_2m": {
@@ -3800,21 +3800,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-103.5,22.3,-101.5,24.5&data=M2TMNXSLV_5_12_4_T2M(units%3DC)&dataKeyword=M2TMNXSLV&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Confirmed Warming",
+            "statusPill": "Warming detected",
             "verdictTone": "warming",
             "headline": "The air is +1.20 °C warmer than in the year 2000",
             "story": "Average annual air temperature rose from 16.7 °C in 2000 to 17.9 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
             "startEst2000": 16.72,
             "endEst2024": 17.87,
-            "signalPct": 96,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (96%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 96% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "Yes — And the change sped up in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Trend detected",
+            "signalTag": "Significant (q = 0.016)",
+            "verdictHuman": "A trend is detected",
+            "confidenceHuman": "q = 0.016: unlikely to be chance alone",
+            "whyConfident": "The yearly values move in one direction over 2000–2024 and the change is significant after correcting for 18 comparisons. It shows that the change is present in this dataset, not what causes it.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is +0.762 °C per decade (p = 0.003, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         }
       }
@@ -4442,21 +4442,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-93.5,16,-91,17.5&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)&dataKeyword=IMERG%20V07&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Slight Drying Clue",
+            "statusPill": "Suggestive less rain",
             "verdictTone": "borderline",
             "headline": "About 366 mm/yr less rain over 25 years",
             "story": "Typical rainfall moved from 2261 mm in 2000 down to 1910 mm in 2024. Because this region has very wet and very dry years, this drop sits right on the edge of confirmation.",
             "startEst2000": 2260.79,
             "endEst2024": 1909.58,
-            "signalPct": 91,
-            "signalLabel": "Strong Clue (Near Proof Limit)",
-            "signalTag": "Moderate-High Certainty (~91%)",
-            "verdictHuman": "Noticeable shift, nearly confirmed",
-            "confidenceHuman": "Around 91% sure (slight weather noise)",
-            "whyConfident": "We see a clear push in one direction over the 25 years, but because this region also has strong year-to-year weather swings, scientists call this a 'strong clue' that is very close to full confirmation.",
-            "recentTitle": "Yes — And the change sped up in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Suggestive, not confirmed",
+            "signalTag": "p = 0.042, q = 0.069",
+            "verdictHuman": "Suggestive, not confirmed",
+            "confidenceHuman": "p < 0.05, but not after correcting for 18 comparisons",
+            "whyConfident": "On its own this change looks unusual (p < 0.05), but not after correcting for running 18 tests at once, so it could be a lucky result. Treat it as a lead.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is -208 mm per decade (p = 0.041, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         },
         "soil_moisture_0_10cm": {
@@ -5052,21 +5052,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-93.5,16,-91,17.5&data=GLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=Soil%20moisture%20content%20(0%20-%2010%20cm%20underground)&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Drying Topsoil",
-            "verdictTone": "drying",
+            "statusPill": "Drier topsoil (fragile)",
+            "verdictTone": "borderline",
             "headline": "Topsoil lost 2.0 liters of water per square meter",
             "story": "The top 10 cm of soil held about 31.2 liters of water per m² in 2000, dropping to 29.3 L/m² by 2024. Seeds and shallow roots now have noticeably less moisture available in the ground.",
             "startEst2000": 31.23,
             "endEst2024": 29.28,
-            "signalPct": 99,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (99%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 99% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "Detected, but fragile",
+            "signalTag": "Significant (q = 0.002), not robust",
+            "verdictHuman": "Significant, but sensitive to the start year",
+            "confidenceHuman": "q = 0.002; from 2005 p = 0.064",
+            "whyConfident": "The change is significant over 2000–2024 but stops being significant when the first five years are dropped, so it depends on the start year. Treat it as a lead, not a firm finding.",
+            "recentTitle": "Not significant when starting in 2005",
+            "recentBody": "From 2005 the change is -0.581 kg/m² per decade (p = 0.064, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
+            "recentConclusion": "Depends on the start year"
           }
         },
         "air_temperature_2m": {
@@ -5662,21 +5662,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-93.5,16,-91,17.5&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)&dataKeyword=IMERG%20V07&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Confirmed Warming",
+            "statusPill": "Warming detected",
             "verdictTone": "warming",
             "headline": "The air is +1.18 °C warmer than in the year 2000",
             "story": "Average annual air temperature rose from 21.9 °C in 2000 to 23.0 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
             "startEst2000": 21.86,
             "endEst2024": 23.0,
-            "signalPct": 99,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (99%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 99% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "Yes — And the change sped up in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Trend detected",
+            "signalTag": "Significant (q < 0.001)",
+            "verdictHuman": "A trend is detected",
+            "confidenceHuman": "q < 0.001: unlikely to be chance alone",
+            "whyConfident": "The yearly values move in one direction over 2000–2024 and the change is significant after correcting for 18 comparisons. It shows that the change is present in this dataset, not what causes it.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is +0.632 °C per decade (p = 0.002, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         }
       }
@@ -6305,21 +6305,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-62,-14,-52,-6&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)%2CGLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Less Rain (-Drying)",
+            "statusPill": "Less rain detected",
             "verdictTone": "drying",
             "headline": "357 mm less rain per year than in 2000",
             "story": "Typical annual rainfall fell from 2146 mm in 2000 to 1803 mm in 2024. That means every square meter of ground receives roughly 357 fewer liters of rainwater per year.",
             "startEst2000": 2146.12,
             "endEst2024": 1803.27,
-            "signalPct": 99,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (99%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 99% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "Yes — And the change sped up in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Trend detected",
+            "signalTag": "Significant (q = 0.001)",
+            "verdictHuman": "A trend is detected",
+            "confidenceHuman": "q = 0.001: unlikely to be chance alone",
+            "whyConfident": "The yearly values move in one direction over 2000–2024 and the change is significant after correcting for 18 comparisons. It shows that the change is present in this dataset, not what causes it.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is -187 mm per decade (p = 0.002, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         },
         "soil_moisture_0_10cm": {
@@ -6915,21 +6915,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-62,-14,-52,-6&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)%2CGLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Drying Topsoil",
+            "statusPill": "Drier topsoil detected",
             "verdictTone": "drying",
             "headline": "Topsoil lost 2.6 liters of water per square meter",
             "story": "The top 10 cm of soil held about 31.6 liters of water per m² in 2000, dropping to 29.2 L/m² by 2024. Seeds and shallow roots now have noticeably less moisture available in the ground.",
             "startEst2000": 31.62,
             "endEst2024": 29.15,
-            "signalPct": 99,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (99%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 99% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "Yes — The trend continues steadily in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Trend detected",
+            "signalTag": "Significant (q = 0.003)",
+            "verdictHuman": "A trend is detected",
+            "confidenceHuman": "q = 0.003: unlikely to be chance alone",
+            "whyConfident": "The yearly values move in one direction over 2000–2024 and the change is significant after correcting for 18 comparisons. It shows that the change is present in this dataset, not what causes it.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is -1.05 kg/m² per decade (p = 0.018, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         },
         "air_temperature_2m": {
@@ -7525,21 +7525,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-62,-14,-52,-6&data=M2TMNXSLV_5_12_4_T2M(units%3DC)%2CGPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)%2CGLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Confirmed Warming",
+            "statusPill": "Warming detected",
             "verdictTone": "warming",
             "headline": "The air is +1.67 °C warmer than in the year 2000",
             "story": "Average annual air temperature rose from 24.8 °C in 2000 to 26.4 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
             "startEst2000": 24.83,
             "endEst2024": 26.43,
-            "signalPct": 99,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (99%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 99% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "Yes — The trend continues steadily in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Trend detected",
+            "signalTag": "Significant (q < 0.001)",
+            "verdictHuman": "A trend is detected",
+            "confidenceHuman": "q < 0.001: unlikely to be chance alone",
+            "whyConfident": "The yearly values move in one direction over 2000–2024 and the change is significant after correcting for 18 comparisons. It shows that the change is present in this dataset, not what causes it.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is +0.651 °C per decade (p = 0.010, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         }
       }
@@ -8167,21 +8167,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-10,12,10,16&data=GPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)&dataKeyword=GPM_3IMERGM%20v07&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "More Rain (+Wetting)",
-            "verdictTone": "wetting",
+            "statusPill": "More rain (fragile)",
+            "verdictTone": "borderline",
             "headline": "+104 mm more rain per year than in 2000",
             "story": "Over the last 25 years, typical annual rainfall rose from 516 mm to 616 mm. Because 1 mm of rain equals 1 liter of water per square meter, the land now receives about 104 extra liters of rainwater per m² each year.",
             "startEst2000": 516.06,
             "endEst2024": 616.14,
-            "signalPct": 96,
-            "signalLabel": "Confirmed Long-Term Trend",
-            "signalTag": "Very High Certainty (96%)",
-            "verdictHuman": "Real, sustained climate change",
-            "confidenceHuman": "Over 96% sure (not a fluke)",
-            "whyConfident": "Weather naturally goes up and down from one year to the next (for example during El Niño or La Niña). However, when we check all 300 months from 2000 to 2024, this variable keeps moving steadily in the same direction — proving it is a real long-term climate shift, not random luck.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "Detected, but fragile",
+            "signalTag": "Significant (q = 0.028), not robust",
+            "verdictHuman": "Significant, but sensitive to the start year",
+            "confidenceHuman": "q = 0.028; from 2005 p = 0.183",
+            "whyConfident": "The change is significant over 2000–2024 but stops being significant when the first five years are dropped, so it depends on the start year. Treat it as a lead, not a firm finding.",
+            "recentTitle": "Not significant when starting in 2005",
+            "recentBody": "From 2005 the change is +28.1 mm per decade (p = 0.183, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
+            "recentConclusion": "Depends on the start year"
           }
         },
         "soil_moisture_0_10cm": {
@@ -8777,21 +8777,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-10,12,10,16&data=GLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&variableFacets=dataFieldDepth%3A0%20-%2010%20cm%2C0-10%20cm%2C0-10cm%3B&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Stable Soil Water",
+            "statusPill": "No clear trend",
             "verdictTone": "neutral",
             "headline": "Soil water rises and falls naturally with rainy seasons",
             "story": "Topsoil water averages 12.6 liters per m² (ranging from 11.7 in dry years to 13.8 in wet years), without a permanent long-term loss or gain.",
             "startEst2000": 12.93,
             "endEst2024": 12.42,
-            "signalPct": 47,
-            "signalLabel": "Normal Weather Ups & Downs",
-            "signalTag": "Natural Variability",
-            "verdictHuman": "Normal year-to-year weather cycles",
-            "confidenceHuman": "No permanent direction proven yet",
-            "whyConfident": "In this region, normal year-to-year weather swings (wet years followed by dry years) are much bigger than any slow 25-year change. That means the ups and downs you see on the graph are normal climate cycles.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "No trend can be claimed",
+            "signalTag": "p = 0.118, q = 0.151",
+            "verdictHuman": "No trend can be claimed",
+            "confidenceHuman": "Not significant (q = 0.151)",
+            "whyConfident": "The yearly values rise and fall without a direction that the test can tell apart from normal variability. This does not prove that nothing is changing; 25 years is short.",
+            "recentTitle": "Also no clear trend from 2005",
+            "recentBody": "From 2005 the change is -0.276 kg/m² per decade (p = 0.163, 20 years): still no trend that can be told apart from normal variability.",
+            "recentConclusion": "No trend either way"
           }
         },
         "air_temperature_2m": {
@@ -9387,21 +9387,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-10,12,10,16&data=M2TMNXSLV_5_12_4_T2M(units%3DC)&dataKeyword=2-meter%20air%20temperature&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Warming Clue",
+            "statusPill": "Products disagree",
             "verdictTone": "borderline",
-            "headline": "Air temperature shifted by -0.61 °C since 2000",
-            "story": "Baseline air temperature moved from 28.3 °C in 2000 to 27.8 °C in 2024, with warming becoming much clearer during the last 20 years.",
+            "headline": "MERRA-2 and ERA5 disagree on the sign",
+            "story": "MERRA-2 (the product analysed here) shows a decrease of 0.24 °C per decade in the Sahel, while an independent ERA5 check shows an increase of +0.24 °C per decade. Read it as product-dependent, not as cooling.",
             "startEst2000": 28.34,
             "endEst2024": 27.76,
-            "signalPct": 91,
-            "signalLabel": "Strong Clue (Near Proof Limit)",
-            "signalTag": "Moderate-High Certainty (~91%)",
-            "verdictHuman": "Noticeable shift, nearly confirmed",
-            "confidenceHuman": "Around 91% sure (slight weather noise)",
-            "whyConfident": "We see a clear push in one direction over the 25 years, but because this region also has strong year-to-year weather swings, scientists call this a 'strong clue' that is very close to full confirmation.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "Suggestive, not confirmed",
+            "signalTag": "p = 0.047, q = 0.071",
+            "verdictHuman": "Suggestive, not confirmed",
+            "confidenceHuman": "p < 0.05, but not after correcting for 18 comparisons",
+            "whyConfident": "Not a finding: the sign differs between two reanalyses, and the MERRA-2 result depends on the start year and on single years.",
+            "recentTitle": "Not significant when starting in 2005",
+            "recentBody": "From 2005 the change is -0.253 °C per decade (p = 0.098, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
+            "recentConclusion": "Depends on the start year"
           }
         }
       }
@@ -10030,21 +10030,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-111.5,29,-108.8,31.5&data=GPM_3IMERGM_07_precipitation(units%3Dmm%2Fday)&dataKeyword=GPM_3IMERGM%20v07&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Ups & Downs (Stable)",
+            "statusPill": "No clear trend",
             "verdictTone": "neutral",
             "headline": "Wet and dry years alternate without a permanent change",
             "story": "Rainfall here averages 470 mm/yr, bouncing between dry years (314 mm) and rainy years (656 mm). After 25 years, the overall average stays practically the same.",
             "startEst2000": 501.81,
             "endEst2024": 454.6,
-            "signalPct": 24,
-            "signalLabel": "Normal Weather Ups & Downs",
-            "signalTag": "Natural Variability",
-            "verdictHuman": "Normal year-to-year weather cycles",
-            "confidenceHuman": "No permanent direction proven yet",
-            "whyConfident": "In this region, normal year-to-year weather swings (wet years followed by dry years) are much bigger than any slow 25-year change. That means the ups and downs you see on the graph are normal climate cycles.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "No trend can be claimed",
+            "signalTag": "p = 0.498, q = 0.560",
+            "verdictHuman": "No trend can be claimed",
+            "confidenceHuman": "Not significant (q = 0.560)",
+            "whyConfident": "The yearly values rise and fall without a direction that the test can tell apart from normal variability. This does not prove that nothing is changing; 25 years is short.",
+            "recentTitle": "Also no clear trend from 2005",
+            "recentBody": "From 2005 the change is -34 mm per decade (p = 0.230, 20 years): still no trend that can be told apart from normal variability.",
+            "recentConclusion": "No trend either way"
           }
         },
         "soil_moisture_0_10cm": {
@@ -10640,21 +10640,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-111.5,29,-108.8,31.5&data=GLDAS_NOAH025_M_2_1_SoilMoi0_10cm_inst&variableFacets=dataFieldDepth%3A0%20-%2010%20cm%2C0-10%20cm%2C0-10cm%3B&dataKeyword=GLDAS_NOAH025_M_2.1&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Stable Soil Water",
+            "statusPill": "No clear trend",
             "verdictTone": "neutral",
             "headline": "Soil water rises and falls naturally with rainy seasons",
             "story": "Topsoil water averages 16.1 liters per m² (ranging from 14.2 in dry years to 18.6 in wet years), without a permanent long-term loss or gain.",
             "startEst2000": 16.3,
             "endEst2024": 15.64,
-            "signalPct": 29,
-            "signalLabel": "Normal Weather Ups & Downs",
-            "signalTag": "Natural Variability",
-            "verdictHuman": "Normal year-to-year weather cycles",
-            "confidenceHuman": "No permanent direction proven yet",
-            "whyConfident": "In this region, normal year-to-year weather swings (wet years followed by dry years) are much bigger than any slow 25-year change. That means the ups and downs you see on the graph are normal climate cycles.",
-            "recentTitle": "It keeps moving in the same direction since 2005",
-            "recentBody": "When we remove the first 5 years (2000–2004) and look only at the last 20 years (2005–2024), the variable still points in the same direction, showing the overall pattern did not reverse.",
-            "recentConclusion": "Consistent direction"
+            "signalPct": null,
+            "signalLabel": "No trend can be claimed",
+            "signalTag": "p = 0.388, q = 0.465",
+            "verdictHuman": "No trend can be claimed",
+            "confidenceHuman": "Not significant (q = 0.465)",
+            "whyConfident": "The yearly values rise and fall without a direction that the test can tell apart from normal variability. This does not prove that nothing is changing; 25 years is short.",
+            "recentTitle": "Also no clear trend from 2005",
+            "recentBody": "From 2005 the change is -0.72 kg/m² per decade (p = 0.074, 20 years): still no trend that can be told apart from normal variability.",
+            "recentConclusion": "No trend either way"
           }
         },
         "air_temperature_2m": {
@@ -11250,21 +11250,21 @@ window.ATLALLI_REGION_DATA = {
             "giovanniUrl": "https://giovanni.gsfc.nasa.gov/giovanni/#service=ArAvTs&starttime=2000-01-01T00:00:00Z&endtime=2024-12-31T23:59:59Z&bbox=-111.5,29,-108.8,31.5&data=M2TMNXSLV_5_12_4_T2M(units%3DC)&dataKeyword=M2TMNXSLV&portal=GIOVANNI&format=json"
           },
           "story": {
-            "statusPill": "Warming Clue",
+            "statusPill": "Suggestive warming",
             "verdictTone": "borderline",
             "headline": "Air temperature shifted by +0.94 °C since 2000",
             "story": "Baseline air temperature moved from 19.5 °C in 2000 to 20.4 °C in 2024, with warming becoming much clearer during the last 20 years.",
             "startEst2000": 19.53,
             "endEst2024": 20.44,
-            "signalPct": 91,
-            "signalLabel": "Strong Clue (Near Proof Limit)",
-            "signalTag": "Moderate-High Certainty (~91%)",
-            "verdictHuman": "Noticeable shift, nearly confirmed",
-            "confidenceHuman": "Around 91% sure (slight weather noise)",
-            "whyConfident": "We see a clear push in one direction over the 25 years, but because this region also has strong year-to-year weather swings, scientists call this a 'strong clue' that is very close to full confirmation.",
-            "recentTitle": "Yes — And the change sped up in the last 20 years (2005–2024)",
-            "recentBody": "Sometimes a chart looks like it is changing only because the early years (2000–2004) were unusual. To be sure, we checked ONLY the most recent 20 years (2005–2024): the trend moves in the exact same direction and remains strong today.",
-            "recentConclusion": "Active & continuing today"
+            "signalPct": null,
+            "signalLabel": "Suggestive, not confirmed",
+            "signalTag": "p = 0.034, q = 0.060",
+            "verdictHuman": "Suggestive, not confirmed",
+            "confidenceHuman": "p < 0.05, but not after correcting for 18 comparisons",
+            "whyConfident": "On its own this change looks unusual (p < 0.05), but not after correcting for running 18 tests at once, so it could be a lucky result. Treat it as a lead.",
+            "recentTitle": "Still significant when starting in 2005",
+            "recentBody": "From 2005 the change is +0.533 °C per decade (p = 0.041, 20 years): same direction and still significant before any multiple-testing correction.",
+            "recentConclusion": "Holds from 2005"
           }
         }
       }
