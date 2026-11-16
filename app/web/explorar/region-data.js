@@ -720,8 +720,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "No clear trend",
             "verdictTone": "neutral",
-            "headline": "Wet and dry years alternate without a permanent change",
-            "story": "Rainfall here averages 1030 mm/yr, bouncing between dry years (782 mm) and rainy years (1223 mm). After 25 years, the overall average stays practically the same.",
+            "headline": "No trend can be claimed for rainfall",
+            "story": "Yearly values average 1030.0 mm/yr and range from 782.4 (2023) to 1223.2 (2014). The test finds no trend that stands out from normal variability; this does not prove that nothing is changing, because 25 years is short.",
             "startEst2000": 1023.28,
             "endEst2024": 1020.29,
             "signalPct": null,
@@ -733,7 +733,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Also no clear trend from 2005",
             "recentBody": "From 2005 the change is -50.1 mm per decade (p = 0.256, 20 years): still no trend that can be told apart from normal variability.",
             "recentConclusion": "No trend either way"
-          }
+          },
+          "evidenceTier": "none"
         },
         "soil_moisture_0_10cm": {
           "variable": "soil_moisture_0_10cm",
@@ -1330,8 +1331,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Suggestive drier topsoil",
             "verdictTone": "borderline",
-            "headline": "Topsoil lost ~1.5 liters of water per m²",
-            "story": "Water in the top 10 cm of ground slipped from 25.6 to 24.2 liters per m². Even when total yearly rain stays steady, warmer air evaporates more water out of the soil.",
+            "headline": "Topsoil moisture: a possible change of about 1.44 kg/m² over 2000–2024",
+            "story": "The fitted trend (Sen's slope, -0.598 kg/m²/decade) goes from about 25.6 kg/m² in 2000 to 24.2 kg/m² in 2024 (p = 0.027, q = 0.053). It is not confirmed after correcting for 18 comparisons, so treat it as a lead.",
             "startEst2000": 25.63,
             "endEst2024": 24.19,
             "signalPct": null,
@@ -1343,7 +1344,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Not significant when starting in 2005",
             "recentBody": "From 2005 the change is -0.749 kg/m² per decade (p = 0.056, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
             "recentConclusion": "Depends on the start year"
-          }
+          },
+          "evidenceTier": "suggestive"
         },
         "air_temperature_2m": {
           "variable": "air_temperature_2m",
@@ -1940,8 +1942,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Warming detected",
             "verdictTone": "warming",
-            "headline": "The air is +1.28 °C warmer than in the year 2000",
-            "story": "Average annual air temperature rose from 18.4 °C in 2000 to 19.6 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
+            "headline": "Air temperature rose by about 1.23 °C over 2000–2024",
+            "story": "The fitted trend (Sen's slope, +0.511 °C/decade) goes from about 18.4 °C in 2000 to 19.6 °C in 2024. The change is significant after correcting for 18 comparisons (q < 0.001). It describes the data, not what causes it.",
             "startEst2000": 18.39,
             "endEst2024": 19.62,
             "signalPct": null,
@@ -1953,7 +1955,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is +0.648 °C per decade (p < 0.001, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "robust"
         }
       }
     },
@@ -2582,8 +2585,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "No clear trend",
             "verdictTone": "neutral",
-            "headline": "Wet and dry years alternate without a permanent change",
-            "story": "Rainfall here averages 485 mm/yr, bouncing between dry years (274 mm) and rainy years (731 mm). After 25 years, the overall average stays practically the same.",
+            "headline": "No trend can be claimed for rainfall",
+            "story": "Yearly values average 484.6 mm/yr and range from 273.9 (2011) to 731.0 (2015). The test finds no trend that stands out from normal variability; this does not prove that nothing is changing, because 25 years is short.",
             "startEst2000": 489.06,
             "endEst2024": 447.58,
             "signalPct": null,
@@ -2595,7 +2598,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Also no clear trend from 2005",
             "recentBody": "From 2005 the change is -7.76 mm per decade (p = 0.974, 20 years): still no trend that can be told apart from normal variability.",
             "recentConclusion": "No trend either way"
-          }
+          },
+          "evidenceTier": "none"
         },
         "soil_moisture_0_10cm": {
           "variable": "soil_moisture_0_10cm",
@@ -3192,8 +3196,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "No clear trend",
             "verdictTone": "neutral",
-            "headline": "Topsoil lost ~2.7 liters of water per m²",
-            "story": "Water in the top 10 cm of ground slipped from 18.6 to 15.9 liters per m². Even when total yearly rain stays steady, warmer air evaporates more water out of the soil.",
+            "headline": "No trend can be claimed for topsoil moisture",
+            "story": "Yearly values average 17.3 kg/m² and range from 13.7 (2011) to 20.9 (2004). The test finds no trend that stands out from normal variability; this does not prove that nothing is changing, because 25 years is short.",
             "startEst2000": 18.56,
             "endEst2024": 15.95,
             "signalPct": null,
@@ -3205,7 +3209,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Also no clear trend from 2005",
             "recentBody": "From 2005 the change is -1.16 kg/m² per decade (p = 0.086, 20 years): still no trend that can be told apart from normal variability.",
             "recentConclusion": "No trend either way"
-          }
+          },
+          "evidenceTier": "none"
         },
         "air_temperature_2m": {
           "variable": "air_temperature_2m",
@@ -3802,8 +3807,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Warming detected",
             "verdictTone": "warming",
-            "headline": "The air is +1.20 °C warmer than in the year 2000",
-            "story": "Average annual air temperature rose from 16.7 °C in 2000 to 17.9 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
+            "headline": "Air temperature rose by about 1.15 °C over 2000–2024",
+            "story": "The fitted trend (Sen's slope, +0.482 °C/decade) goes from about 16.7 °C in 2000 to 17.9 °C in 2024. The change is significant after correcting for 18 comparisons (q = 0.016). It describes the data, not what causes it.",
             "startEst2000": 16.72,
             "endEst2024": 17.87,
             "signalPct": null,
@@ -3815,7 +3820,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is +0.762 °C per decade (p = 0.003, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "robust"
         }
       }
     },
@@ -4444,8 +4450,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Suggestive less rain",
             "verdictTone": "borderline",
-            "headline": "About 366 mm/yr less rain over 25 years",
-            "story": "Typical rainfall moved from 2261 mm in 2000 down to 1910 mm in 2024. Because this region has very wet and very dry years, this drop sits right on the edge of confirmation.",
+            "headline": "Rainfall: a possible change of about 351 mm/yr over 2000–2024",
+            "story": "The fitted trend (Sen's slope, -146 mm/decade) goes from about 2260.8 mm/yr in 2000 to 1909.6 mm/yr in 2024 (p = 0.042, q = 0.069). It is not confirmed after correcting for 18 comparisons, so treat it as a lead.",
             "startEst2000": 2260.79,
             "endEst2024": 1909.58,
             "signalPct": null,
@@ -4457,7 +4463,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is -208 mm per decade (p = 0.041, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "suggestive"
         },
         "soil_moisture_0_10cm": {
           "variable": "soil_moisture_0_10cm",
@@ -5054,8 +5061,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Drier topsoil (fragile)",
             "verdictTone": "borderline",
-            "headline": "Topsoil lost 2.0 liters of water per square meter",
-            "story": "The top 10 cm of soil held about 31.2 liters of water per m² in 2000, dropping to 29.3 L/m² by 2024. Seeds and shallow roots now have noticeably less moisture available in the ground.",
+            "headline": "Topsoil moisture fell by about 1.95 kg/m² over 2000–2024, but the result is fragile",
+            "story": "The fitted trend (Sen's slope, -0.813 kg/m²/decade) goes from about 31.2 kg/m² in 2000 to 29.3 kg/m² in 2024 (q = 0.002), but it is not significant when the series starts in 2005 (p = 0.064). Treat it as a lead, not a firm finding.",
             "startEst2000": 31.23,
             "endEst2024": 29.28,
             "signalPct": null,
@@ -5067,7 +5074,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Not significant when starting in 2005",
             "recentBody": "From 2005 the change is -0.581 kg/m² per decade (p = 0.064, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
             "recentConclusion": "Depends on the start year"
-          }
+          },
+          "evidenceTier": "fragile"
         },
         "air_temperature_2m": {
           "variable": "air_temperature_2m",
@@ -5664,8 +5672,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Warming detected",
             "verdictTone": "warming",
-            "headline": "The air is +1.18 °C warmer than in the year 2000",
-            "story": "Average annual air temperature rose from 21.9 °C in 2000 to 23.0 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
+            "headline": "Air temperature rose by about 1.14 °C over 2000–2024",
+            "story": "The fitted trend (Sen's slope, +0.473 °C/decade) goes from about 21.9 °C in 2000 to 23.0 °C in 2024. The change is significant after correcting for 18 comparisons (q < 0.001). It describes the data, not what causes it.",
             "startEst2000": 21.86,
             "endEst2024": 23.0,
             "signalPct": null,
@@ -5677,7 +5685,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is +0.632 °C per decade (p = 0.002, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "robust"
         }
       }
     },
@@ -6307,8 +6316,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Less rain detected",
             "verdictTone": "drying",
-            "headline": "357 mm less rain per year than in 2000",
-            "story": "Typical annual rainfall fell from 2146 mm in 2000 to 1803 mm in 2024. That means every square meter of ground receives roughly 357 fewer liters of rainwater per year.",
+            "headline": "Rainfall fell by about 343 mm/yr over 2000–2024",
+            "story": "The fitted trend (Sen's slope, -143 mm/decade) goes from about 2146.1 mm/yr in 2000 to 1803.3 mm/yr in 2024. The change is significant after correcting for 18 comparisons (q = 0.001). It describes the data, not what causes it.",
             "startEst2000": 2146.12,
             "endEst2024": 1803.27,
             "signalPct": null,
@@ -6320,7 +6329,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is -187 mm per decade (p = 0.002, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "robust"
         },
         "soil_moisture_0_10cm": {
           "variable": "soil_moisture_0_10cm",
@@ -6917,8 +6927,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Drier topsoil detected",
             "verdictTone": "drying",
-            "headline": "Topsoil lost 2.6 liters of water per square meter",
-            "story": "The top 10 cm of soil held about 31.6 liters of water per m² in 2000, dropping to 29.2 L/m² by 2024. Seeds and shallow roots now have noticeably less moisture available in the ground.",
+            "headline": "Topsoil moisture fell by about 2.47 kg/m² over 2000–2024",
+            "story": "The fitted trend (Sen's slope, -1.03 kg/m²/decade) goes from about 31.6 kg/m² in 2000 to 29.1 kg/m² in 2024. The change is significant after correcting for 18 comparisons (q = 0.003). It describes the data, not what causes it.",
             "startEst2000": 31.62,
             "endEst2024": 29.15,
             "signalPct": null,
@@ -6930,7 +6940,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is -1.05 kg/m² per decade (p = 0.018, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "robust"
         },
         "air_temperature_2m": {
           "variable": "air_temperature_2m",
@@ -7527,8 +7538,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Warming detected",
             "verdictTone": "warming",
-            "headline": "The air is +1.67 °C warmer than in the year 2000",
-            "story": "Average annual air temperature rose from 24.8 °C in 2000 to 26.4 °C in 2024. Even 1 °C of extra year-round baseline heat means hotter summers and faster water evaporation from plants and soil.",
+            "headline": "Air temperature rose by about 1.6 °C over 2000–2024",
+            "story": "The fitted trend (Sen's slope, +0.667 °C/decade) goes from about 24.8 °C in 2000 to 26.4 °C in 2024. The change is significant after correcting for 18 comparisons (q < 0.001). It describes the data, not what causes it.",
             "startEst2000": 24.83,
             "endEst2024": 26.43,
             "signalPct": null,
@@ -7540,7 +7551,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is +0.651 °C per decade (p = 0.010, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "robust"
         }
       }
     },
@@ -8169,8 +8181,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "More rain (fragile)",
             "verdictTone": "borderline",
-            "headline": "+104 mm more rain per year than in 2000",
-            "story": "Over the last 25 years, typical annual rainfall rose from 516 mm to 616 mm. Because 1 mm of rain equals 1 liter of water per square meter, the land now receives about 104 extra liters of rainwater per m² each year.",
+            "headline": "Rainfall rose by about 100 mm/yr over 2000–2024, but the result is fragile",
+            "story": "The fitted trend (Sen's slope, +41.7 mm/decade) goes from about 516.1 mm/yr in 2000 to 616.1 mm/yr in 2024 (q = 0.028), but it is not significant when the series starts in 2005 (p = 0.183). Treat it as a lead, not a firm finding.",
             "startEst2000": 516.06,
             "endEst2024": 616.14,
             "signalPct": null,
@@ -8182,7 +8194,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Not significant when starting in 2005",
             "recentBody": "From 2005 the change is +28.1 mm per decade (p = 0.183, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
             "recentConclusion": "Depends on the start year"
-          }
+          },
+          "evidenceTier": "fragile"
         },
         "soil_moisture_0_10cm": {
           "variable": "soil_moisture_0_10cm",
@@ -8779,8 +8792,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "No clear trend",
             "verdictTone": "neutral",
-            "headline": "Soil water rises and falls naturally with rainy seasons",
-            "story": "Topsoil water averages 12.6 liters per m² (ranging from 11.7 in dry years to 13.8 in wet years), without a permanent long-term loss or gain.",
+            "headline": "No trend can be claimed for topsoil moisture",
+            "story": "Yearly values average 12.6 kg/m² and range from 11.7 (2011) to 13.8 (2003). The test finds no trend that stands out from normal variability; this does not prove that nothing is changing, because 25 years is short.",
             "startEst2000": 12.93,
             "endEst2024": 12.42,
             "signalPct": null,
@@ -8792,7 +8805,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Also no clear trend from 2005",
             "recentBody": "From 2005 the change is -0.276 kg/m² per decade (p = 0.163, 20 years): still no trend that can be told apart from normal variability.",
             "recentConclusion": "No trend either way"
-          }
+          },
+          "evidenceTier": "none"
         },
         "air_temperature_2m": {
           "variable": "air_temperature_2m",
@@ -9402,7 +9416,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Not significant when starting in 2005",
             "recentBody": "From 2005 the change is -0.253 °C per decade (p = 0.098, 20 years): same direction, but no longer significant, so the evidence depends on the start year.",
             "recentConclusion": "Depends on the start year"
-          }
+          },
+          "evidenceTier": "suggestive"
         }
       }
     },
@@ -10032,8 +10047,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "No clear trend",
             "verdictTone": "neutral",
-            "headline": "Wet and dry years alternate without a permanent change",
-            "story": "Rainfall here averages 470 mm/yr, bouncing between dry years (314 mm) and rainy years (656 mm). After 25 years, the overall average stays practically the same.",
+            "headline": "No trend can be claimed for rainfall",
+            "story": "Yearly values average 470.0 mm/yr and range from 313.5 (2023) to 656.2 (2015). The test finds no trend that stands out from normal variability; this does not prove that nothing is changing, because 25 years is short.",
             "startEst2000": 501.81,
             "endEst2024": 454.6,
             "signalPct": null,
@@ -10045,7 +10060,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Also no clear trend from 2005",
             "recentBody": "From 2005 the change is -34 mm per decade (p = 0.230, 20 years): still no trend that can be told apart from normal variability.",
             "recentConclusion": "No trend either way"
-          }
+          },
+          "evidenceTier": "none"
         },
         "soil_moisture_0_10cm": {
           "variable": "soil_moisture_0_10cm",
@@ -10642,8 +10658,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "No clear trend",
             "verdictTone": "neutral",
-            "headline": "Soil water rises and falls naturally with rainy seasons",
-            "story": "Topsoil water averages 16.1 liters per m² (ranging from 14.2 in dry years to 18.6 in wet years), without a permanent long-term loss or gain.",
+            "headline": "No trend can be claimed for topsoil moisture",
+            "story": "Yearly values average 16.1 kg/m² and range from 14.2 (2002) to 18.6 (2015). The test finds no trend that stands out from normal variability; this does not prove that nothing is changing, because 25 years is short.",
             "startEst2000": 16.3,
             "endEst2024": 15.64,
             "signalPct": null,
@@ -10655,7 +10671,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Also no clear trend from 2005",
             "recentBody": "From 2005 the change is -0.72 kg/m² per decade (p = 0.074, 20 years): still no trend that can be told apart from normal variability.",
             "recentConclusion": "No trend either way"
-          }
+          },
+          "evidenceTier": "none"
         },
         "air_temperature_2m": {
           "variable": "air_temperature_2m",
@@ -11252,8 +11269,8 @@ window.ATLALLI_REGION_DATA = {
           "story": {
             "statusPill": "Suggestive warming",
             "verdictTone": "borderline",
-            "headline": "Air temperature shifted by +0.94 °C since 2000",
-            "story": "Baseline air temperature moved from 19.5 °C in 2000 to 20.4 °C in 2024, with warming becoming much clearer during the last 20 years.",
+            "headline": "Air temperature: a possible change of about 0.91 °C over 2000–2024",
+            "story": "The fitted trend (Sen's slope, +0.378 °C/decade) goes from about 19.5 °C in 2000 to 20.4 °C in 2024 (p = 0.034, q = 0.060). It is not confirmed after correcting for 18 comparisons, so treat it as a lead.",
             "startEst2000": 19.53,
             "endEst2024": 20.44,
             "signalPct": null,
@@ -11265,7 +11282,8 @@ window.ATLALLI_REGION_DATA = {
             "recentTitle": "Still significant when starting in 2005",
             "recentBody": "From 2005 the change is +0.533 °C per decade (p = 0.041, 20 years): same direction and still significant before any multiple-testing correction.",
             "recentConclusion": "Holds from 2005"
-          }
+          },
+          "evidenceTier": "suggestive"
         }
       }
     }

@@ -1242,8 +1242,8 @@
      (Fixes Screenshot 5 where the wave overflowed and bottom text clipped!)
      ========================================================================== */
   function renderWideSignalDialArt(vData, regionColors) {
-    const isSig = vData.significantFdr;
-    const isBorderline = !isSig && vData.qValue <= 0.1;
+    const isSig = vData.evidenceTier === "robust";
+    const isBorderline = vData.evidenceTier === "fragile" || vData.evidenceTier === "suggestive";
     const activeZone = isSig ? 3 : isBorderline ? 2 : 1;
     const slopeUp = vData.senSlopeDecade >= 0;
 
@@ -1292,7 +1292,7 @@
           <g transform="translate(256, 0)">
             <rect x="0" y="0" width="232" height="106" rx="12" fill="${isSig ? regionColors.softBg : "#F9EFD4"}" stroke="${isSig ? regionColors.primary : "#E2D5B0"}" stroke-width="${isSig ? "2.5" : "1.5"}"/>
             <text x="116" y="21" text-anchor="middle" fill="${regionColors.primary}" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="800">
-              B. REAL 25-YEAR CLIMATE SHIFT
+              B. A TREND OVER 25 YEARS
             </text>
             ${trendLineB}
             <path d="${waveBPath}" fill="none" stroke="${regionColors.primary}" stroke-width="3.2" stroke-linecap="round"/>
@@ -1306,17 +1306,17 @@
         <g transform="translate(36, 144)">
           <rect x="0" y="0" width="154" height="40" rx="10" fill="${activeZone === 1 ? "#1F3A36" : "#F9EFD4"}" stroke="#E2D5B0" stroke-width="1.5"/>
           <text x="77" y="25" text-anchor="middle" fill="${activeZone === 1 ? "#FFFBEF" : "#4B5F5A"}" font-family="Plus Jakarta Sans, sans-serif" font-size="11.5" font-weight="800">
-            Just Normal Swings
+            No Clear Trend
           </text>
 
           <rect x="167" y="0" width="154" height="40" rx="10" fill="${activeZone === 2 ? "#D59625" : "#F9EFD4"}" stroke="#E2D5B0" stroke-width="1.5"/>
           <text x="244" y="25" text-anchor="middle" fill="${activeZone === 2 ? "#FFFBEF" : "#4B5F5A"}" font-family="Plus Jakarta Sans, sans-serif" font-size="11.5" font-weight="800">
-            Early Shifting Clue
+            Suggestive or Fragile
           </text>
 
           <rect x="334" y="0" width="154" height="40" rx="10" fill="${activeZone === 3 ? regionColors.primary : "#F9EFD4"}" stroke="#E2D5B0" stroke-width="1.5"/>
           <text x="411" y="25" text-anchor="middle" fill="${activeZone === 3 ? "#FFFBEF" : "#4B5F5A"}" font-family="Plus Jakarta Sans, sans-serif" font-size="11.5" font-weight="800">
-            Proven 25-Yr Trend
+            Trend Detected
           </text>
         </g>
 
@@ -1652,7 +1652,7 @@
               <span class="takeaway-chip-val">${story.verdictHuman}</span>
             </div>
             <div class="takeaway-chip">
-              <span class="takeaway-chip-label">Certainty Level</span>
+              <span class="takeaway-chip-label">Strength of Evidence</span>
               <span class="takeaway-chip-val">${story.confidenceHuman}</span>
             </div>
             <div class="takeaway-chip">
