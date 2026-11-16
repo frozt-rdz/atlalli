@@ -215,6 +215,11 @@ by the team; files carry an AI-use notice.
 
 - **Animations and video:** the animations in the web atlas and in the pitch video were created with AI
   assistance and reviewed by the team.
+- **SVG illustrations:** the SVG illustrations in `app/web/` (`pitch-land.svg`, `pitch-poster.svg`,
+  `climate-landscape.svg`, `regions.svg` and `region/*.svg`) were generated with AI assistance
+  (Codex, OpenAI) and reviewed by the team. The logos were made by the team without AI:
+  `Logo_Atlalli.svg`, `logobien.svg`, `LOGO_AMAZONIA.svg`, `LOGO_AZAHEL.svg`, `LOGO_CHIAPAS.svg`,
+  `LOGO_MORELOS.svg`, `LOGO_SONORA.svg` and `LOGO_ZACATECAS.svg`.
 - **Statistical review:** the method audit, the sensitivity checks and the wording fixes were led by Briana
   Brito (science lead) with the assistance of Claude. Every change was reviewed, applied and committed by
   the team under its own names.
