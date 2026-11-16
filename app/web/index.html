@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="atlas.css">
   </head>
   <body>
+    <!-- Opening animation (atlalli-apertura.mp4, 6 s). Plays once per browser session; skippable. -->
+    <div id="intro" role="dialog" aria-label="Atlalli opening animation" hidden>
+      <video id="intro-video" muted playsinline preload="auto" aria-hidden="true">
+        <source src="atlalli-apertura.mp4" type="video/mp4">
+      </video>
+      <button id="intro-skip" type="button">Skip</button>
+    </div>
+    <script>
+      (function () {
+        var seen = false;
+        try { seen = sessionStorage.getItem("atlalli-intro") === "1"; } catch (e) {}
+        var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!seen && !reduce) {
+          document.getElementById("intro").hidden = false;
+          document.documentElement.classList.add("intro-on");
+        }
+      })();
+    </script>
+
     <a class="skip" href="#regions">
       Skip to study regions
     </a>
@@ -66,6 +85,9 @@
           </a>
           <a href="#repo">
             Learn more
+          </a>
+          <a href="#about">
+            About us
           </a>
           <a class="explore" href="explorar/index.html?region=morelos&amp;var=precipitation_rate&amp;page=selector">
             Open explorer
@@ -203,6 +225,8 @@
               </div>
 
               <!-- AI-generated pitch video slot with official Atlalli logo above play button -->
+              <div class="peek-wrap">
+                <img class="peek peek-hero" src="tlacuache-asomandose-web.svg" alt="" aria-hidden="true" width="140" height="135" decoding="async">
               <div class="pitch-video-slot" id="pitch-video-slot">
                 <div class="video-placeholder">
                   <div class="video-logo-badge">
@@ -217,6 +241,7 @@
                     <span>Pitch &amp; Explanatory Video</span>
                   </button>
                 </div>
+              </div>
               </div>
             </div>
 
@@ -795,6 +820,7 @@
       <section id="methods" aria-labelledby="methods-title">
         <div class="methods-shell">
           <div class="methods-intro">
+            <div class="walk-lane" aria-hidden="true"><span class="walker"></span></div>
             <div>
               <p class="section-kicker">STATISTICAL RIGOR · WHY THIS MATTERS</p>
               <h2 id="methods-title">How we separate signal from climate noise</h2>
@@ -885,6 +911,7 @@
             </div>
 
             <div class="repo-visual">
+              <img class="peek peek-repo" src="tlacuache-asomandose-web.svg" alt="" aria-hidden="true" width="140" height="135" loading="lazy" decoding="async">
               <a class="repo-shot-frame" href="https://github.com/frozt-rdz/atlalli" target="_blank" rel="noopener noreferrer" aria-label="Open frozt-rdz/atlalli repository on GitHub">
                 <img src="github-repo.jpg" width="760" height="528" alt="Preview of the frozt-rdz/atlalli GitHub repository showing app, content, data, docs, pipeline, and stats folders" loading="lazy">
                 <span class="repo-shot-caption">
@@ -894,6 +921,112 @@
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- About us: name origin + team (each member reuses one region scene) -->
+      <section id="about" aria-labelledby="about-title">
+        <div class="about-shell">
+          <div class="about-card">
+            <div class="about-head">
+              <p class="section-kicker">ABOUT US · THE NAME AND THE TEAM</p>
+              <h2 id="about-title">About us</h2>
+              <p class="about-etymology" aria-label="Atlalli equals atl plus tlalli">
+                <span class="ety"><b>atl</b><small>water</small></span>
+                <span class="ety-op" aria-hidden="true">+</span>
+                <span class="ety"><b>tlalli</b><small>earth</small></span>
+                <span class="ety-op" aria-hidden="true">=</span>
+                <span class="ety ety-result"><b>Atlalli</b><small>water &amp; land</small></span>
+              </p>
+            </div>
+            <div class="about-text">
+              <p>Atlalli comes from Nahuatl, the language behind the names of many places in Morelos, including Zacatepec, home of our university. It is formed by two words, <em>atl</em> (water) and <em>tlalli</em> (earth), and can be read as “water and land,” the two elements at the heart of this project, or as “land watered by rain,” the link between rainfall and the soil that receives it.</p>
+              <p>The name also reflects our method. Of the three variables Atlalli analyzes, two are precisely that pair: precipitation, the water that falls, and soil moisture, the water the land retains. The third, air temperature, completes the picture of how the Earth system is changing.</p>
+              <p>We chose it because it carries our roots in Morelos and because it expresses our idea: to understand how the planet is changing, we start with what sustains life where we live: its water and its land.</p>
+            </div>
+          </div>
+
+          <h3 class="team-title">The team</h3>
+          <ul class="team-grid">
+            <li>
+              <a class="member" data-region="morelos" href="https://github.com/BrianaBrito" target="_blank" rel="noopener noreferrer" aria-label="BrianaBrito on GitHub">
+                <span class="member-scene" aria-hidden="true"></span>
+                <span class="member-body">
+                  <img class="member-badge" src="LOGO_MORELOS.svg" width="44" height="44" alt="">
+                  <span class="member-text">
+                    <strong>BrianaBrito</strong>
+                    <small>github.com/BrianaBrito</small>
+                  </span>
+                  <span class="member-go" aria-hidden="true">↗</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="member" data-region="chiapas" href="https://github.com/cristoballongares" target="_blank" rel="noopener noreferrer" aria-label="cristoballongares on GitHub">
+                <span class="member-scene" aria-hidden="true"></span>
+                <span class="member-body">
+                  <img class="member-badge" src="LOGO_CHIAPAS.svg" width="44" height="44" alt="">
+                  <span class="member-text">
+                    <strong>cristoballongares</strong>
+                    <small>github.com/cristoballongares</small>
+                  </span>
+                  <span class="member-go" aria-hidden="true">↗</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="member" data-region="sonora" href="https://github.com/frozt-rdz" target="_blank" rel="noopener noreferrer" aria-label="frozt-rdz on GitHub">
+                <span class="member-scene" aria-hidden="true"></span>
+                <span class="member-body">
+                  <img class="member-badge" src="LOGO_SONORA.svg" width="44" height="44" alt="">
+                  <span class="member-text">
+                    <strong>frozt-rdz</strong>
+                    <small>github.com/frozt-rdz</small>
+                  </span>
+                  <span class="member-go" aria-hidden="true">↗</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="member" data-region="zacatecas" href="https://github.com/Jesus-502" target="_blank" rel="noopener noreferrer" aria-label="Jesus-502 on GitHub">
+                <span class="member-scene" aria-hidden="true"></span>
+                <span class="member-body">
+                  <img class="member-badge" src="LOGO_ZACATECAS.svg" width="44" height="44" alt="">
+                  <span class="member-text">
+                    <strong>Jesus-502</strong>
+                    <small>github.com/Jesus-502</small>
+                  </span>
+                  <span class="member-go" aria-hidden="true">↗</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="member" data-region="south_amazon" href="https://github.com/SajiVoid" target="_blank" rel="noopener noreferrer" aria-label="SajiVoid on GitHub">
+                <span class="member-scene" aria-hidden="true"></span>
+                <span class="member-body">
+                  <img class="member-badge" src="LOGO_AMAZONIA.svg" width="44" height="44" alt="">
+                  <span class="member-text">
+                    <strong>SajiVoid</strong>
+                    <small>github.com/SajiVoid</small>
+                  </span>
+                  <span class="member-go" aria-hidden="true">↗</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="member" data-region="sahel" href="https://github.com/David-M17" target="_blank" rel="noopener noreferrer" aria-label="David-M17 on GitHub">
+                <span class="member-scene" aria-hidden="true"></span>
+                <span class="member-body">
+                  <img class="member-badge" src="LOGO_AZAHEL.svg" width="44" height="44" alt="">
+                  <span class="member-text">
+                    <strong>David-M17</strong>
+                    <small>github.com/David-M17</small>
+                  </span>
+                  <span class="member-go" aria-hidden="true">↗</span>
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </section>
     </main>

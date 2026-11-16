@@ -139,3 +139,38 @@ if ("IntersectionObserver" in window) {
     revealObserver.observe(el);
   }
 }
+
+
+// ---- Opening animation (plays once per session, skippable) ----
+(function () {
+  const intro = document.getElementById("intro");
+  if (!intro || intro.hidden) return;
+  const video = document.getElementById("intro-video");
+  const skip = document.getElementById("intro-skip");
+  let closed = false;
+  function close() {
+    if (closed) return;
+    closed = true;
+    try { sessionStorage.setItem("atlalli-intro", "1"); } catch (e) {}
+    intro.classList.add("done");
+    document.documentElement.classList.remove("intro-on");
+    setTimeout(() => { intro.hidden = true; video.pause(); }, 650);
+  }
+  video.addEventListener("ended", close);
+  video.addEventListener("error", close);
+  skip.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key === "Enter") close();
+  });
+  const p = video.play();
+  if (p && p.catch) p.catch(close);
+  setTimeout(close, 9000);
+  skip.focus({ preventScroll: true });
+})();
+
+// ---- About us: reuse each region's animated scene for its team member ----
+document.querySelectorAll(".member[data-region]").forEach((m) => {
+  const src = document.querySelector("#" + m.dataset.region + " .card-scene svg");
+  const slot = m.querySelector(".member-scene");
+  if (src && slot) slot.appendChild(src.cloneNode(true));
+});
