@@ -6,7 +6,7 @@ change is statistically significant.
 
 NASA Space Apps Challenge 2026 · *Be an Earth System Trend Detective*
 
-> Live app: (https://atlalli.earth/)
+> Live app: [https://atlalli.earth/]
 
 ## What it does
 
@@ -137,7 +137,7 @@ fix that at this length: 25 years is limited evidence.
 - Temperature (MERRA-2) and soil moisture (GLDAS) are model outputs fed with observations;
   precipitation (IMERG) is a satellite estimate calibrated with rain gauges.
 - 2-m temperature was cross-checked with ERA5 (reanalysis, average of 9 to 15 points per box, obtained
-  through the Open-Meteo archive API; `check_all_regions_era5.py`). Slopes in °C/decade, 2000–2024:Slopes in °C/decade, 2000–2024:
+  through the Open-Meteo archive API; `stats/check_all_regions_era5.py`). Slopes in °C/decade, 2000–2024:
 
   | Region | MERRA-2 (the app) | ERA5 | Reading |
   |---|---|---|---|

@@ -1,7 +1,7 @@
 """Does the 0.2 autocorrelation threshold matter?  Sweep it on the real data and on simulated noise.
 
 Does NOT import anything from the project: reads data/giovanni/*.csv itself.
-Usage:  python threshold_sweep.py path/to/trend-detective        (about 1-2 minutes)
+Usage:  python threshold_sweep.py stats/threshold_sweep.py       (about 1-2 minutes)
 Needs:  numpy pandas scipy pymannkendall
 
 Rule under test: use Hamed-Rao when lag-1 autocorrelation of the Sen residuals is > threshold,
