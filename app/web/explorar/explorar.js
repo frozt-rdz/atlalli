@@ -1706,7 +1706,7 @@
         <div class="source-top-row">
           <div class="source-heading-group">
             <span class="source-eyebrow">Data Source &amp; Scientific Reference</span>
-            <h3 class="source-title">NASA GLDAS-2.1 Noah Land Surface Model · ${vMeta.label}</h3>
+            <h3 class="source-title">${vMeta.sensorTag} · ${vMeta.shortLabel}</h3>
           </div>
           <div class="source-actions">
             <button type="button" class="source-action-btn" data-copy-citation="${fullCitationString.replace(/"/g, "&quot;")}">
