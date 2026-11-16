@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 420 190"><defs>
+        <g id="palm">
+          <path fill="#4a3731" d="M-3 0q4-29-2-55h5q10 25 4 55z"/>
+          <path fill="currentColor" d="M-3-52q-24-7-32 11 1-22 28-18-17-16-29-9 14-16 34 4-4-23-16-29 21 1 22 27 14-21 32-15-17 4-24 20 26-10 38 7-18-7-36 1 19 4 25 21-13-13-31-15z"/>
+          <path fill="#ffffff" opacity=".14" d="M-3-52q-17-16-29-9 14-16 34 4-4-23-16-29 21 1 22 27 14-21 32-15-17 4-24 20z"/>
+        </g>
+        <g id="cactus">
+          <path d="M0 0v-70m0 46q-20 0-20-14v-14M0-37q15 0 15-12v-9" fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round"/>
+          <path d="M-1.5 -4v-63m-18.5 28v-11m33.5 -1v-7" fill="none" stroke="#ffffff" opacity=".18" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g id="tree">
+          <path d="m-4 0 2-40-15-14 3-3 14 11 3-22 4 1-2 27 17-13 3 3-20 19 2 31z" fill="#4e3934"/>
+          <path d="M-30-39q-17-5-13-19 1-11 12-13 4-17 20-15 14-12 25-3 18-4 23 12 15 1 15 16 4 13-11 18-13 4-27-3-16 9-27 3z" fill="currentColor"/>
+          <path d="M-31-56q1-11 12-13 4-17 20-15 14-12 25-3 18-4 23 12 6 0 10 4-18-6-36 3-16-8-31 2-12 2-23 10z" fill="#ffffff" opacity=".16"/>
+        </g>
+        <g id="grass">
+          <path fill="currentColor" d="M-15 0q1-14-6-24 12 7 17 18-3-21 3-35 3 18 4 29 4-17 17-23-8 12-12 29 10-12 19-12L12 0z"/>
+        </g>
+        <g id="cat">
+          <path fill="#e09b27" d="M0-12q-17 2-22-12-4-10-12-6 6-8 13-2 10 18 23 12 14-12 35-7l8-3 2-7 5 4 6-2 3 6 8 4-2 5-10 2-7 8-4 9h-6l1-11-14-1-5 12h-7l4-15-10 5-6 10h-6z"/>
+          <path fill="#f4c96b" d="M12-12h14l-1 4-11-1z"/>
+          <path fill="#3d2b24" d="m9-21 4-1 1 3-3 2zm9-4 4 1-1 3-3 1zm12 4 3-2 2 3-3 2zm12-4 3 1-1 3-3-1zm12-2h2v2h-2zm-28 5 3-1 1 2-3 1z"/>
+        </g>
+      </defs>
+                  <rect width="420" height="190" fill="#b8d6d2"/>
+                  <circle class="scene-sun-halo" cx="324" cy="46" r="30" fill="#f2d48f" opacity=".45"/>
+                  <circle class="scene-sun" cx="324" cy="46" r="21" fill="#e8be66"/>
+                  <g class="amazon-clouds" fill="#789c9f">
+                    <path d="M46 42q-12-13 6-20 5-14 22-10 12-13 26 2 16-2 19 14 12 2 14 14z"/>
+                    <path d="M184 36q-12-12 6-18 4-13 20-9 11-12 24 2 14-2 17 12 11 2 13 13z"/>
+                  </g>
+                  <path class="scene-hill-far" d="M0 104Q80 94 185 102T420 94V190H0Z" fill="#529156"/>
+                  <path class="scene-hill-mid" d="M0 122Q70 95 150 124T312 113T420 103V190H0Z" fill="#235c59"/>
+                  <use href="#palm" transform="translate(0 125) scale(0.55)" color="#529156"/>
+                  <use href="#tree" transform="translate(49 131) scale(0.67)" color="#235c59"/>
+                  <use href="#tree" transform="translate(98 125) scale(0.79)" color="#529156"/>
+                  <use href="#palm" transform="translate(147 131) scale(0.55)" color="#235c59"/>
+                  <use href="#tree" transform="translate(196 125) scale(0.67)" color="#529156"/>
+                  <use href="#tree" transform="translate(245 131) scale(0.79)" color="#235c59"/>
+                  <use href="#palm" transform="translate(294 125) scale(0.55)" color="#529156"/>
+                  <use href="#tree" transform="translate(343 131) scale(0.67)" color="#235c59"/>
+                  <use href="#tree" transform="translate(392 125) scale(0.79)" color="#529156"/>
+                  <path d="M174 124q102-7 113 8t-45 16q-54 9 41 42h-84q-51-32 11-44t-36-22Z" fill="#28adb8"/>
+                  <path class="amazon-stream" d="M234 128q32 4-12 16t6 40" fill="none" stroke="#b8eef2" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="7 14"/>
+                  <g class="canopy-sway">
+                    <use href="#palm" transform="translate(46 166) scale(1.42)" color="#184544"/>
+                  </g>
+                  <g class="canopy-sway-alt">
+                    <use href="#tree" transform="translate(372 162) scale(1.18)" color="#184544"/>
+                  </g>
+                  <g class="rain-group" stroke="#467c82" stroke-width="2" stroke-linecap="round">
+                    <path class="rain rain-a" d="M68 24l-4 12 M139 36l-4 12 M210 50l-4 12 M281 64l-4 12 M95 74l-4 12 M166 28l-4 12 M237 42l-4 12 M308 56l-4 12"/>
+                    <path class="rain rain-b" d="M77 48l-4 12 M148 26l-4 12 M219 66l-4 12 M290 40l-4 12 M104 32l-4 12 M175 60l-4 12 M246 24l-4 12 M317 50l-4 12"/>
+                    <path class="rain rain-c" d="M86 34l-4 12 M157 54l-4 12 M228 30l-4 12 M299 70l-4 12 M113 62l-4 12 M184 22l-4 12 M255 48l-4 12 M326 36l-4 12"/>
+                  </g>
+                </svg>

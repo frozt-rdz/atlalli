@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 420 190"><defs>
+        <g id="palm">
+          <path fill="#4a3731" d="M-3 0q4-29-2-55h5q10 25 4 55z"/>
+          <path fill="currentColor" d="M-3-52q-24-7-32 11 1-22 28-18-17-16-29-9 14-16 34 4-4-23-16-29 21 1 22 27 14-21 32-15-17 4-24 20 26-10 38 7-18-7-36 1 19 4 25 21-13-13-31-15z"/>
+          <path fill="#ffffff" opacity=".14" d="M-3-52q-17-16-29-9 14-16 34 4-4-23-16-29 21 1 22 27 14-21 32-15-17 4-24 20z"/>
+        </g>
+        <g id="cactus">
+          <path d="M0 0v-70m0 46q-20 0-20-14v-14M0-37q15 0 15-12v-9" fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round"/>
+          <path d="M-1.5 -4v-63m-18.5 28v-11m33.5 -1v-7" fill="none" stroke="#ffffff" opacity=".18" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g id="tree">
+          <path d="m-4 0 2-40-15-14 3-3 14 11 3-22 4 1-2 27 17-13 3 3-20 19 2 31z" fill="#4e3934"/>
+          <path d="M-30-39q-17-5-13-19 1-11 12-13 4-17 20-15 14-12 25-3 18-4 23 12 15 1 15 16 4 13-11 18-13 4-27-3-16 9-27 3z" fill="currentColor"/>
+          <path d="M-31-56q1-11 12-13 4-17 20-15 14-12 25-3 18-4 23 12 6 0 10 4-18-6-36 3-16-8-31 2-12 2-23 10z" fill="#ffffff" opacity=".16"/>
+        </g>
+        <g id="grass">
+          <path fill="currentColor" d="M-15 0q1-14-6-24 12 7 17 18-3-21 3-35 3 18 4 29 4-17 17-23-8 12-12 29 10-12 19-12L12 0z"/>
+        </g>
+        <g id="cat">
+          <path fill="#e09b27" d="M0-12q-17 2-22-12-4-10-12-6 6-8 13-2 10 18 23 12 14-12 35-7l8-3 2-7 5 4 6-2 3 6 8 4-2 5-10 2-7 8-4 9h-6l1-11-14-1-5 12h-7l4-15-10 5-6 10h-6z"/>
+          <path fill="#f4c96b" d="M12-12h14l-1 4-11-1z"/>
+          <path fill="#3d2b24" d="m9-21 4-1 1 3-3 2zm9-4 4 1-1 3-3 1zm12 4 3-2 2 3-3 2zm12-4 3 1-1 3-3-1zm12-2h2v2h-2zm-28 5 3-1 1 2-3 1z"/>
+        </g>
+      </defs>
+                  <rect width="420" height="190" fill="#cde0e3"/>
+                  <circle class="scene-sun-halo" cx="322" cy="46" r="32" fill="#f0cf85" opacity=".5"/>
+                  <circle class="scene-sun" cx="322" cy="46" r="22" fill="#de9f38"/>
+                  <path class="scene-hill-far" d="M0 94Q52 66 104 88T212 80T324 82T420 68V190H0Z" fill="#8d8396"/>
+                  <path d="M0 132 58 96l34 8 59-67 47 53 28-13 55 50 57-43 82 36v70H0Z" fill="#b86439"/>
+                  <path d="M151 37l47 53-26 32-21-85zm75 40 55 50-32 14-23-64zm112 7 82 36v20l-82-56z" fill="#944b26"/>
+                  <path class="scene-hill-mid" d="M0 124Q70 96 150 126T312 115T420 105V190H0Z" fill="#ba9c6b"/>
+                  <path d="M0 160Q89 146 170 158T310 160T420 150v40H0Z" fill="#876347"/>
+                  <g class="steppe-grass">
+                    <use href="#grass" transform="translate(12 162) scale(0.48)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(58 169) scale(0.72)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(110 175) scale(0.48)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(164 162) scale(0.72)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(218 169) scale(0.48)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(272 175) scale(0.72)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(326 162) scale(0.48)" color="#5a7344"/>
+                    <use href="#grass" transform="translate(380 169) scale(0.72)" color="#5a7344"/>
+                  </g>
+                  <g class="wind wind-a" fill="none" stroke="#fffdf7" stroke-width="2.2" stroke-linecap="round">
+                    <path d="M75 56q28-10 56-4t44-5m-72 20q34-7 64-2"/>
+                  </g>
+                  <g class="wind wind-b" fill="none" stroke="#fffdf7" stroke-width="1.9" stroke-linecap="round">
+                    <path d="M155 42q26-8 52-3m-36 36q28-6 54-1"/>
+                  </g>
+                  <g class="wind wind-c" fill="none" stroke="#f7ecd0" stroke-width="1.8" stroke-linecap="round">
+                    <path d="M210 64q24-7 48-2"/>
+                  </g>
+                </svg>

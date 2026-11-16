@@ -1,0 +1,1738 @@
+/* AI-use notice: this file includes AI-generated content and code, reviewed by the team. */
+:root {
+  color-scheme: light;
+  --paper: #faf9f2;
+  --paper-alt: #dfeae3;
+  --paper-deep: #d4e3da;
+  --card-bg: #fffefa;
+  --ink: #1b3632;
+  --muted: #456058;
+  --line: #c5d3c6;
+  --line-strong: #9fb4a3;
+  --green: #265e5c;
+  --green-dark: #183d3e;
+  --font-sans: "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Plus Jakarta Sans", "DM Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  /* Flat cartographic grid + crosshair pattern */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M64 0H0v64' fill='none' stroke='%23ecebe0' stroke-width='1'/%3E%3Cpath d='M32 29v6M29 32h6' fill='none' stroke='%23dfe4d5' stroke-width='1'/%3E%3C/svg%3E");
+  color: var(--ink);
+  font: 450 1rem/1.55 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.22em;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+video:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -10rem;
+  z-index: 20;
+  background: var(--card-bg);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  padding: 0.75rem 1.1rem;
+  font-weight: 600;
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.symbols {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ---------------- HEADER (AUTO-HIDE ON SCROLL DOWN) ---------------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+header.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.bar,
+.regions-shell,
+.methods-shell,
+.repo-shell,
+footer {
+  width: min(93%, 1380px);
+  margin-inline: auto;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 74px;
+}
+
+.brand {
+  display: inline-flex;
+  gap: 0.65rem;
+  align-items: center;
+  font: 800 1.65rem/1 var(--font-display);
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  height: 38px;
+  object-fit: contain;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 2.2vw, 1.8rem);
+}
+
+nav a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+  transition: color 0.18s ease;
+}
+
+nav a:not(.explore):hover {
+  color: var(--green);
+  text-decoration: underline;
+}
+
+.explore {
+  border-radius: 2rem;
+  padding-inline: 1.15rem;
+  background: var(--green);
+  color: #fffefa;
+  gap: 0.5rem;
+  border: 1px solid var(--green);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.explore:hover {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #193f4033;
+}
+
+/* ---------------- FULL-WIDTH HERO / PITCH STAGE ---------------- */
+.stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  padding-bottom: clamp(2rem, 4vw, 3.2rem);
+}
+
+.screen {
+  width: 100%;
+  min-height: clamp(540px, 58vw, 760px);
+  position: relative;
+  overflow: hidden;
+  background: #203e42;
+  color: #f9efd4;
+  border-bottom: 1px solid var(--ink);
+  display: flex;
+  align-items: center;
+}
+
+.weather-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.weather-art .sun {
+  fill: #f4c862;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(94%, 1440px);
+  margin-inline: auto;
+  padding-block: clamp(2.8rem, 5.5vw, 4.8rem);
+  display: grid;
+  /* Larger right-hand column so the pitch video zone is prominent */
+  grid-template-columns: minmax(300px, 0.72fr) minmax(480px, 1.28fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.8rem);
+}
+
+.poster-copy {
+  max-width: 490px;
+}
+
+.poster-copy .eyebrow {
+  margin: 0;
+  font: 700 clamp(0.74rem, 0.95vw, 0.85rem)/1.2 var(--font-display);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #dbe8dc;
+}
+
+h1 {
+  margin: 0.05em 0 0.14em;
+  font: 800 clamp(3.8rem, 8vw, 7rem)/0.95 var(--font-display);
+  letter-spacing: -0.055em;
+  color: #faf9f2;
+}
+
+.pitch-deck {
+  margin: 0 0 1.45rem;
+  font-size: clamp(0.96rem, 1.25vw, 1.12rem);
+  line-height: 1.52;
+  color: #eef4ed;
+  max-width: 42ch;
+  font-weight: 450;
+}
+
+.poster-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid #faf9f2;
+  border-radius: 2rem;
+  padding: 0.56rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: #faf9f2;
+  color: #183d3e;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.scroll-cue:hover {
+  background: #f4c862;
+  border-color: #f4c862;
+  transform: translateY(1px);
+}
+
+/* Prominent Cinema-Sized Video Box on the Right of Hero */
+.pitch-video-slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: 2px solid #c5dbd8;
+  background: #153437e6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 12px 0 #0e242559;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.pitch-video-slot:hover {
+  border-color: #f4c862;
+}
+
+.has-video .pitch-video-slot {
+  border-style: solid;
+  border-color: #faf9f2;
+  background: #10292a;
+}
+
+/* AI-generated video placeholder with official Atlalli logo above play button */
+.video-placeholder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  gap: 0.9rem;
+}
+
+.video-logo-badge {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: #faf9f2;
+  border: 2.5px solid #f4c862;
+  display: grid;
+  place-items: center;
+  padding: 0.7rem;
+  box-shadow: 0 6px 0 #0e24254d;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pitch-video-slot:hover .video-logo-badge {
+  transform: translateY(-3px) scale(1.04);
+}
+
+.video-slot-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-play-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid #f4c862;
+  border-radius: 2rem;
+  padding: 0.42rem 1.15rem 0.42rem 0.48rem;
+  font: 700 0.88rem/1.2 var(--font-display);
+  background: #203e42;
+  color: #faf9f2;
+  box-shadow: 0 4px 0 #0e242540;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.pitch-video-slot:hover .video-play-pill {
+  background: #265e5c;
+  transform: translateY(-1px);
+}
+
+.play-icon-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f4c862;
+  color: #183d3e;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.video-note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #d2e4dd;
+}
+
+.video-note code {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  background: #203e42;
+  padding: 0.14rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid #3c676a;
+}
+
+.pitch-video-slot video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #10292a;
+}
+
+.weather-toggle {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 3%;
+  z-index: 3;
+  min-height: 38px;
+  padding: 0 0.95rem;
+  border: 1px solid #dbe4d7;
+  border-radius: 2rem;
+  background: #183d3e;
+  color: #faf9f2;
+  cursor: pointer;
+  font: 600 0.8rem/1 var(--font-sans);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.weather-toggle:hover {
+  background: #265e5c;
+  border-color: #faf9f2;
+}
+
+.weather-toggle:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+/* Telemetry Strip under Hero */
+.telemetry-strip {
+  width: min(93%, 1380px);
+  margin: 1.8rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--card-bg);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 0 #1b36320d;
+}
+
+.stat-cell {
+  padding: 1.05rem 1.25rem;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat-cell:last-child {
+  border-right: 0;
+}
+
+.stat-num {
+  font: 800 1.28rem/1.1 var(--font-display);
+  color: var(--green);
+  letter-spacing: -0.03em;
+}
+
+.stat-label {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+/* ---------------- STUDY REGIONS SECTION (CONTRASTED MINERAL-SAGE BACKGROUND) ---------------- */
+#regions {
+  background-color: var(--paper-alt);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='1.1' fill='%23b5c7ba'/%3E%3C/svg%3E");
+  border-top: 1.5px solid var(--line-strong);
+  border-bottom: 1.5px solid var(--line-strong);
+  padding-block: clamp(3.8rem, 7vw, 6.5rem);
+}
+
+.section-kicker {
+  margin: 0 0 0.45rem;
+  font: 700 0.75rem/1.2 var(--font-display);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1.9rem;
+  margin-bottom: clamp(2.5rem, 4.5vw, 3.6rem);
+  padding-bottom: clamp(2rem, 3.5vw, 2.8rem);
+  border-bottom: 1.5px solid var(--line);
+}
+
+.heading h2,
+.methods-intro h2 {
+  font: 800 clamp(2.25rem, 4vw, 3.5rem)/1.06 var(--font-display);
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.heading-lead {
+  color: var(--muted);
+  margin: 0.7rem 0 0;
+  font-size: clamp(0.96rem, 1.12vw, 1.06rem);
+  max-width: 72ch;
+}
+
+/* 3 Rich Animated Variable Cards with Organic Curves & DOIs */
+.variable-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.3vw, 1.7rem);
+}
+
+.var-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 0.45rem;
+  overflow: hidden;
+  box-shadow: 0 5px 0 #1b363212;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.25s ease;
+}
+
+.var-panel:hover {
+  border-color: var(--green);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 #1b36321f;
+}
+
+.var-scene {
+  width: 100%;
+  border-radius: 11px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.var-scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.var-body {
+  padding: 1rem 0.9rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.var-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.var-unit {
+  font: 700 0.72rem/1 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green-dark);
+  background: var(--paper-alt);
+  border: 1px solid var(--line);
+  padding: 0.26rem 0.55rem;
+  border-radius: 6px;
+}
+
+.var-mission {
+  font: 600 0.75rem/1 var(--font-display);
+  color: var(--muted);
+}
+
+.var-body h3 {
+  margin: 0.1rem 0 0;
+  font: 700 1.26rem/1.2 var(--font-display);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.var-body p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.48;
+  flex: 1;
+}
+
+.var-doi {
+  margin-top: 0.45rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  font: 600 0.76rem/1.2 var(--font-display);
+  color: var(--green);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.var-doi:hover {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+
+/* ---------------- FRAMED REGION CARDS GRID ---------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 2.8vw, 2.4rem);
+  align-items: start;
+}
+
+.card {
+  min-width: 0;
+  display: block;
+  padding: 0.55rem;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 18px;
+  background: var(--card-bg);
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #1b363214;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.28s ease;
+}
+
+.card:is(:hover, :focus-visible) {
+  border-color: var(--green);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 0 #1b363224;
+}
+
+.card-scene {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #d5dfd6;
+}
+
+.card-scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card .caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  inset: auto clamp(0.85rem, 1.8vw, 1.35rem) clamp(0.85rem, 1.8vw, 1.35rem);
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.caption > span:first-child,
+.card-caption-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fffefa;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 0.38rem 0.95rem 0.42rem 0.5rem;
+  box-shadow: 0 3px 0 #193f401a;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.card:is(:hover, :focus-visible) .card-caption-pill {
+  border-color: var(--green);
+}
+
+.card-logo-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  object-fit: contain;
+  padding: 2px;
+  flex-shrink: 0;
+  display: block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card-caption-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.caption strong {
+  display: block;
+  font: 700 clamp(1.32rem, 2vw, 1.85rem)/1.12 var(--font-display);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.caption small {
+  display: block;
+  color: var(--muted);
+  margin: 0.14rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.expand {
+  display: grid;
+  place-items: center;
+  align-self: end;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  background: #fffefa;
+  color: var(--ink);
+  font-size: 0.98rem;
+  box-shadow: 0 3px 0 #193f401a;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.expand::before {
+  content: "↗";
+}
+
+.card:is(:hover, :focus-visible) .expand {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fffefa;
+  transform: translate(2px, -2px);
+}
+
+/* ---------------- METHODOLOGY & TRANSECT SECTION ---------------- */
+#methods {
+  padding-block: clamp(3.8rem, 7vw, 6.2rem);
+}
+
+.methods-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 2.2rem;
+}
+
+.methods-lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.3rem;
+  margin-bottom: 2.4rem;
+}
+
+.method-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 1.4rem 1.45rem;
+  box-shadow: 0 4px 0 #1b36320d;
+}
+
+.method-step {
+  display: inline-block;
+  font: 700 0.72rem/1 var(--font-display);
+  letter-spacing: 0.08em;
+  color: var(--green-dark);
+  background: var(--paper-alt);
+  border: 1px solid var(--line);
+  padding: 0.28rem 0.58rem;
+  border-radius: 5px;
+  margin-bottom: 0.75rem;
+}
+
+.method-card h3 {
+  margin: 0 0 0.5rem;
+  font: 700 1.18rem/1.25 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.method-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------------- CONOCE MÁS / GITHUB REPO SECTION ---------------- */
+#repo {
+  padding-bottom: clamp(4rem, 7vw, 6.5rem);
+}
+
+.repo-card {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(1.8rem, 3.5vw, 3.2rem);
+  background: var(--card-bg);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 18px;
+  padding: clamp(1.6rem, 3.5vw, 2.8rem);
+  box-shadow: 0 8px 0 #1b363214;
+}
+
+.repo-info h2 {
+  font: 800 clamp(2.1rem, 3.6vw, 3.1rem)/1.08 var(--font-display);
+  letter-spacing: -0.04em;
+  margin: 0 0 0.65rem;
+  color: var(--ink);
+}
+
+.repo-lead {
+  margin: 0 0 1.35rem;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.55;
+  max-width: 58ch;
+}
+
+.repo-meta-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.repo-meta-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.95rem 1.1rem;
+}
+
+.repo-meta-label {
+  display: block;
+  font: 700 0.7rem/1.2 var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.35rem;
+}
+
+.repo-meta-box strong {
+  display: block;
+  font: 700 1.02rem/1.25 var(--font-display);
+  color: var(--ink);
+  margin-bottom: 0.55rem;
+}
+
+.repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.repo-tags span {
+  font: 600 0.76rem/1 var(--font-display);
+  color: var(--ink);
+  background: var(--paper-alt);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
+
+.repo-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.repo-tree code {
+  font: 700 0.8rem/1 var(--font-display);
+  color: var(--green-dark);
+  background: var(--paper-alt);
+  border: 1px solid var(--line);
+  padding: 0.16rem 0.42rem;
+  border-radius: 5px;
+  margin-right: 0.35rem;
+}
+
+.repo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.repo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--green);
+  color: #fffefa;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.72rem 1.35rem;
+  border-radius: 2rem;
+  border: 1.5px solid var(--green);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.repo-cta:hover {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 #183d3e33;
+}
+
+.repo-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 2rem;
+  border: 1.5px solid var(--line-strong);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.repo-secondary:hover {
+  border-color: var(--green);
+  background: var(--paper-alt);
+  transform: translateY(-2px);
+}
+
+.repo-shot-frame {
+  display: block;
+  background: #0d1117;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 10px 0 #1b363222;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.22s ease;
+}
+
+.repo-shot-frame:hover {
+  transform: translateY(-4px);
+  border-color: var(--green);
+  box-shadow: 0 14px 0 #1b363230;
+}
+
+.repo-shot-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.repo-shot-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: #161b22;
+  border-top: 1px solid #30363d;
+  color: #e6edf3;
+  font: 600 0.78rem/1.2 var(--font-display);
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.footer-brand span {
+  font: 800 1.3rem/1 var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+footer small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ---------------- SEAMLESS ANIMATIONS (ENABLED ACROSS ALL DEVICES) ---------------- */
+.river-flow {
+  stroke-dasharray: 10 38;
+  opacity: 0.78;
+}
+
+.river-undertow {
+  stroke-dasharray: 19 53;
+  opacity: 0.58;
+}
+
+/* Scroll Reveal Choreography */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  /* Hero Weather Cycle (18s smooth loop) */
+  .weather-art .sky {
+    animation: sky-cycle 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .weather-art .sun,
+  .weather-art .sun-halo {
+    animation: sun-cycle 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .weather-art .storm-bank {
+    animation: storm-drift 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .weather-art .shower {
+    animation: shower-window 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* 4-layer staggered rain with fade-in and fade-out at ends so drops NEVER jump upward */
+  .weather-art .drops {
+    opacity: 0;
+    animation: rain-sheet 1.35s linear infinite;
+  }
+
+  .weather-art .drops-b {
+    animation-delay: -0.34s;
+    animation-duration: 1.48s;
+  }
+
+  .weather-art .drops-c {
+    animation-delay: -0.68s;
+    animation-duration: 1.28s;
+  }
+
+  .weather-art .drops-d {
+    animation-delay: -1.02s;
+    animation-duration: 1.42s;
+  }
+
+  .river-flow {
+    animation: downstream 3.6s linear infinite;
+  }
+
+  .river-flow path:nth-child(2) {
+    stroke-dashoffset: 17;
+  }
+
+  .river-undertow {
+    animation: deep-current 5.8s linear infinite;
+  }
+
+  .pine {
+    transform-origin: 0 0;
+    animation: tree-sway 5.6s ease-in-out infinite;
+  }
+
+  .forest g:nth-child(3n) > .pine {
+    animation-delay: -2.1s;
+    animation-duration: 6.4s;
+  }
+
+  .forest g:nth-child(3n + 1) > .pine {
+    animation-delay: -3.6s;
+  }
+
+  .high-cloud {
+    animation: upper-wind 18s ease-in-out infinite;
+  }
+
+  .sunbeams {
+    transform-origin: 754px 127px;
+    animation: sun-glow 18s ease-in-out infinite;
+  }
+
+  @keyframes sky-cycle {
+    0%, 22%, 100% { fill: #375357; }
+    56%, 82% { fill: #5e7772; }
+  }
+
+  @keyframes sun-cycle {
+    0%, 20%, 100% { opacity: 0.22; transform: translateY(14px); }
+    55%, 83% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes storm-drift {
+    0% { opacity: 0.96; transform: translateX(-18px); }
+    28% { opacity: 1; transform: translateX(8px); }
+    58%, 80% { opacity: 0.14; transform: translateX(64px); }
+    100% { opacity: 0.96; transform: translateX(-18px); }
+  }
+
+  @keyframes shower-window {
+    0%, 24% { opacity: 0.86; }
+    46%, 82% { opacity: 0; }
+    100% { opacity: 0.86; }
+  }
+
+  @keyframes rain-sheet {
+    0% {
+      opacity: 0;
+      transform: translate(6px, -18px);
+    }
+    20% {
+      opacity: 0.9;
+    }
+    78% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-8px, 28px);
+    }
+  }
+
+  @keyframes downstream {
+    to { stroke-dashoffset: -48; }
+  }
+
+  @keyframes deep-current {
+    to { stroke-dashoffset: -72; }
+  }
+
+  @keyframes tree-sway {
+    0%, 100% { transform: rotate(-1.2deg); }
+    50% { transform: rotate(2.8deg); }
+  }
+
+  @keyframes upper-wind {
+    0%, 100% { transform: translateX(-12px); }
+    56% { transform: translateX(36px); }
+  }
+
+  @keyframes sun-glow {
+    0%, 30%, 100% { opacity: 0; transform: scale(0.95); }
+    60%, 80% { opacity: 0.78; transform: scale(1.06); }
+  }
+
+  .screen[data-paused] .weather-art * {
+    animation-play-state: paused;
+  }
+
+  /* ---------------- 3 VARIABLE ILLUSTRATIONS ANIMATIONS ---------------- */
+  .var-cloud-front {
+    animation: var-cloud-float 5.5s ease-in-out infinite alternate;
+  }
+
+  .var-cloud-back {
+    animation: var-cloud-float 7s ease-in-out -2s infinite alternate-reverse;
+  }
+
+  .var-rain-a {
+    opacity: 0;
+    animation: amazon-rain 1.15s linear infinite;
+  }
+
+  .var-rain-b {
+    opacity: 0;
+    animation: amazon-rain 1.15s linear -0.58s infinite;
+  }
+
+  .var-river-line {
+    animation: var-stream 2.2s linear infinite;
+  }
+
+  .var-ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: water-ripple 2.4s ease-out infinite;
+  }
+
+  .var-sprout {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: frond-sway 3s ease-in-out infinite alternate;
+  }
+
+  .var-seep-a {
+    opacity: 0;
+    animation: soil-percolate 2.6s ease-in-out infinite;
+  }
+
+  .var-seep-b {
+    opacity: 0;
+    animation: soil-percolate 2.6s ease-in-out -1.3s infinite;
+  }
+
+  .var-sun-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: sun-ring-spin 14s linear infinite;
+  }
+
+  .var-heat-waves path {
+    opacity: 0;
+    animation: thermal-rise 2.3s ease-in-out infinite;
+  }
+
+  .var-heat-waves path:nth-child(2) {
+    animation-delay: -0.76s;
+  }
+
+  .var-heat-waves path:nth-child(3) {
+    animation-delay: -1.52s;
+  }
+
+  .var-mercury {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: mercury-pulse 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes var-cloud-float {
+    from { transform: translateX(-7px); }
+    to { transform: translateX(9px); }
+  }
+
+  @keyframes var-stream {
+    to { stroke-dashoffset: -20; }
+  }
+
+  @keyframes water-ripple {
+    0% { opacity: 0.9; transform: scale(0.5); }
+    100% { opacity: 0; transform: scale(2.1); }
+  }
+
+  @keyframes soil-percolate {
+    0% {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    30%, 70% {
+      opacity: 0.92;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(11px);
+    }
+  }
+
+  @keyframes sun-ring-spin {
+    from { transform: rotate(0deg) scale(0.96); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    to { transform: rotate(360deg) scale(0.96); }
+  }
+
+  @keyframes thermal-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    35%, 65% {
+      opacity: 0.88;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes mercury-pulse {
+    from { transform: scaleY(0.84); }
+    to { transform: scaleY(1.04); }
+  }
+
+  /* ---------------- REGIONAL CARD VIGNETTES (POLISHED & MULTI-LAYERED) ---------------- */
+  .card .scene-hill-far,
+  .card .scene-hill-mid,
+  .card .scene-sun,
+  .card .scene-sun-halo {
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card:is(:hover, :focus-visible) .scene-hill-far {
+    transform: translateX(-4px);
+  }
+
+  .card:is(:hover, :focus-visible) .scene-hill-mid {
+    transform: translateX(4px);
+  }
+
+  .card:is(:hover, :focus-visible) .scene-sun,
+  .card:is(:hover, :focus-visible) .scene-sun-halo {
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  .card[data-moving] .scene-sun-halo {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: halo-breathe 4s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .mist-band {
+    animation: mist-drift 7s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .canopy-sway {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: frond-sway 3.2s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .canopy-sway-alt {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: frond-sway 3.8s ease-in-out -1.4s infinite alternate-reverse;
+  }
+
+  @keyframes halo-breathe {
+    from { transform: scale(0.94); opacity: 0.35; }
+    to { transform: scale(1.08); opacity: 0.55; }
+  }
+
+  @keyframes mist-drift {
+    from { transform: translateX(-10px); }
+    to { transform: translateX(14px); }
+  }
+
+  /* 1. Chiapas: Bounding Jaguar + Swaying Vines + River Shimmer */
+  .card[data-moving] .jaguar {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: jaguar-prowl 4.4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+  }
+
+  .card[data-moving] .vines {
+    transform-box: fill-box;
+    transform-origin: top center;
+    animation: vine-pendulum 3.6s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .chiapas-ripple {
+    animation: ripple-slide 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes jaguar-prowl {
+    0% {
+      opacity: 0;
+      transform: translate(-32px, 2px) rotate(0deg);
+    }
+    12% {
+      opacity: 1;
+      transform: translate(-10px, 0) rotate(-2deg);
+    }
+    28% {
+      opacity: 1;
+      transform: translate(20px, -5px) rotate(-5deg);
+    }
+    44% {
+      opacity: 1;
+      transform: translate(50px, 0) rotate(2deg);
+    }
+    62% {
+      opacity: 1;
+      transform: translate(82px, -4px) rotate(-4deg);
+    }
+    78% {
+      opacity: 1;
+      transform: translate(108px, 1px) rotate(2deg);
+    }
+    92% {
+      opacity: 0;
+      transform: translate(128px, 3px) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-32px, 2px) rotate(0deg);
+    }
+  }
+
+  @keyframes vine-pendulum {
+    from { transform: rotate(-2deg); }
+    to { transform: rotate(2.5deg); }
+  }
+
+  @keyframes ripple-slide {
+    from { transform: translateX(-6px); opacity: 0.55; }
+    to { transform: translateX(8px); opacity: 0.95; }
+  }
+
+  @keyframes frond-sway {
+    from { transform: rotate(-1.8deg); }
+    to { transform: rotate(2.6deg); }
+  }
+
+  /* 2. Morelos: Dual Fluttering Butterflies with Wing Flaps + Meadow Wave */
+  .card[data-moving] .butterfly {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: butterfly-loop 4.6s ease-in-out infinite;
+  }
+
+  .card[data-moving] .butterfly-two {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: butterfly-loop-two 5.2s ease-in-out -1.8s infinite;
+  }
+
+  .card[data-moving] .butterfly-wings {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wing-flutter 0.38s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .meadow-blooms {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: meadow-breeze 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes butterfly-loop {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(28px, -16px) rotate(6deg);
+    }
+    50% {
+      transform: translate(52px, -3px) rotate(-4deg);
+    }
+    75% {
+      transform: translate(24px, 9px) rotate(-8deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+
+  @keyframes butterfly-loop-two {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    30% {
+      transform: translate(-22px, -14px) rotate(-7deg);
+    }
+    65% {
+      transform: translate(18px, -19px) rotate(5deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+
+  @keyframes wing-flutter {
+    from { transform: scaleY(1) scaleX(1); }
+    to { transform: scaleY(0.62) scaleX(1.08); }
+  }
+
+  @keyframes meadow-breeze {
+    from { transform: skewX(-1.8deg); }
+    to { transform: skewX(2.4deg); }
+  }
+
+  /* 3. Sonora: Bouncing Tumbleweed + Dust Trail + Soaring Hawk + Heat Shimmer */
+  .card[data-moving] .tumble {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: tumble-forward 3.6s linear infinite;
+  }
+
+  .card[data-moving] .tumble-dust {
+    animation: dust-follow 3.6s linear infinite;
+  }
+
+  .card[data-moving] .desert-hawk {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hawk-glide 6.5s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .desert-shimmer {
+    animation: shimmer-wave 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tumble-forward {
+    0% {
+      opacity: 0;
+      transform: translate(-34px, 0) rotate(0deg);
+    }
+    14% {
+      opacity: 1;
+      transform: translate(-10px, -6px) rotate(60deg);
+    }
+    34% {
+      opacity: 1;
+      transform: translate(28px, 1px) rotate(150deg);
+    }
+    56% {
+      opacity: 1;
+      transform: translate(68px, -7px) rotate(250deg);
+    }
+    80% {
+      opacity: 1;
+      transform: translate(112px, 0) rotate(355deg);
+    }
+    95% {
+      opacity: 0;
+      transform: translate(138px, -3px) rotate(420deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-34px, 0) rotate(0deg);
+    }
+  }
+
+  @keyframes dust-follow {
+    0%, 10%, 92%, 100% {
+      opacity: 0;
+      transform: translateX(-28px);
+    }
+    25%, 75% {
+      opacity: 0.75;
+    }
+    90% {
+      opacity: 0;
+      transform: translateX(120px);
+    }
+  }
+
+  @keyframes hawk-glide {
+    0% { transform: translate(-24px, 4px) rotate(-4deg); }
+    50% { transform: translate(12px, -6px) rotate(3deg); }
+    100% { transform: translate(42px, 2px) rotate(-2deg); }
+  }
+
+  @keyframes shimmer-wave {
+    from { opacity: 0.35; transform: translateY(2px); }
+    to { opacity: 0.85; transform: translateY(-3px); }
+  }
+
+  /* 4. Zacatecas: 3 Layered High-Plateau Wind Streams + Steppe Grass */
+  .card[data-moving] .wind-a {
+    animation: wind-sweep 2.6s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+  }
+
+  .card[data-moving] .wind-b {
+    animation: wind-sweep 2.6s cubic-bezier(0.35, 0, 0.25, 1) -0.9s infinite;
+  }
+
+  .card[data-moving] .wind-c {
+    animation: wind-sweep 2.6s cubic-bezier(0.35, 0, 0.25, 1) -1.8s infinite;
+  }
+
+  .card[data-moving] .steppe-grass {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: meadow-breeze 2.1s ease-in-out infinite alternate;
+  }
+
+  @keyframes wind-sweep {
+    0% {
+      opacity: 0;
+      transform: translate(-30px, 2px);
+    }
+    25% {
+      opacity: 0.92;
+      transform: translate(0, -1px);
+    }
+    70% {
+      opacity: 0.88;
+      transform: translate(44px, 1px);
+    }
+    94% {
+      opacity: 0;
+      transform: translate(68px, -1px);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-30px, 2px);
+    }
+  }
+
+  /* 5. Southern Amazon: Monsoon Rain + Drifting Clouds + Flowing Tributary */
+  .card[data-moving] .amazon-clouds {
+    animation: mist-drift 6.2s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .amazon-stream {
+    animation: var-stream 2.3s linear infinite;
+  }
+
+  .card[data-moving] .rain {
+    opacity: 0;
+    animation: amazon-rain 1.12s linear infinite;
+  }
+
+  .card[data-moving] .rain-b {
+    animation-delay: -0.37s;
+    animation-duration: 1.22s;
+  }
+
+  .card[data-moving] .rain-c {
+    animation-delay: -0.74s;
+    animation-duration: 1.06s;
+  }
+
+  @keyframes amazon-rain {
+    0% {
+      opacity: 0;
+      transform: translate(5px, -14px);
+    }
+    22% {
+      opacity: 0.92;
+    }
+    78% {
+      opacity: 0.92;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-6px, 20px);
+    }
+  }
+
+  /* 6. Sahel: Flock of Birds with Wing Beats + Swaying Acacia Canopy */
+  .card[data-moving] .birds {
+    animation: sahel-flight 4s cubic-bezier(0.3, 0, 0.2, 1) infinite;
+  }
+
+  .card[data-moving] .bird-wings {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wing-flutter 0.45s ease-in-out infinite alternate;
+  }
+
+  .card[data-moving] .acacia-sway {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: frond-sway 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes sahel-flight {
+    0% {
+      opacity: 0;
+      transform: translate(-24px, 10px) scale(0.92);
+    }
+    18% {
+      opacity: 1;
+      transform: translate(-4px, 3px) scale(0.97);
+    }
+    75% {
+      opacity: 1;
+      transform: translate(58px, -16px) scale(1.04);
+    }
+    94% {
+      opacity: 0;
+      transform: translate(82px, -24px) scale(0.9);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-24px, 10px) scale(0.92);
+    }
+  }
+
+  body[data-paused] .var-scene *,
+  body[data-paused] .card-scene * {
+    animation-play-state: paused !important;
+  }
+
+/* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
+@media (max-width: 1060px) {
+  .hero-content,
+  .variable-showcase,
+  .methods-intro,
+  .repo-card {
+    grid-template-columns: 1fr;
+  }
+
+  .poster-copy {
+    max-width: 640px;
+  }
+
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat-cell:nth-child(2) {
+    border-right: 0;
+  }
+
+  .stat-cell:nth-child(1),
+  .stat-cell:nth-child(2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .methods-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .bar {
+    min-height: 64px;
+  }
+
+  .brand {
+    font-size: 1.45rem;
+  }
+
+  nav {
+    gap: 0.65rem;
+  }
+
+  nav a {
+    font-size: 0.82rem;
+  }
+
+  .explore {
+    padding-inline: 0.8rem;
+  }
+
+  .poster-copy h1 {
+    font-size: 3.2rem;
+  }
+
+  .pitch-deck {
+    font-size: 0.9rem;
+  }
+
+  .grid,
+  .telemetry-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-cell {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stat-cell:last-child {
+    border-bottom: 0;
+  }
+}
