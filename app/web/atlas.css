@@ -1815,7 +1815,7 @@ html.intro-on, html.intro-on body { overflow: hidden; }
   top: 0;
   right: 0;
   width: 46%;
-  height: 58px;
+  height: 80px;
   overflow: hidden;
   pointer-events: none;
 }
@@ -1823,15 +1823,15 @@ html.intro-on, html.intro-on body { overflow: hidden; }
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 114px;
-  height: 58px;
-  background: url("tlacuache-camina-sprite.png") 0 0 / 1368px 58px no-repeat;
-  animation: walk-steps 0.9s steps(12) infinite, walk-across 11s linear infinite;
+  width: 97px;
+  height: 76px;
+  background: url("tlacuache-camina-sprite.png") 0 0 / 1169px 76px no-repeat;
+  animation: walk-steps 0.34s steps(12) infinite, walk-across 9s linear infinite;
 }
-@keyframes walk-steps { to { background-position-x: -1368px; } }
+@keyframes walk-steps { to { background-position-x: -1169px; } }
 @keyframes walk-across {
-  from { transform: translateX(-130px); }
-  to { transform: translateX(calc(46vw * 0.93 + 130px)); }
+  from { transform: translateX(-110px); }
+  to { transform: translateX(calc(46vw * 0.93 + 110px)); }
 }
 
 /* ================= ABOUT US ================= */
@@ -1917,6 +1917,8 @@ html.intro-on, html.intro-on body { overflow: hidden; }
 .member-text strong { font: 700 1.02rem/1.2 var(--font-display); overflow-wrap: anywhere; }
 .member-text small { color: var(--muted); font-size: 0.8rem; overflow-wrap: anywhere; }
 .member-go { color: var(--green); font-weight: 700; }
+
+@media (min-width: 1061px) { .methods-lead { margin-top: 84px; } }
 
 @media (max-width: 1060px) {
   .about-card { grid-template-columns: 1fr; }
